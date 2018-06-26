@@ -1,0 +1,237 @@
+﻿@model ReCountant.Models.D_Block
+
+@{
+	ViewBag.Title = "Create";
+}
+
+
+<script>
+
+
+
+	var LoadProjectDDL = function () {
+
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url: "/Plot/LoadProjectDDL",
+			processData: false,
+			contentType: false,
+			success: function (data) {
+
+				var sch = JSON.parse(data);
+
+				var $el = $(".ProjectDDL");
+				$el.empty();
+				if (sch.length > 0) {
+					$el.append($("<option></option>")
+						.attr("value", 0).text('Select Project'));
+					for (i = 0; i < sch.length; i++) {
+						$el.append($("<option></option>")
+							.attr("value", sch[i].Id).text(sch[i].Name));
+					}
+				}
+				else {
+					$el.append($("<option></option>")
+						.attr("value", '').text('Select'));
+				}
+			}
+		});
+	}
+
+
+
+
+	var handlevalidation = function () {
+		$('.BlockForm').validate({
+			errorElement: 'span', //default input error message container
+			errorClass: 'help-block', // default input error message class
+			focusInvalid: false, // do not focus the last invalid input
+			ignore: "",
+			rules: {
+
+				Name: {
+					required: true,
+					maxlength: 25
+				},
+				Project: {
+					required: true
+					
+				},
+				Phase_Id: {
+					required: true
+				},
+				Block: {
+					required: true,
+					maxlength: 25
+				},
+				Block_Code: {
+					required: true,
+					maxlength: 25
+				},
+
+			},
+
+			invalidHandler: function (event, validator) { //display error alert on form submit
+
+			},
+
+			highlight: function (element) { // hightlight error inputs
+				$(element)
+					.closest('.form-group').addClass('has-error'); // set error class to the control group
+			},
+
+			success: function (label) {
+				label.closest('.form-group').removeClass('has-error');
+				label.remove();
+			},
+
+
+
+			submitHandler: function (form) {
+
+				var data = $(".BlockForm").serialize();
+				var PhaseDDL = $('#Phase_Id').val();
+				if (PhaseDDL == null || PhaseDDL == '' || PhaseDDL == 0) {
+
+					return false;
+				}
+				$.post(
+					"/Block/Create",
+					$(".BlockForm").serialize(),
+					function (value) {
+						if (value != "error") {
+
+							window.location = '/Block/Index';
+						}
+					}
+				);
+				return false;
+			}
+		});
+
+		$('.BlockForm').keypress(function (e) {
+			if (e.which == 13) {
+				if ($('.BlockForm').validate().form()) {
+					$('.BlockForm').submit();
+				}
+				return false;
+			}
+		});
+		jQuery('#btn-save').click(function () {
+			if ($('.BlockForm').validate().form()) {
+
+				$('.BlockForm').submit();
+			}
+		});
+	}
+
+
+	//$(document).on('click', '#btn-save', function () {
+	//	debugger;
+	//	var data = $(".BlockForm").serialize();
+	//	$.post(
+	//		"/Block/Create",
+	//		$(".BlockForm").serialize(),
+	//		function (value) {
+	//			if (value != "error") {
+
+	//				window.location = '/Block/Index';
+	//			}
+	//		}
+	//	);
+	//});
+
+
+	$(document).ready(function () {
+
+		LoadProjectDDL();
+		handlevalidation();
+
+
+	$("#Project").change(function () {
+
+		var Phase = $(this).val();
+
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url: "/Plot/LoadPhaseDDL?id=" + Phase,
+			processData: false,
+			contentType: false,
+			success: function (data) {
+				var sch = JSON.parse(data);
+
+				var $el = $(".PhaseDDL");
+				$el.empty();
+				if (sch.length > 0) {
+					$el.append($("<option></option>")
+						.attr("value", 0).text('Select Phase'));
+					for (i = 0; i < sch.length; i++) {
+						$el.append($("<option></option>")
+							.attr("value", sch[i].Id).text(sch[i].Phase_Code));
+					}
+				}
+				else {
+					$el.append($("<option></option>")
+						.attr("value", '').text('Select'));
+				}
+			}
+		});
+
+	});
+
+	
+
+
+
+	});
+
+</script>
+
+
+
+<h2>Create</h2>
+
+<form action="#" class="BlockForm">
+	<div class="col-md-6">
+
+
+		<div class="form-group">
+			<div class="form-group">
+				<label>Project <span class="text-danger">*</span></label>
+				<select class="form-control ProjectDDL" id="Project" name="Project"></select>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-group">
+				<label>Phase <span class="text-danger">*</span></label>
+				<select class="form-control PhaseDDL" id="Phase_Id" name="Phase_Id"></select>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label>Block <span class="text-danger">*</span></label>
+			<input class="form-control text-box single-line" id="Block" name="Block" type="text" value="" />
+		</div>
+		<div class="form-group">
+			<label>Block Code <span class="text-danger">*</span></label>
+			<input class="form-control text-box single-line" id="Block_Code" name="Block_Code" type="text" value="" />
+		</div>
+
+
+	</div>
+</form>
+
+
+<div class="form-group">
+	<div class="col-md-offset-2 col-md-10">
+		<button type="submit" class="btn btn-info " id="btn-save"><i class="fa fa-save"></i> <span>Create </span></button>
+	</div>
+</div>
+
+
+<div>
+	@Html.ActionLink("Back to List", "Index")
+</div>

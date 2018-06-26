@@ -1,0 +1,428 @@
+﻿<script>
+    function Getblocks(e) {
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            data: { id: e },
+            url: "/PlotManagement/GetBlocks/",
+            success: function (data) {
+                $('#block').empty();
+                $('#block').append('<option value="">Select Block</option>');
+                $.each(data, function (key, value) {
+                    $('#block').append('<option value=' + value.Id + '>' + value.Block + '</option>');
+                });
+            },
+            error: function () {
+
+            }
+        });
+    }
+    function Getplot(e) {
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            data: { id: e },
+            url: "/PlotManagement/GetPlots/",
+            success: function (data) {
+                $('#plot').empty();
+                $('#plot').append('<option value="">Select Plot</option>');
+                $.each(data, function (key, value) {
+                    $('#plot').append('<option value=' + value.Id + '>' + value.Plot + '</option>');
+                });
+            },
+            error: function () {
+
+            }
+        })
+    }
+    $(document).on('click', '.bookit', function Getplot(e) {
+        var instdata = [];
+        var data = Array();
+        var sum = 0;
+        var plotval = parseFloat($('#t_price').text()).toFixed(2)
+        var exchange_rate = $("#conversion").val();
+        $(".instamt").each(function () {
+            sum += parseFloat($(this).text());
+        });
+        sum = sum * exchange_rate;
+        $("#allinst tbody tr").each(function (i, v) {
+            var dataarray = {
+                Nth_Installment: "", Amount_TC: "", Due_Date: "", Plot_Id: "", Exchange_Rate:"", Currency:"", Amount_LC:"", Exchange_Rate:""
+            };
+            $(this).children('td').each(function (ii, vv) {
+                switch (ii) {
+                    case 0:
+                        dataarray.Nth_Installment = $(this).text();
+                        break;
+                    case 1:
+                        dataarray.Currency = $(this).text();
+                        break;
+                    case 2:
+                        dataarray.Amount_TC = $(this).text();
+                        break;
+                    case 3:
+                        dataarray.Due_Date = $(this).text();
+                        break;
+                }
+            });
+            dataarray.Amount_LC = exchange_rate * dataarray.Amount_TC;
+            dataarray.Plot_Id = $("#plot").val();
+            dataarray.Exchange_Rate = exchange_rate;
+            instdata.push(dataarray);
+        });
+        if (sum < plotval) {
+            alert("Plot installment are less than the Plot Actual Price");
+            return;
+        }
+        var custid = $('#c_Id').val();
+        var Customerinfo = {
+            Name: $('#c_name').val(),
+            CNIC_Number: $('#c_cnic').val(),
+            Address: $('#c_address').val(),
+            Contact_Number: $('#c_num').val(),
+            Gender: $('#c_gender').val(),
+            NTN: $('#c_ntn').val(),
+            STRN: $('#c_strn').val(),
+            Filer_NonFiler: $('#c_filer').val(),
+            Industry: $('#c_ind').val(),
+            Residential_Status: $('#c_res').val(),
+            Business: $('#c_buss').val()
+        };
+        ;
+        var plotinfo = { Plot_Id: $("#plot").val(), Value: $('#t_price').text() };
+        var js = JSON.stringify({ inst: instdata, Custid: custid, customer: Customerinfo, Plot: plotinfo });
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            data: { data: js },
+            url: "/PlotManagement/BookPlot/",
+            success: function (data) {
+                alert("Plot is Booked");
+            },
+            error: function () {
+
+            }
+        })
+    });
+    function Getplotdetails(e) {
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            //contentType: "application/json; charset=utf-8",
+            data: { id: e },
+            url: "/PlotManagement/GetPlotDetails/",
+            success: function (data) {
+                $('#plotalldetails').show();
+
+                $('#t_phase').text($('#phase option:selected').text());
+                $('#t_block').text($('#block option:selected').text());
+                $('#t_plot').text(data.Plot);
+                $('#t_price').text(data.Value);
+                $('#t_area').text(data.Area);
+                $('#t_length').text(data.Length);
+                $('#t_width').text(data.Width);
+                $('#t_front').text(data.Front);
+            },
+            error: function () {
+
+            }
+        })
+    }
+    function Showbookingopts() {
+        $('#bookopts').show();
+    }
+    function searchcust() {
+        var cnic = $('#custcnic').val();
+        $.ajax({
+            type: "POST",
+            data: { id: cnic },
+            url: "/Home/GetCustomerInfo/",
+            success: function (data) {
+                if (data == false) {
+                    alert("No Customer Found");
+                }
+                else {
+                    $('#c_Id').val(data.Id);
+                    $('#c_name').val(data.Name);
+                    $('#c_cnic').val(data.CNIC_Number);
+                    $('#c_address').val(data.Address);
+                    $('#c_num').val(data.Contact_Number);
+                    $('#c_gender').val(data.Gender);
+                    $('#c_ntn').val(data.NTN);
+                    $('#c_strn').val(data.STRN);
+                    $('#c_filer').val(data.Filer_NonFiler);
+                    $('#c_ind').val(data.Industry);
+                    $('#c_res').val(data.Residential_Status);
+                    $('#c_buss').val(data.Business);
+                }
+            },
+            error: function () {
+
+            }
+        })
+    }
+</script>
+
+<div class="row">
+    <div class="col-lg-4">
+        <label class="control-label col-md-4">Phase</label>
+        <div class="col-md-8">
+            @Html.DropDownList("Phase", null, "Select Phase", new { onchange = "Getblocks(this.value)", id = "phase" })
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <label class="control-label col-md-4">Block</label>
+        <div class="col-md-8">
+            <select id="block" onchange="Getplot(this.value)">
+                <option>Select Block</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <label class="control-label col-md-4">Plot</label>
+        <div class="col-md-8">
+            <select id="plot" onchange="Getplotdetails(this.value)">
+                <option>Select Plot</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div id="plotalldetails" style="display:none">
+    <div class="row">
+        <table class="table table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Phase</th>
+                    <th>Block</th>
+                    <th>Plot No</th>
+                    <th>Price</th>
+                    <th>Area</th>
+                    <th>Length</th>
+                    <th>Width</th>
+                    <th>Front</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="t_phase"></td>
+                    <td id="t_block"></td>
+                    <td id="t_plot"></td>
+                    <td id="t_price"></td>
+                    <td id="t_area"></td>
+                    <td id="t_length"></td>
+                    <td id="t_width"></td>
+                    <td id="t_front"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <button onclick="Showbookingopts()">Book This Plot</button>
+        </div>
+    </div>
+</div>
+<div class="row" id="bookopts" style="display:none">
+    <div class="col-12 row">
+        <input type="hidden" id="c_Id" />
+        <div class="col-lg-4">
+            <label class="control-label col-md-4">Customer Information</label>
+        </div>
+        <div class="col-lg-4">
+            <input type="text" id="custcnic" />
+        </div>
+        <div class="col-lg-4">
+            <button onclick="searchcust()">Search</button>
+        </div>
+        <hr />
+        <div class="col-4">
+            <div class="col-4">Name</div>
+            <div class="col-8"><input type="text" id="c_name" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">CNIC</div>
+            <div class="col-8"><input type="text" id="c_cnic" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Address</div>
+            <div class="col-8"><input type="text" id="c_address" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Phone</div>
+            <div class="col-8"><input type="text" id="c_num" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Gender</div>
+            <div class="col-8">
+                <select id="c_gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">NTN</div>
+            <div class="col-8"><input type="text" id="c_ntn" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">STRN</div>
+            <div class="col-8"><input type="text" id="c_strn" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Filer</div>
+            <div class="col-8">
+                <select id="c_filer">
+                    <option value="filer">Filer</option>
+                    <option value="nonfiler">Non Filer</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Industry</div>
+            <div class="col-8"><input type="text" id="c_ind" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Resident</div>
+            <div class="col-8">
+                <select id="c_res">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Business</div>
+            <div class="col-8"><input type="text" id="c_buss" /></div>
+        </div>
+
+    </div>
+    <div class="col-lg-12 row">
+        <div class="col-lg-3">
+            Total Number <input type="radio" name="instaltype" id="number" value="1" />
+            <input type="text" id="totnum" style="display:none" />
+        </div>
+        <div class="col-lg-3">
+            By Year <input type="radio" id="year" name="instaltype" value="2" />
+            <input type="text" id="byyear" style="display:none" />
+        </div>
+        <div class="col-lg-3">
+            Development Charges <select>
+                <option value="1">With Installments</option>
+                <option value="2">Seperate</option>
+            </select>
+        </div>
+        <div class="col-lg-3">
+            Currency<select id="curency" onchange="checkcur(this.value)">
+                <option value="PKR">PKR</option>
+                <option value="USD">USD</option>
+            </select>
+        </div>
+        <div class="col-4" id="exch" style="display:none">
+            <div class="col-4">Exchange Rate</div>
+            <div class="col-8"><input type="text" value="1" id="conversion" /></div>
+        </div>
+        <div class="col-lg-4">
+            <button class="creatinst">Generate Installments</button>
+        </div>
+    </div>
+</div>
+<div id="allinst" style="display:none">
+    <h4>Installments</h4>
+    <div class="row">
+        <table class="table table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Installment No.</th>
+                    <th>Currency</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="row">
+        <button class="bookit">Book This Plot</button>
+    </div>
+</div>
+<script>
+    function checkcur(e) {
+        if (e == "USD") {
+            $("#exch").show();
+        }
+    }
+    $(document).on('click', '.creatinst', function () {
+        $('#allinst').show();
+        $('#allinst tbody').empty();
+        var currency = $('#curency').val();
+        var exchangerate = $("#conversion").val();
+        var val = $('input[name=instaltype]:checked').val();
+        if (val == 1) {
+            var totnum = $('#totnum').val();
+            var price = parseFloat($('#t_price').text());
+            var eachinst = parseFloat((price / totnum) / exchangerate).toFixed(1);
+            var date = new Date();
+            date.setDate(1);
+            var i = 1;
+            for (i; i <= totnum; i++) {
+                date.setMonth(date.getMonth() + 1);
+                var curr_date = date.getDate();
+                var curr_month = date.getMonth() + 1; //Months are zero based
+                var curr_year = date.getFullYear();
+                var html = '<tr>' +
+                    '<td>' + i + '</td>' +
+                    '<td>' + currency + '</td>' +
+                    '<td class="instamt">' + eachinst + ' </td > ' +
+                    '<td>' + curr_date + '-' + curr_month + '-' + curr_year + '</td > ' +
+                    '</tr>';
+                $('#allinst tbody').append(html);
+            }
+        }
+        else {
+            var totyear = $('#byyear').val();
+            var totnum = totyear * 12;
+            var price = parseFloat($('#t_price').text());
+            var eachinst = parseFloat((price / totnum) / exchangerate).toFixed(1);
+            var date = new Date();
+            date.setDate(1);
+            var i = 1;
+            for (i; i <= totnum; i++) {
+                date.setMonth(date.getMonth() + 1);
+                var curr_date = date.getDate();
+                var curr_month = date.getMonth() + 1; //Months are zero based
+                var curr_year = date.getFullYear();
+                var html = '<tr>' +
+                    '<td>' + i + '</td>' +
+                    '<td>' + currency + '</td>' +
+                    '<td class="instamt">' + eachinst + ' </td > ' +
+                    '<td>' + curr_date + '-' + curr_month + '-' + curr_year + '</td > ' +
+                    '</tr>';
+                $('#allinst tbody').append(html);
+            }
+        }
+    });
+    $(document).on('click', '.instamt', function () {
+        var amt = $(this).text();
+        $(this).removeClass('instamt');
+        var html = '<input id="newisnt" type="text" value="' + amt + '" />'
+        $(this).html(html);
+        $('#newisnt').focus();
+    });
+    $(document).on('blur', '#newisnt', function () {
+        var amt = $(this).val();
+        $(this).parent().text(amt);
+        $(this).parent().addClass('instamt');
+
+    });
+    $('input[name="instaltype"]').click(function () {
+        if ($(this).val() == 1) {
+            $('#byyear').hide();
+            $('#totnum').show();
+        }
+
+        else if ($(this).val() == 2) {
+            $('#totnum').hide();
+            $('#byyear').show();
+        }
+    });
+</script>

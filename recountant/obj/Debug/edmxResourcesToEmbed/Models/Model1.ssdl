@@ -1,0 +1,673 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ReCountantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Balance_COA">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Time_Of_Entry" Type="datetime" />
+    <Property Name="Account_Id" Type="int" />
+    <Property Name="Exchange_Rate" Type="float" />
+    <Property Name="Company_Id" Type="int" />
+    <Property Name="Debit" Type="float" />
+    <Property Name="Credit" Type="float" />
+    <Property Name="Net" Type="float" />
+    <Property Name="Amount_TC" Type="float" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="50" />
+    <Property Name="Amount_LC" Type="float" />
+    <Property Name="Userid" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Balance_Installments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Due_Amount" Type="float" />
+    <Property Name="Received_Amount" Type="float" />
+    <Property Name="Net" Type="float" StoreGeneratedPattern="Computed" />
+    <Property Name="Balance" Type="float" />
+    <Property Name="Transaction_Party" Type="bigint" />
+    <Property Name="Inst_Id" Type="int" />
+    <Property Name="Plot_id" Type="int" />
+    <Property Name="InstRece_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="Balance_TransactionParty">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Time_Of_Entry" Type="datetime" />
+    <Property Name="Invoice_No" Type="nvarchar" MaxLength="50" />
+    <Property Name="Account_Id" Type="int" />
+    <Property Name="Transaction_Party" Type="bigint" />
+    <Property Name="Company_Id" Type="int" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="50" />
+    <Property Name="Amount_TC" Type="float" />
+    <Property Name="Exchange_Rate" Type="float" />
+    <Property Name="Amount_LC" Type="float" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Debit" Type="float" />
+    <Property Name="Credit" Type="float" />
+    <Property Name="Net" Type="float" StoreGeneratedPattern="Computed" />
+    <Property Name="Userid" Type="bigint" />
+  </EntityType>
+  <EntityType Name="D_Block">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Phase_Id" Type="int" />
+    <Property Name="Block" Type="nvarchar(max)" />
+    <Property Name="Block_Code" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6005: The data type 'hierarchyid' is currently not supported for the target Entity Framework version; the column 'OrgNode' in the table 'ReCountant.dbo.D_ChartOfAccount' was excluded.
+warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAccount' was excluded, and is a key column.  The table/view has been excluded.  Please fix the entity in the schema file, and uncomment.
+        <EntityType Name="D_ChartOfAccount">
+          <Property Name="OrgLevel" Type="smallint" StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_Head" Type="nvarchar" MaxLength="100" />
+        </EntityType>-->
+  <EntityType Name="D_Company">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Contact_Information" Type="nvarchar(max)" />
+    <Property Name="NTN" Type="nvarchar(max)" />
+    <Property Name="STRN" Type="nvarchar(max)" />
+    <Property Name="Residential_Status" Type="nvarchar(max)" />
+    <Property Name="Filer_NonFiler" Type="nvarchar(max)" />
+    <Property Name="Individual_AOP_Company" Type="nvarchar(max)" />
+    <Property Name="Supply_Chain_Role" Type="nvarchar(max)" />
+    <Property Name="Business" Type="nvarchar(max)" />
+    <Property Name="EPZ" Type="nvarchar(max)" />
+    <Property Name="REP" Type="int" />
+  </EntityType>
+  <EntityType Name="D_Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Userid" Type="bigint" Nullable="false" />
+    <Property Name="Customer_Info" Type="nvarchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="D_Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Userid" Type="bigint" Nullable="false" />
+    <Property Name="Employee_Info" Type="nvarchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="D_Land_RealEstate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Land_Id" Type="int" />
+    <Property Name="Company_Id" Type="int" />
+    <Property Name="Userid" Type="bigint" />
+  </EntityType>
+  <EntityType Name="D_Owner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Userid" Type="bigint" Nullable="false" />
+    <Property Name="Owner_Info" Type="nvarchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="D_Phase">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_Id" Type="int" />
+    <Property Name="Phase" Type="nvarchar(max)" />
+    <Property Name="Phase_Code" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="D_Plot">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Block_Id" Type="int" />
+    <Property Name="UOM" Type="nvarchar(max)" />
+    <Property Name="Area" Type="float" />
+    <Property Name="Length" Type="float" />
+    <Property Name="Width" Type="float" />
+    <Property Name="Front" Type="float" />
+    <Property Name="Date_Of_Sale" Type="datetime" />
+    <Property Name="Plot_No" Type="nvarchar" MaxLength="50" />
+    <Property Name="Userid" Type="int" />
+    <Property Name="Plot_Availibilty" Type="bit" />
+  </EntityType>
+  <EntityType Name="D_Plot_Booking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Customer_Id" Type="bigint" />
+    <Property Name="Plot_Id" Type="int" />
+    <Property Name="Agreement_Date" Type="datetimeoffset" Precision="7" />
+    <Property Name="Plot_Value" Type="float" />
+  </EntityType>
+  <EntityType Name="D_Plot_Value">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Plot_Value" Type="float" Nullable="false" />
+    <Property Name="Plot_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="D_Project_Specs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project" Type="int" />
+    <Property Name="Percentage" Type="int" />
+    <Property Name="Payment_To_Be_Receive_By" Type="int" />
+    <Property Name="REA" Type="int" />
+    <Property Name="REP" Type="int" />
+    <Property Name="Userid" Type="bigint" />
+  </EntityType>
+  <EntityType Name="D_Projects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="D_ReportingFunction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Function" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="D_ResponsibilityCenter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Responsibilty_Center" Type="nvarchar(max)" />
+    <Property Name="Department_Head" Type="nvarchar(max)" />
+    <Property Name="Approving_Authority" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="D_SpaceType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Space_Type" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="D_Supplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Userid" Type="bigint" Nullable="false" />
+    <Property Name="Supplier_Info" Type="nvarchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="D_VoucherType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Voucher_Type" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="F_Financial_Transactions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Document_Date" Type="datetime" />
+    <Property Name="Voucher_Number" Type="nvarchar(max)" />
+    <Property Name="DateTime_Of_Entry" Type="datetime" />
+    <Property Name="Voucher_Type" Type="nvarchar(max)" />
+    <Property Name="Reference_Number" Type="nvarchar(max)" />
+    <Property Name="Transaction_Document_Number" Type="nvarchar(max)" />
+    <Property Name="Account_Id" Type="int" />
+    <Property Name="Supplier_Id" Type="bigint" />
+    <Property Name="Customer_Id" Type="bigint" />
+    <Property Name="Employee_Id" Type="bigint" />
+    <Property Name="Owner_Id" Type="bigint" />
+    <Property Name="Company_Id" Type="int" />
+    <Property Name="Transaction_Party" Type="bigint" />
+    <Property Name="Plot" Type="int" />
+    <Property Name="Land" Type="int" />
+    <Property Name="Quantity" Type="float" />
+    <Property Name="Amount_TC" Type="float" />
+    <Property Name="Exchange_Rate" Type="float" />
+    <Property Name="Amount_LC" Type="float" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Debit" Type="float" />
+    <Property Name="Credit" Type="float" />
+    <Property Name="Net" Type="float" />
+    <Property Name="ResponsibilityCenter_Id" Type="int" />
+    <Property Name="Function_Id" Type="int" />
+    <Property Name="Project" Type="int" />
+    <Property Name="REA" Type="int" />
+    <Property Name="REP" Type="int" />
+    <Property Name="Space_Type" Type="int" />
+    <Property Name="Knocking_Off" Type="nvarchar(max)" />
+    <Property Name="Userid" Type="bigint" />
+    <Property Name="Currency" Type="nvarchar(max)" />
+    <Property Name="Product" Type="nvarchar(max)" />
+    <Property Name="Region" Type="nvarchar(max)" />
+    <Property Name="Bank_Account_Number" Type="nvarchar(max)" />
+    <Property Name="Purchase_Order" Type="nvarchar(max)" />
+    <Property Name="Recording_Index" Type="nvarchar(max)" />
+    <Property Name="Rate" Type="float" />
+    <Property Name="Uom" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="F_Land_Purchase_RealEstate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Time_Of_Entry" Type="datetime" />
+    <Property Name="Land_Id" Type="int" />
+    <Property Name="UOM" Type="nvarchar" MaxLength="50" />
+    <Property Name="Area" Type="float" />
+    <Property Name="Date_Of_Transfer" Type="datetime" />
+    <Property Name="Date_Of_Payment" Type="datetime" />
+    <Property Name="Payment_Procedure" Type="nvarchar" MaxLength="50" />
+    <Property Name="Details_Of_PaymentProcedure" Type="nvarchar(max)" />
+    <Property Name="Land_Description" Type="nvarchar(max)" />
+    <Property Name="REP" Type="int" />
+    <Property Name="Project_Id" Type="int" />
+    <Property Name="Userid" Type="int" />
+    <Property Name="Address" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Installment_Plan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Amount_TC" Type="float" />
+    <Property Name="Exchange_Rate" Type="float" />
+    <Property Name="Amount_LC" Type="float" StoreGeneratedPattern="Computed" />
+    <Property Name="Supplier_Id" Type="bigint" />
+    <Property Name="Customer_Id" Type="bigint" />
+    <Property Name="Employee_Id" Type="bigint" />
+    <Property Name="Owner_Id" Type="bigint" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Plot_Id" Type="int" />
+    <Property Name="Nth_Installment" Type="int" />
+    <Property Name="Due_Date" Type="datetime" />
+    <Property Name="Transaction_Party" Type="int" />
+    <Property Name="REP" Type="int" />
+    <Property Name="Payment_Date" Type="datetime" />
+    <Property Name="Project_Id" Type="int" />
+    <Property Name="Userid" Type="bigint" />
+    <Property Name="Category" Type="nvarchar" MaxLength="50" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="int" />
+    <Property Name="Rec_Revenue_Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="Installment_Received">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Amount_TC" Type="float" />
+    <Property Name="Exchange_Rate" Type="float" />
+    <Property Name="Amount_LC" Type="float" />
+    <Property Name="Supplier_Id" Type="bigint" />
+    <Property Name="Customer_Id" Type="bigint" />
+    <Property Name="Employee_Id" Type="bigint" />
+    <Property Name="Owner_Id" Type="bigint" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Plot_Id" Type="int" />
+    <Property Name="Nth_Installment" Type="int" />
+    <Property Name="Transaction_Party" Type="int" />
+    <Property Name="REP" Type="int" />
+    <Property Name="Payment_Date" Type="datetime" />
+    <Property Name="Project_Id" Type="int" />
+    <Property Name="Userid" Type="bigint" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LandPlotMapping">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Land" Type="nvarchar" MaxLength="50" />
+    <Property Name="Block" Type="nvarchar" MaxLength="50" />
+    <Property Name="Plot" Type="nvarchar" MaxLength="50" />
+    <Property Name="Userid" Type="int" />
+  </EntityType>
+  <EntityType Name="Mapping_Company_Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Id" Type="int" Nullable="false" />
+    <Property Name="Customer" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mapping_Company_Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Id" Type="int" Nullable="false" />
+    <Property Name="Employee_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mapping_Company_Owner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Id" Type="int" Nullable="false" />
+    <Property Name="Owner_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mapping_Company_ResponsibilityCenter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Id" Type="int" />
+    <Property Name="Responsibility_Center_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="Mapping_Company_Supplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Id" Type="int" Nullable="false" />
+    <Property Name="Supplier_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mapping_Employee_ResponsibilityCenter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Employee_Id" Type="bigint" Nullable="false" />
+    <Property Name="ResponsibilityCenter_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="Mapping_Installment_Planned_Recevied">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstallmentPlan_Id" Type="int" />
+    <Property Name="InstallmentReceived_Id" Type="int" />
+    <Property Name="Amount" Type="float" />
+  </EntityType>
+  <EntityType Name="Mapping_Land_Plot">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Land_Id" Type="int" />
+    <Property Name="Plot_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="RealEstate_Activity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RealEstate_Activites" Type="nvarchar" MaxLength="100" />
+    <Property Name="RealEstate_Activites_L2" Type="int" />
+  </EntityType>
+  <EntityType Name="REP">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="CNIC" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Contact" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="Gender" Type="nvarchar(max)" />
+    <Property Name="NTN" Type="nvarchar(max)" />
+    <Property Name="STRN" Type="nvarchar(max)" />
+    <Property Name="Residential_Status" Type="nvarchar(max)" />
+    <Property Name="Industry" Type="int" />
+    <Property Name="Supply_Chain_Role" Type="int" />
+    <Property Name="Filer_NonFiler" Type="bit" />
+    <Property Name="Individual_AOP_Company" Type="nvarchar(max)" />
+    <Property Name="Bank_Account" Type="nvarchar(max)" />
+    <Property Name="Bussiness" Type="nvarchar(max)" />
+    <Property Name="EPZ" Type="nvarchar(max)" />
+    <Property Name="Userid" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Summary_Table">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COA" Type="int" />
+    <Property Name="Debit" Type="float" />
+    <Property Name="Credit" Type="float" />
+    <Property Name="Supplier_Id" Type="bigint" />
+    <Property Name="Voucher_Number" Type="nvarchar(max)" />
+    <Property Name="ResponsibilityCenter_Id" Type="int" />
+    <Property Name="Voucher_Type" Type="nvarchar(max)" />
+    <Property Name="Document_Date" Type="datetimeoffset" Precision="7" />
+    <Property Name="Company_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="Transaction_Rules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COA" Type="int" Nullable="false" />
+    <Property Name="Credit_Debit" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Transaction_Type_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="UserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="RoleId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="CNIC_Number" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Gender" Type="nvarchar(max)" />
+    <Property Name="NTN" Type="nvarchar(max)" />
+    <Property Name="STRN" Type="nvarchar(max)" />
+    <Property Name="Residential_Status" Type="nvarchar(max)" />
+    <Property Name="Industry" Type="nvarchar(max)" />
+    <Property Name="Supply_Chain_Role" Type="nvarchar(max)" />
+    <Property Name="Filer_NonFiler" Type="nvarchar(max)" />
+    <Property Name="Individual_AOP_Company" Type="nvarchar(max)" />
+    <Property Name="Business" Type="nvarchar(max)" />
+    <Property Name="EPZ" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_UserClaims_dbo_Users_UserId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserClaims" Type="Self.UserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_UserLogins_dbo_Users_UserId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserLogins" Type="Self.UserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_UserRoles_dbo_Roles_RoleId">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_UserRoles_dbo_Users_UserId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SP_Add_AccountHead" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Parent_Id" Type="int" Mode="In" />
+    <Parameter Name="AccountName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Get_AccountHead" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_GET_AccountHeadId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AccountName" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="ReCountantModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Balance_COA" EntityType="Self.Balance_COA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Balance_Installments" EntityType="Self.Balance_Installments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Balance_TransactionParty" EntityType="Self.Balance_TransactionParty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Block" EntityType="Self.D_Block" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Company" EntityType="Self.D_Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Customer" EntityType="Self.D_Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Employee" EntityType="Self.D_Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Land_RealEstate" EntityType="Self.D_Land_RealEstate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Owner" EntityType="Self.D_Owner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Phase" EntityType="Self.D_Phase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Plot" EntityType="Self.D_Plot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Plot_Booking" EntityType="Self.D_Plot_Booking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Plot_Value" EntityType="Self.D_Plot_Value" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Project_Specs" EntityType="Self.D_Project_Specs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Projects" EntityType="Self.D_Projects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_ReportingFunction" EntityType="Self.D_ReportingFunction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_ResponsibilityCenter" EntityType="Self.D_ResponsibilityCenter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_SpaceType" EntityType="Self.D_SpaceType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_Supplier" EntityType="Self.D_Supplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="D_VoucherType" EntityType="Self.D_VoucherType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="F_Financial_Transactions" EntityType="Self.F_Financial_Transactions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="F_Land_Purchase_RealEstate" EntityType="Self.F_Land_Purchase_RealEstate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Installment_Plan" EntityType="Self.Installment_Plan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Installment_Received" EntityType="Self.Installment_Received" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LandPlotMapping" EntityType="Self.LandPlotMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mapping_Company_Customer" EntityType="Self.Mapping_Company_Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mapping_Company_Employee" EntityType="Self.Mapping_Company_Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mapping_Company_Owner" EntityType="Self.Mapping_Company_Owner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mapping_Company_ResponsibilityCenter" EntityType="Self.Mapping_Company_ResponsibilityCenter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mapping_Company_Supplier" EntityType="Self.Mapping_Company_Supplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mapping_Employee_ResponsibilityCenter" EntityType="Self.Mapping_Employee_ResponsibilityCenter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mapping_Installment_Planned_Recevied" EntityType="Self.Mapping_Installment_Planned_Recevied" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mapping_Land_Plot" EntityType="Self.Mapping_Land_Plot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RealEstate_Activity" EntityType="Self.RealEstate_Activity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="REP" EntityType="Self.REP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Summary_Table" EntityType="Self.Summary_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction_Rules" EntityType="Self.Transaction_Rules" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserClaims" EntityType="Self.UserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLogins" EntityType="Self.UserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_UserClaims_dbo_Users_UserId" Association="Self.FK_dbo_UserClaims_dbo_Users_UserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserClaims" EntitySet="UserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_UserLogins_dbo_Users_UserId" Association="Self.FK_dbo_UserLogins_dbo_Users_UserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserLogins" EntitySet="UserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_UserRoles_dbo_Roles_RoleId" Association="Self.FK_dbo_UserRoles_dbo_Roles_RoleId">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_UserRoles_dbo_Users_UserId" Association="Self.FK_dbo_UserRoles_dbo_Users_UserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

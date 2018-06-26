@@ -1,0 +1,149 @@
+﻿@model ReCountant.Models.ReceiveInstallent_Details
+    <div class="row">
+        <div class="d-inline"> <p class="d-inline-block">Foreign Currency</p> <input class="d-inline-block" type="checkbox" id="checkbox1" /></div>
+    </div>
+<div class="row">
+    <table class="table table-bordered transtable addrecinst">
+        <thead>
+            <tr>
+                <input type="hidden" id="isntid" value="@Model.Instid"/>
+                <th>Plot</th>
+                <th>Phase</th>
+                <th>Installment Amount</th>
+                <th>Currency</th>
+                <th>Exchanage_Rate</th>
+                <th>Amount_LC</th>
+                <th>Amount Due/Balance</th>
+                <th>Cash/Bank</th>
+                <th>Amount Received</th>
+                <th>Description</th>
+                <th class="cur">Currency</th>
+                <th class="erate">Exchange Rate</th>
+                <th class="actamt">Act Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.PlotCode</td>
+                <td>@Model.Phase</td>
+                <td>@Model.Amount_TC</td>
+                <td>@Model.Currency</td>
+                <td>@Model.Exchange_Rate</td>
+                <td>@Model.Amount_LC</td>
+                @{
+                    float DueAmt = Model.Balance * -1;
+                 }
+                <td>@DueAmt</td>
+                <td>
+                    <select onchange="ShowBankOpts(this.value)" id="recinst_bank_cash">
+                        <option value="Cash">Cash</option>
+                        <option value="Bank">Bank</option>
+                    </select>
+                </td>   
+                <td><input type="number" id="recinst_amtrec" onchange="amountlcconvert()" placeholder="amount received" /></td>
+                <td><input type="text" id="recinst_desc" placeholder="description"/></td>
+                <td style="display:none" id="recinst_cur">
+                    <select>
+                        <option value="PKR">PKR</option>
+                        <option value="USD">USD</option>
+                    </select>
+                </td>
+                <td style="display:none"><input type="number" id="recinst_exrate" onchange="amountlcconvert()" placeholder="exchange rate" value="1"/></td>
+                <td style="display:none"><input type="number" id="recinst_amtlc" placeholder="actual amount" readonly/></td>
+            </tr>
+            <tr id="bankdetails" style="display:none">
+                <td colspan="4"></td>
+                <td>Bank Name</td>
+                <td><input type="text" /></td>
+                <td>Account No.</td>
+                <td><input type="text"/></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <button class="recinst">Record</button>
+</div>
+
+<script>
+    $(document).on('click', '.recinst', function Getplot(e) {
+        var dataarray = {
+            Amount_TC: "",
+            Exchange_Rate: "",
+            Currency: "",
+            Amount_LC: "",
+            Plot_Id: "",
+            Description:""
+        };
+        dataarray.Amount_LC = $("#recinst_amtlc").val();
+        dataarray.Currency = $("#recinst_cur").val();
+        dataarray.Amount_TC = $("#recinst_amtrec").val();
+        dataarray.Exchange_Rate = $("#recinst_exrate").val();
+        dataarray.Description = $("#recinst_desc").val();
+        dataarray.Plot_Id = $("#plot").val();
+
+        var instid = $('#isntid').val();
+
+        var data = { instrec: dataarray, Istplanid: instid };
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            url: "/PlotManagement/AddReceiveInstallment/",
+            success: function (data) {
+               alert("Recorded")
+            },
+            error: function () {
+
+            }
+        })
+
+    });
+    function amountlcconvert() {
+        var amount = parseFloat($('#recinst_amtrec').val()).toFixed(2);
+        var exch = parseFloat($('#recinst_exrate').val()).toFixed(2);
+        var amttc = amount * exch;
+        $("#recinst_amtlc").val(amttc)
+
+    }
+    $(document).ready(function() {
+        $('.actamt, .erate, .cur').hide(); // hide the column header th
+    });
+    function ShowBankOpts(e) {
+        if (e == "Bank") {
+            $('#bankdetails').show();
+        }
+        else {
+            $('#bankdetails').hide();
+        }
+    }
+    $('#checkbox1').change(function () {
+        if (this.checked) {
+            $('.addrecinst .actamt,.addrecinst .erate,.addrecinst .cur').show(); // hide the column header th
+            $('.addrecinst tr').each(function () {
+
+                $(this).find('td:eq(' + $('.actamt').index() + ')').show();
+                $(this).find('td:eq(' + $('.erate').index() + ')').show();
+                $(this).find('td:eq(' + $('.cur').index() + ')').show();
+                
+            });
+        }
+        else {
+            $('.actamt, .erate, .cur').hide(); // hide the column header th
+            $('.addrecinst tr').each(function () {
+                $(this).find('td:eq(' + $('.actamt').index() + ')').hide();
+                $(this).find('td:eq(' + $('.erate').index() + ')').hide();
+                $(this).find('td:eq(' + $('.cur').index() + ')').hide();
+            });
+        }
+    });
+</script>
+<style>
+    .transtable {
+        display: block;
+        overflow-x: scroll;
+        margin-top: 10px
+    }
+</style>

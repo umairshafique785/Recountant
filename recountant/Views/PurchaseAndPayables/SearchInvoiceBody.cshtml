@@ -1,0 +1,113 @@
+﻿<script>
+    var rowid = @ViewBag.Row
+    $(function () {
+        $(".modal-title").html("Search Inovice");
+        $('.date-picker').datetimepicker({
+            ignoreReadonly: true,
+            format: 'DD-MM-YYYY'
+        });
+    });
+    $(document).on("change", ".searchinvoice", function () {
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            data: $("#searchinvoice").serialize(),
+            url: $("#searchinvoice").attr("action"),
+            success: function (data) {
+                $("#searchres tbody").empty();
+                if (data.length <= 0){
+                    var html = "<tr><td colspan='6' align='center'>No Record Found</td></tr>";
+                    $("#searchres tbody").append(html);
+                    return false;
+                }
+                $(data).each(function (i) {
+                    var html = '<tr class="get-transaction" id="' + data[i].Voucher_Number + '">' +
+                        '<td>' + moment(data[i].Document_Date).format("DD-MM-YYYY") + '</td>' +
+                        '<td>' + data[i].Supplier_Id + '</td>' +
+                        '<td>' + data[i].ResponsibilityCenter_Id + '</td>' +
+                        '<td>' + data[i].Voucher_Type + '</td>' +
+                        '<td>' + data[i].Company_Id + '</td>' +
+                        '<td>' + data[i].Credit + '</td>' +
+                        '</tr>';
+
+                    $("#searchres tbody").append(html);
+                });
+            },
+            error: function () {
+                alert("Error")
+            }
+        })
+    });
+
+</script>
+<link href="~/build/css/CustomeTwo.css" rel="stylesheet" />
+@using (Html.BeginForm("SearchInvoice", "PurchaseAndPayables", FormMethod.Post, new { @id = "searchinvoice" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class='col-sm-3'>
+            <label>Voucher Date(Start)</label>
+            <div class="form-group">
+                <input id="Voucher_Date" name="StartDate" required="required" class="form-control date-picker searchinvoice" readonly>
+            </div>
+        </div>
+        <div class='col-sm-3'>
+            <label>Voucher Date(End)</label>
+            <div class="form-group">
+                <input id="Voucher_Date" name="EndDate" required="required" class="form-control date-picker searchinvoice" readonly>
+            </div>
+        </div>
+        <div class='col-sm-3'>
+            <label>Supplier</label>
+            <div class="form-group">
+                <select id="supplier" name="SearchSupplier" class="form-control searchinvoice">
+                    <option>Aslam</option>
+                    <option>Haire</option>
+                </select>
+            </div>
+        </div>
+        <div class='col-sm-3'>
+            <label>Responsibility Center</label>
+            <div class="form-group">
+                <select id="responsibility-center" name="SearchResponsbilityCenter" class="form-control searchinvoice">
+                    <option>Aslam</option>
+                    <option>Haire</option>
+                </select>
+            </div>
+        </div>
+        <div class='col-sm-3'>
+            <label>Transaction Type</label>
+            <div class="form-group">
+                <select id="trans-type" name="SearchTransactionType" class="form-control searchinvoice">
+                    <option value="Invoice Recording">Invoice Recording</option>
+                    <option value="Credit Note">Credit Note</option>
+                    <option value="Debit Note">Debit Note</option>
+                    <option value="Immediate Note">Immediate Note</option>
+                    <option value="Pre Payment">Pre Payment</option>
+                    <option value="Adjust Advance">Adjust Advance</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <button class="button-3-for-golden" type="button">Search</button>
+    </div>
+}
+<div class="row">
+    <h5>Results</h5>
+    <table class="table table-bordered" id="searchres">
+        <thead>
+            <tr>
+                <td>Voucher Date</td>
+                <td>Supplier</td>
+                <td>Responsibility Center</td>
+                <td>Transaction Type</td>
+                <td>Company</td>
+                <td>Total Amount</td>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+

@@ -1,0 +1,521 @@
+﻿@{Html.RenderAction("LeftSidePanel", "SideWidget");}
+@{Html.RenderAction("HeaderInfo", "Home");}
+<div id="right-panel" class="right-panel">
+    <div class="content mt-3 main-content">
+        <h4>Purchases Payables</h4>
+        <hr />
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title mb-2">Purchase Order</strong>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Date</label>
+                            <input type="text" id="Date" name="Date" readonly class="datepicker form-control cc-exp" data-val-required="Please enter date" data-val-cc-exp="Please enter a valid Date" placeholder="DD / MM / YY">
+                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">PO Number</label>
+                            <input type="text" id="PO_Number" name="PO_Number" class="form-control cc-exp" data-val-required="Please enter Vocuher No." placeholder="PO Number">
+                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Total Amount</label>
+                            <input type="text" id="Total_Amount" name="Total_Amount" class="form-control cc-exp" data-val-required="" placeholder="Total Amount">
+                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Supplier</label>
+                            <select id="supplier" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Responsibility Center</label>
+                            <select id="Responsibiltycenter" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card ftcard">
+                    <table class="table table-bordered transtable">
+                        <thead>
+                            <tr>
+                                <th>Chart Of Account</th>
+                                <th>Supplier</th>
+                                <th>Customer</th>
+                                <th>Employee</th>
+                                <th>Owner</th>
+                                <th>Company</th>
+                                <th>Transaction Party</th>
+                                <th>Quantity</th>
+                                <th>Amount TC</th>
+                                <th>Exchange Rate</th>
+                                <th>Amount LC</th>
+                                <th>Description</th>
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Knocking Off</th>
+                                <th class="plot">Plot</th>
+                                <th class="R_land">Land</th>
+                                <th class="R_resCen">Responsibility Center</th>
+                                <th class="R_func">Function</th>
+                                <th class="R_prj">Project</th>
+                                <th class="R_rea">REA</th>
+                                <th class="R_rep">REP</th>
+                                <th class="R_sp">Space Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="a_1">
+                                <td>
+                                    <select id="Account_Id" name="Account_Id[1]"></select>
+                                </td>
+                                <td>
+                                    <select id="Supplier_Id" name="Supplier_Id[1]" class="transparty"></select>
+                                </td>
+                                <td>
+                                    <select id="Customer_Id" name="Customer_Id[1]" class="transparty"></select>
+                                </td>
+                                <td>
+                                    <select id="Employee_Id" name="Employee_Id[1]" class="transparty"></select>
+                                </td>
+                                <td>
+                                    <select id="Owner_Id" name="Owner_Id[1]" class="transparty"></select>
+                                </td>
+                                <td>
+                                    <select id="Company_Id" name="Company_Id[1]" class=""></select>
+                                </td>
+                                <td>
+                                    <select id="transparty" name="transparty[1]"></select>
+                                </td>
+                                <td>
+                                    <input type="text" name="Quantity[1]" id="Quantity" class="" />
+                                </td>
+                                <td>
+                                    <input type="text" name="Amount_TC[1]" id="Amount_TC" class="" />
+                                </td>
+                                <td>
+                                    <input type="text" name="Exchange_Rate[1]" id="Exchange_Rate" class="" />
+                                </td>
+                                <td>
+                                    <input type="text" name="Amount_LC[1]" id="Amount_LC" class="" />
+                                </td>
+                                <td>
+                                    <input type="text" name="Description[1]" id="Description" class="" />
+                                </td>
+                                <td>
+                                    <input type="text" name="Debit[1]" id="Debit" class="debit" />
+                                </td>
+                                <td>
+                                    <input type="text" name="Credit[1]" id="Credit" class="credit" />
+                                </td>
+                                <td>
+                                    <input type="text" name="Knocking_Off[1]" id="Knocking_Off" class="" />
+                                </td>
+                                <td>
+                                    <select id="Plot" name="Plot[1]" class=""></select>
+                                </td>
+                                <td>
+                                    <select id="Land" name="Land[1]" class=""></select>
+                                </td>
+                                <td>
+                                    <select id="ResponsibilityCenter_Id" name="ResponsibilityCenter_Id[1]" class=""></select>
+                                </td>
+                                <td>
+                                    <select id="Function_Id" name="Function_Id[1]" class=""></select>
+                                </td>
+                                <td>
+                                    <select id="Project" name="Project[1]" class=""></select>
+                                </td>
+                                <td>
+                                    <select id="REA" name="REA[1]" class=""></select>
+                                </td>
+                                <td>
+                                    <select id="REP" name="REP[1]" class=""></select>
+                                </td>
+                                <td>
+                                    <select id="Space_Type" name="Space_Type[1]" class=""></select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title mb-3">Transaction Recording</strong>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Voucher Date</label>
+                            <input type="text" id="Voucher_Date" name="Date" readonly class="datepicker form-control cc-exp" data-val-required="Please enter date" data-val-cc-exp="Please enter a valid Date" placeholder="DD / MM / YY">
+                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Supplier</label>
+                            <select id="supplier" class="form-control">
+                                <option>Aslam</option>
+                                <option>Haire</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Responsibility Center</label>
+                            <select id="responsibiltycenter" class="form-control">
+                                <option>Ali</option>
+                                <option>Usman</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Purchase Document No.</label>
+                            <input type="text" id="purchasedocno" name="DocumentNo" class="form-control cc-exp"  placeholder="Document Number">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Transaction Type</label>
+                            <select id="transactiontype" class="form-control">
+                                <option>Invoice Recording</option>
+                                <option>Credit Note</option>
+                                <option>Debit Note</option>
+                                <option>Immediate Note</option>
+                                <option>Pre Payment</option>
+                                <option>Adjust Advance</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Total Federal Excise Duty</label>
+                            <input type="text" id="" name="" class="form-control cc-exp">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Total WTH Tax</label>
+                            <input type="text" id="" name="" class="form-control cc-exp">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Nature</label>
+                            <select id="nature" class="form-control">
+                                <option>Account Payables</option>
+                                <option>Revenues</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Total GST</label>
+                            <input type="text" id="" name="" class="form-control cc-exp">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Total Amount</label>
+                            <input type="text" id="Total_Amount" name="Total_Amount" class="form-control cc-exp" data-val-required="" placeholder="Total Amount">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Invoice</th>
+                                <th> Purchase Order </th>
+                                <th> Product</th>
+                                <th style="min-width:400px"> Description </th>
+                                <th>Quantity</th>
+                                <th>UOM</th>
+                                <th style="min-width:100px">Rate</th>
+                                <th>Amount(TC)</th>
+                                <th>Exchange Rate</th>
+                                <th style="min-width:100px">Currency</th>
+                                <th>Amount(LC) Excl. Tax</th>
+                                <th>Fedral Excise Duty</th>
+                                <th style="min-width:100px">GST</th>
+                                <th>Advance Tax</th>
+                                <th>Amount(LC) Incl. Tax</th>
+                                <th>Customer </th>
+                                <th> Employee </th>
+                                <th> Shareholder </th>
+                                <th>Beneficiary Department </th>
+                                <th> Region </th>
+                                <th> Company</th>
+                                <th> Business Line </th>
+                                <th> Project </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input class="form-control" required="" >
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                                <td>
+                                    <input class="form-control" required="">
+                                </td>
+                                <td>
+                                    <input class="form-control" type="number">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <select class="form-control"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select>
+                                </td>
+                                <td>
+                                    <input class="form-control" formate="number">
+                                </td>
+                                <td>
+                                    <input class="form-control" formate="number">
+                                </td>
+                                <td>
+                                    <input class="form-control" formate="number">
+                                </td>
+                                <td>
+                                    <input class="form-control" formate="number">
+                                </td>
+                                <td>
+                                    <input class="form-control" formate="number">
+                                </td>
+                                <td>
+                                    <input class="form-control" required="">
+                                </td>
+                                <td>
+                                    <input class="form-control" required="">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                                <td>
+                                    <input class="form-control">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title mb-3">Payment</strong>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Date</label>
+                            <input type="text" id="Date" name="Date" readonly class="datepicker form-control cc-exp" data-val-required="Please enter date" data-val-cc-exp="Please enter a valid Date" placeholder="DD / MM / YY">
+                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Supplier</label>
+                            <select id="supplier" class="form-control"></select>
+                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Total Amount</label>
+                            <input type="text" id="Total_Amount" name="Total_Amount" class="form-control cc-exp" data-val-required="" placeholder="Total Amount">
+                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Transaction Type</label>
+                            <select id="transactiontype" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Payment Type</label>
+                            <select id="paymenttype" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Total WTH</label>
+                            <select id="totalwth" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Nature</label>
+                            <select id="nature" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="cc-exp" class="control-label mb-1">Responsibility Center</label>
+                            <select id="responsibiltycenter" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card ftcard">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Invoice</th>
+                                    <th>Purchase Order </th>
+                                    <th>Product</th>
+                                    <th style="min-width:400px">Description </th>
+                                    <th>Quantity</th>
+                                    <th>UOM</th>
+                                    <th style="min-width:100px">Rate</th>
+                                    <th>Gross Amount</th>
+                                    <th>Discount</th>
+                                    <th>Net Amount(TC)</th>
+                                    <th>Exchange Rate</th>
+                                    <th>Currency</th>
+                                    <th>Net Amount(LC) Excl. Tax</th>
+                                    <th>Withholding Tax</th>
+                                    <th>Amount Paid(LC)</th>
+                                    <th>Bank Account Number</th>
+                                    <th>Customer </th>
+                                    <th>Employee </th>
+                                    <th>Shareholder </th>
+                                    <th>Beneficiary Department </th>
+                                    <th>Region </th>
+                                    <th>Company</th>
+                                    <th>Business Line </th>
+                                    <th>Project </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input class="form-control" required="">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" required="">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="number">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" formate="number">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" formate="number">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" formate="number">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" formate="number">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" formate="number">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" formate="number">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" required="">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" required="">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                    <td>
+                                        <input class="form-control">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>              
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .transtable {
+        display: block;
+        overflow-x: scroll;
+        margin-top: 10px
+    }
+</style>

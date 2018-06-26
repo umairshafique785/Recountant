@@ -1,0 +1,259 @@
+﻿@model ReCountant.Models.F_Financial_Transactions
+@{
+    ViewBag.Title = "Create";
+}
+<script>
+    var voucher = @Html.Raw(Json.Encode(ViewBag.Voucher_Type))
+    var acc = @Html.Raw(Json.Encode(ViewBag.Account_Id))
+    var sup = @Html.Raw(Json.Encode(ViewBag.Supplier_Id))
+    var cust = @Html.Raw(Json.Encode(ViewBag.Customer_Id))
+    var emp = @Html.Raw(Json.Encode(ViewBag.Employee_Id))
+    var owner = @Html.Raw(Json.Encode(ViewBag.Owner_Id))
+    var comp= @Html.Raw(Json.Encode(ViewBag.Company_Id))
+    var plot = @Html.Raw(Json.Encode(ViewBag.Plot))
+    var land = @Html.Raw(Json.Encode(ViewBag.Land))
+    var respo = @Html.Raw(Json.Encode(ViewBag.ResponsibilityCenter_Id))
+    var func = @Html.Raw(Json.Encode(ViewBag.Function_Id))
+    var proj = @Html.Raw(Json.Encode(ViewBag.Project))
+    var rea = @Html.Raw(Json.Encode(ViewBag.REA))
+    var rep = @Html.Raw(Json.Encode(ViewBag.REP))
+    var space = @Html.Raw(Json.Encode(ViewBag.Space_Type))
+</script>
+<script>
+        $(document).ready(function () {
+            Trasactionscriptsinit();
+            init();
+        });
+</script>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "jvform" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Financial Transactions</h4>
+    <hr />
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="cc-exp" class="control-label mb-1">Document Date</label>
+                <input type="text" id="Document_Date" name="Document_Date" readonly class="datepicker form-control cc-exp" data-val-required="Please enter Document date" data-val-cc-exp="Please enter a valid Date" placeholder="DD / MM / YY">
+                <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="cc-exp" class="control-label mb-1">Voucher Number</label>
+                <input type="text" id="Voucher_Number" name="Voucher_Number" class="form-control cc-exp" data-val-required="Please enter Vocuher No." placeholder="Voucher Number">
+                <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="cc-exp" class="control-label mb-1">Reference Number</label>
+                <input type="text" id="Reference_Number" name="Reference_Number" class="form-control cc-exp" data-val-required="" placeholder="Reference Number">
+                <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="cc-exp" class="control-label mb-1">Total Debit</label>
+                <input type="text" id="totaldebit" class="form-control cc-exp" placeholder="Total Debit">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="cc-exp" class="control-label mb-1">Total Credit</label>
+                <input type="text" id="totalcredit" class="form-control cc-exp" placeholder="Total Credit">
+            </div>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col col-md-3"><label class=" form-control-label">Real Estate</label></div>
+        <div class="col col-md-9">
+            <div class="form-check-inline form-check">
+                <label for="inline-checkbox1" class="form-check-label ">
+                    <input class="d-inline-block" type="checkbox" id="checkbox1" checked>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="card ftcard">
+        <table class="table table-bordered transtable">
+            <thead>
+                <tr>
+                    <th>Chart Of Account</th>
+                    <th>Supplier</th>
+                    <th>Customer</th>
+                    <th>Employee</th>
+                    <th>Owner</th>
+                    <th>Company</th>
+                    <th>Transaction Party</th>
+                    <th>Quantity</th>
+                    <th>Amount TC</th>
+                    <th>Exchange Rate</th>
+                    <th>Amount LC</th>
+                    <th>Description</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
+                    <th>Knocking Off</th>
+                    <th class="plot">Plot</th>
+                    <th class="R_land">Land</th>
+                    <th class="R_resCen">Responsibility Center</th>
+                    <th class="R_func">Function</th>
+                    <th class="R_prj">Project</th>
+                    <th class="R_rea">REA</th>
+                    <th class="R_rep">REP</th>
+                    <th class="R_sp">Space Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="a_1">
+                    <td>
+                        <select id="Account_Id" name="Account_Id[1]"></select>
+                    </td>
+                    <td>
+                        <select id="Supplier_Id" name="Supplier_Id[1]" class="transparty"></select>
+                    </td>
+                    <td>
+                        <select id="Customer_Id" name="Customer_Id[1]" class="transparty"></select>
+                    </td>
+                    <td>
+                        <select id="Employee_Id" name="Employee_Id[1]" class="transparty"></select>
+                    </td>
+                    <td>
+                        <select id="Owner_Id" name="Owner_Id[1]" class="transparty"></select>
+                    </td>
+                    <td>
+                        <select id="Company_Id" name="Company_Id[1]" class=""></select>
+                    </td>
+                    <td>
+                        <select id="transparty" name="transparty[1]"></select>
+                    </td>
+                    <td>
+                        <input type="text" name="Quantity[1]" id="Quantity" class="" />
+                    </td>
+                    <td>
+                        <input type="text" name="Amount_TC[1]" id="Amount_TC" class="" />
+                    </td>
+                    <td>
+                        <input type="text" name="Exchange_Rate[1]" id="Exchange_Rate" class="" />
+                    </td>
+                    <td>
+                        <input type="text" name="Amount_LC[1]" id="Amount_LC" class="" />
+                    </td>
+                    <td>
+                        <input type="text" name="Description[1]" id="Description" class="" />
+                    </td>
+                    <td>
+                        <input type="text" name="Debit[1]" id="Debit" class="debit" />
+                    </td>
+                    <td>
+                        <input type="text" name="Credit[1]" id="Credit" class="credit" />
+                    </td>
+                    <td>
+                        <input type="text" name="Knocking_Off[1]" id="Knocking_Off" class="" />
+                    </td>
+                    <td>
+                        <select id="Plot" name="Plot[1]" class=""></select>
+                    </td>
+                    <td>
+                        <select id="Land" name="Land[1]" class=""></select>
+                    </td>
+                    <td>
+                        <select id="ResponsibilityCenter_Id" name="ResponsibilityCenter_Id[1]" class=""></select>
+                    </td>
+                    <td>
+                        <select id="Function_Id" name="Function_Id[1]" class=""></select>
+                    </td>
+                    <td>
+                        <select id="Project" name="Project[1]" class=""></select>
+                    </td>
+                    <td>
+                        <select id="REA" name="REA[1]" class=""></select>
+                    </td>
+                    <td>
+                        <select id="REP" name="REP[1]" class=""></select>
+                    </td>
+                    <td>
+                        <select id="Space_Type" name="Space_Type[1]" class=""></select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button type="button" class="btn btn-secondary addrow">&nbsp; Add Row</button>
+    <button type="submit" class="btn btn-primary">&nbsp; Submit</button>
+}
+
+<script>
+    var debit = 0;
+    var credit = 0;
+    $(function () {
+        $(".datepicker").datepicker();
+    });
+    $('#jvform').submit(function (e) {
+        e.preventDefault();
+        //var token = $('input[name="__RequestVerificationToken"]', form).val();
+        if (debit != credit) {
+            alert("Debit and Credits are not Equal")
+            return false;
+        }
+        var i = 1;
+        var data = [];
+        for (i; i < counter; i++) {
+            var dataarray = {
+                Account_Id: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "", Company_Id: "", transparty: "", Quantity: "",
+                Amount_TC: "", Exchange_Rate: "", Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "", Plot: "", Land: "", ResponsibilityCenter_Id: "",
+                Function_Id: "", Project: "", REA: "", REP: "", Space_Type: ""
+            };
+            dataarray.Account_Id = $('.a_' + i + ' #Account_Id').val();
+            dataarray.Supplier_Id = $('.a_' + i + ' #Supplier_Id').val();
+            dataarray.Customer_Id = $('.a_' + i + ' #Customer_Id').val();
+            dataarray.Employee_Id = $('.a_' + i + ' #Employee_Id').val();
+            dataarray.Owner_Id = $('.a_' + i + ' #Owner_Id').val();
+            dataarray.Company_Id = $('.a_' + i + ' #Company_Id').val();
+            dataarray.transparty = $('.a_' + i + ' #transparty').val();
+            dataarray.Quantity = $('.a_' + i + ' #Quantity').val();
+            dataarray.Amount_TC = $('.a_' + i + ' #Amount_TC').val();
+            dataarray.Exchange_Rate = $('.a_' + i + ' #Exchange_Rate').val();
+            dataarray.Amount_LC = $('.a_' + i + ' #Amount_LC').val();
+            dataarray.Description = $('.a_' + i + ' #Description').val();
+            dataarray.Debit = $('.a_' + i + ' #Debit').val();
+            dataarray.Credit = $('.a_' + i + ' #Credit').val();
+            dataarray.Knocking_Off = $('.a_' + i + ' #Knocking_Off').val();
+            dataarray.Plot = $('.a_' + i + ' #Plot').val();
+            dataarray.Land = $('.a_' + i + ' #Land').val();
+            dataarray.ResponsibilityCenter_Id = $('.a_' + i + ' #ResponsibilityCenter_Id').val();
+            dataarray.Function_Id = $('.a_' + i + ' #Function_Id').val();
+            dataarray.Project = $('.a_' + i + ' #Project').val();
+            dataarray.REA = $('.a_' + i + ' #REA').val();
+            dataarray.REP = $('.a_' + i + ' #REP').val();
+            dataarray.Space_Type = $('.a_' + i + ' #Space_Type').val();
+
+            data.push(dataarray);
+        }
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            url: "/FinancialTransactions/AddJournalVoucher/",
+            success: function () {
+                alert("Transaction Recorded")
+            },
+            error: function () {
+                alert("Error")
+            }
+        })
+    });
+
+   
+</script>
+<style>
+    .transtable {
+        display: block;
+        overflow-x: scroll;
+        margin-top: 10px
+    }
+</style>

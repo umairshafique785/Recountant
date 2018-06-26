@@ -1,0 +1,63 @@
+﻿@{Html.RenderAction("LeftSidePanel", "SideWidget");}
+<div id="right-panel" class="right-panel">
+    <!-- Header-->
+    @{Html.RenderAction("HeaderInfo", "Home");}
+    <!-- Header-->
+    <div class="content mt-3 main-content">
+        <h4>Payables</h4>
+        <hr />
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="cc-exp" class="control-label mb-1">Date</label>
+                    <input type="text" id="Date" name="Date" readonly class="datepicker form-control cc-exp" data-val-required="Please enter date" data-val-cc-exp="Please enter a valid Date" placeholder="DD / MM / YY">
+                    <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="cc-exp" class="control-label mb-1">Supplier</label>
+                    <select id="supplier" class="form-control"></select>
+                    <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="cc-exp" class="control-label mb-1">Total Amount</label>
+                    <input type="text" id="Total_Amount" name="Total_Amount" class="form-control cc-exp" data-val-required="" placeholder="Total Amount">
+                    <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="cc-exp" class="control-label mb-1">Transaction Type</label>
+                    <select id="transactiontype" class="form-control"></select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="cc-exp" class="control-label mb-1">Payment Type</label>
+                    <select id="paymenttype" class="form-control"></select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="cc-exp" class="control-label mb-1">Total WTH</label>
+                    <select id="totalwth" class="form-control"></select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="cc-exp" class="control-label mb-1">Nature</label>
+                    <select id="nature" class="form-control"></select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="cc-exp" class="control-label mb-1">Responsibility Center</label>
+                    <select id="responsibiltycenter" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,139 @@
+﻿@{Html.RenderAction("LeftSidePanel", "SideWidget");}
+@{Html.RenderAction("SECO", "Home");}
+@{Html.RenderAction("HeaderInfo", "Home");}
+<script>
+    var coa = @Html.Raw(Json.Encode(ViewBag.COA))
+</script>
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Create A new Transaction Type</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br>
+                        <form id="transactiontypes" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    Transaction Type Name<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="transaction-type" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="tran-type-rows">
+                                <div class="form-group transrows-1">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control coa">
+                                                <option>Select Chart of Account</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control det-crd">
+                                                <option value="credit">Credit</option>
+                                                <option value="debit">Debit</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="fa-hover col-md-1 col-sm-1 col-xs-12">
+                                        <a href="javascript:void(null)" class="add-trans-row" data-transrow="1"><i class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var newtranstyperow = 1;
+
+    $('#transactiontypes').submit(function (e) {
+        e.preventDefault();
+        var trantypearr = [];
+        var transname = $('#transaction-type').val();
+        for (var i = 1; i < newtranstyperow; i++) {
+            debugger;
+            var rules = { COA : "", Credit_Debit : "" };
+            rules.COA = $('.transrows-' + i + ' .coa').val();
+            rules.Credit_Debit = $('.transrows-' + i + ' .det-crd').val();
+            trantypearr.push(rules);
+        }
+        var AllData = { TransactionType: transname, transaction_Rules: trantypearr }
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(AllData),
+            url: "/FinancialTransactions/SaveTransactionsTypes/",
+            success: function () {
+                alert("Transaction Type Saved");
+            },
+            error: function () {
+                alert("Error")
+            }
+        });
+    });
+
+    $(document).on("click", ".add-trans-row", function () {
+        newtranstyperow++;
+        var html =
+            '<div class="form-group transrows-' + newtranstyperow + '">' +
+            '<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>' +
+            '<div class="col-md-6 col-sm-6 col-xs-12">' +
+            '<div class="col-md-6 col-sm-6 col-xs-12">' +
+            '<select class="form-control coa">' +
+            '<option>Select Chart of Account</option>' +
+            '</select>' +
+            '</div>' +
+            '<div class="col-md-6 col-sm-6 col-xs-12">' +
+            '<select class="form-control det-crd">' +
+            '<option value="credit">Credit</option>' +
+            '<option value="debit">Debit</option>' +
+            '</select>' +
+            '</div>' +
+            '</div>' +
+            '<div class="fa-hover col-md-1 col-sm-1 col-xs-12">' +
+            '<a href="javascript:void(null)" class="rm-trans-row" data-transrow="' + newtranstyperow + '"><i class="fa fa-minus-square"></i></a>' +
+            '</div>' +
+            '<div class="fa-hover col-md-1 col-sm-1 col-xs-12">' +
+            '<a href="javascript:void(null)" class="add-trans-row" data-transrow="' + newtranstyperow + '"><i class="fa fa-plus-square"></i></a>' +
+            '</div>' +
+            '</div>';
+
+        $('.tran-type-rows').append(html);
+        initialize_COA(newtranstyperow);
+
+    });
+    $(document).on("click", ".rm-trans-row", function () {
+        newtranstyperow--;
+        var id = $(this).data("transrow");
+        $(".transrows-" + id).remove();
+    });
+    $(function () {
+        initialize_COA(newtranstyperow);
+    });
+    function initialize_COA(i) {
+        $.each(coa, function (key, value) {
+            $('.transrows-' + i + ' .coa').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+        });
+    }
+</script>

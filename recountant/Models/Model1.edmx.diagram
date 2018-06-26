@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="82c3f22af9bb4861b5f09337189c76cf" Name="Diagram1" ZoomLevel="53">
+        <EntityTypeShape EntityType="ReCountantModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Balance_COA" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Balance_Installments" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Balance_TransactionParty" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Block" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Company" Width="1.5" PointX="6.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Customer" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Employee" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Land_RealEstate" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Owner" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Phase" Width="1.5" PointX="10.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Plot" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Plot_Booking" Width="1.5" PointX="12.75" PointY="5.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Plot_Value" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Project_Specs" Width="1.5" PointX="8.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Projects" Width="1.5" PointX="10.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_ReportingFunction" Width="1.5" PointX="12.75" PointY="11.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_SpaceType" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_Supplier" Width="1.5" PointX="2.75" PointY="13.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_VoucherType" Width="1.5" PointX="4.75" PointY="13.75" />
+        <EntityTypeShape EntityType="ReCountantModel.F_Land_Purchase_RealEstate" Width="1.5" PointX="14.75" PointY="11.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Installment_Plan" Width="1.5" PointX="10.75" PointY="15.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Installment_Received" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReCountantModel.LandPlotMapping" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Mapping_Company_Customer" Width="1.5" PointX="2.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Mapping_Company_Employee" Width="1.5" PointX="4.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Mapping_Company_Owner" Width="1.5" PointX="16.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Mapping_Company_ResponsibilityCenter" Width="1.5" PointX="6.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Mapping_Company_Supplier" Width="1.5" PointX="16.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Mapping_Employee_ResponsibilityCenter" Width="1.5" PointX="16.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Mapping_Installment_Planned_Recevied" Width="1.5" PointX="12.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Mapping_Land_Plot" Width="1.5" PointX="14.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReCountantModel.RealEstate_Activity" Width="1.5" PointX="16.75" PointY="15.75" />
+        <EntityTypeShape EntityType="ReCountantModel.REP" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Role" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="ReCountantModel.UserClaim" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="ReCountantModel.UserLogin" Width="1.5" PointX="5.25" PointY="2.125" />
+        <EntityTypeShape EntityType="ReCountantModel.User" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="ReCountantModel.FK_dbo_UserClaims_dbo_Users_UserId" />
+        <AssociationConnector Association="ReCountantModel.FK_dbo_UserLogins_dbo_Users_UserId" />
+        <AssociationConnector Association="ReCountantModel.UserRoles" />
+        <EntityTypeShape EntityType="ReCountantModel.Summary_Table" Width="1.5" PointX="0.75" PointY="19.75" />
+        <EntityTypeShape EntityType="ReCountantModel.F_Financial_Transactions" Width="1.5" PointX="17.375" PointY="18.75" />
+        <EntityTypeShape EntityType="ReCountantModel.Transaction_Rules" Width="1.5" PointX="3.375" PointY="19.75" />
+        <EntityTypeShape EntityType="ReCountantModel.D_ResponsibilityCenter" Width="1.5" PointX="5.375" PointY="19.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

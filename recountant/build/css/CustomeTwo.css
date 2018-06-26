@@ -1,0 +1,80 @@
+﻿.x_title1 {
+    background-color: #0e92ab;
+}
+
+.Slide-Grid-Heading {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 18px;
+    color: antiquewhite;
+    margin-left: 15px;
+    margin-top: 12px;
+}
+
+.x_title2 {
+    background-color: #c49f47;
+}
+
+.button-padding {
+    padding-left: 50px;
+}
+/*.search-button {
+    padding-left:809px;
+    padding-top:0px;
+    }*/
+.button {
+    background-color: #c49f47;
+    border: none;
+    color: white;
+    padding: 8px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 1px;
+    cursor: pointer;
+    border-radius: 3px;
+    float: right;
+    
+}
+
+.button-grid-blue {
+    background-color: #0e92ab;
+    border: none;
+    color: white;
+    padding: 8px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 1px;
+    cursor: pointer;
+    border-radius: 3px;
+    position: static;
+    float: right;
+    
+}
+.button-3-for-golden {
+    background-color: #c49f47;
+    border: none;
+    color: white;
+    padding: 8px 8px;
+    margin-left:1000px;
+    text-align: center;
+    text-decoration: none;
+    
+    font-size: 14px;
+    margin: 1px 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    position: static;
+    float: right;
+}
+
+.grid-down-buttons {
+    margin-left: 51%;
+}
+
+.navbar-right {
+    cursor: pointer;
+}

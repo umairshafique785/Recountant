@@ -1,0 +1,297 @@
+﻿@model ReCountant.Models.D_Plot
+
+@{
+	ViewBag.Title = "Create";
+}
+
+<script>
+
+	
+
+	var LoadProjectDDL = function () {
+		
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url: "/Plot/LoadProjectDDL",
+			processData: false,
+			contentType: false,
+			success: function (data) {
+
+				var sch = JSON.parse(data);
+
+				var $el = $(".ProjectDDL");
+				$el.empty();
+				if (sch.length > 0) {
+					$el.append($("<option></option>")
+						.attr("value", 0).text('Select Project'));
+					for (i = 0; i < sch.length; i++) {
+						$el.append($("<option></option>")
+							.attr("value", sch[i].Id).text(sch[i].Name));
+					}
+				}
+				else {
+					$el.append($("<option></option>")
+						.attr("value", '').text('Select'));
+				}
+			}
+		});
+	}
+
+	var handlevalidation = function () {
+		$('.PhaseForm').validate({
+			errorElement: 'span', //default input error message container
+			errorClass: 'help-block', // default input error message class
+			focusInvalid: false, // do not focus the last invalid input
+			ignore: "",
+			rules: {
+
+				UOM: {
+					required: true
+
+				},
+				Area: {
+					required: true
+
+				},
+
+				Length: {
+					required: true
+				},
+				Width: {
+					required: true
+				},
+
+				Front: {
+					required: true
+					
+				},
+
+				Plot_No: {
+					required: true
+					
+				},
+
+			},
+
+			invalidHandler: function (event, validator) { //display error alert on form submit
+
+			},
+
+			highlight: function (element) { // hightlight error inputs
+				$(element)
+					.closest('.form-group').addClass('has-error'); // set error class to the control group
+			},
+
+			success: function (label) {
+				label.closest('.form-group').removeClass('has-error');
+				label.remove();
+			},
+
+
+
+			submitHandler: function (form) {
+				debugger;
+				var BlockDDL = $('#Block_Id').val();
+				
+				if (BlockDDL == null || BlockDDL == '' || BlockDDL == 0) {
+
+					return false;
+				}
+
+				$.post(
+					"/Plot/Create",
+					$(".PhaseForm").serialize(),
+					function (value) {
+						if (value != "error") {
+
+							window.location = '/Plot/Index';
+						}
+					}
+				);
+				return false;
+			}
+		});
+
+		$('.PhaseForm').keypress(function (e) {
+			if (e.which == 13) {
+				if ($('.PhaseForm').validate().form()) {
+					$('.PhaseForm').submit();
+				}
+				return false;
+			}
+		});
+		jQuery('#btn-save').click(function () {
+			if ($('.PhaseForm').validate().form()) {
+
+				$('.PhaseForm').submit();
+			}
+		});
+	}
+
+
+	//$(document).on('click', '#btn-save', function () {
+	//	debugger;
+	//	var data = $(".PhaseForm").serialize();
+	//	$.post(
+	//		"/Plot/Create",
+	//		$(".PhaseForm").serialize(),
+	//		function (value) {
+	//			if (value != "error") {
+
+	//				window.location = '/Plot/Index';
+	//			}
+	//		}
+	//	);
+	//});
+	
+
+	$(document).ready(function () {
+		handlevalidation();
+		LoadProjectDDL();
+
+
+
+	$("#Project").change(function () {
+		
+		var Phase = $(this).val();
+		
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url: "/Plot/LoadPhaseDDL?id=" + Phase,
+			processData: false,
+			contentType: false,
+			success: function (data) {
+				var sch = JSON.parse(data);
+
+				var $el = $(".PhaseDDL");
+				$el.empty();
+				if (sch.length > 0) {
+					$el.append($("<option></option>")
+						.attr("value", 0).text('Select Phase'));
+					for (i = 0; i < sch.length; i++) {
+						$el.append($("<option></option>")
+							.attr("value", sch[i].Id).text(sch[i].Phase_Code));
+					}
+				}
+				else {
+					$el.append($("<option></option>")
+						.attr("value", '').text('Select'));
+				}
+			}
+		});
+
+	});
+
+	$("#Phase").change(function () {
+
+		var Id = $(this).val();
+	
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url: "/Plot/LoadBlockDDL?id=" + Id,
+			processData: false,
+			contentType: false,
+			success: function (data) {
+				var sch = JSON.parse(data);
+
+				var $el = $(".BlockDDL");
+				$el.empty();
+				if (sch.length > 0) {
+					$el.append($("<option></option>")
+						.attr("value", 0).text('Select Block'));
+					for (i = 0; i < sch.length; i++) {
+						$el.append($("<option></option>")
+							.attr("value", sch[i].Id).text(sch[i].Block_Code));
+					}
+				}
+				else {
+					$el.append($("<option></option>")
+						.attr("value", '').text('Select'));
+				}
+			}
+		});
+
+	});
+
+
+
+	});
+
+	</script>
+
+
+<h2>Create</h2>
+
+
+	
+		<h4>D_Plot</h4>
+		<hr />
+
+
+		<form action="#" class="PhaseForm">
+			<div class="col-md-6">
+
+
+				<div class="form-group">
+					<div class="form-group">
+						<label>Project <span class="text-danger">*</span></label>
+						<select class="form-control ProjectDDL" id="Project" name="Project"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-group">
+						<label>Phase <span class="text-danger">*</span></label>
+						<select class="form-control PhaseDDL" id="Phase" name="Phase"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-group">
+						<label>Block <span class="text-danger">*</span></label>
+						<select class="form-control BlockDDL" id="Block_Id" name="Block_Id"></select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>UOM <span class="text-danger">*</span></label>
+					<input class="form-control text-box single-line" id="UOM" name="UOM" type="text" value="" />
+				</div><div class="form-group">
+					<label>AREA <span class="text-danger">*</span></label>
+					<input class="form-control text-box single-line" id="Area" name="Area" type="text" value="" />
+				</div><div class="form-group">
+					<label>LENGTH <span class="text-danger">*</span></label>
+					<input class="form-control text-box single-line" id="Length" name="Length" type="text" value="" />
+				</div><div class="form-group">
+					<label>WIDTH <span class="text-danger">*</span></label>
+					<input class="form-control text-box single-line" id="Width" name="Width" type="text" value="" />
+				</div><div class="form-group">
+					<label>FRONT <span class="text-danger">*</span></label>
+					<input class="form-control text-box single-line" id="Front" name="Front" type="text" value="" />
+				</div>
+				<div class="form-group">
+					<label>PLOT N0 <span class="text-danger">*</span></label>
+					<input class="form-control text-box single-line" id="Plot_No" name="Plot_No" type="text" value="" />
+				</div>
+
+				
+			</div>
+		</form>
+
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<button type="submit" class="btn btn-info " id="btn-save"><i class="fa fa-save"></i> <span>Create </span></button>
+			</div>
+		</div>
+	
+
+
+
+
+
+	
+<div>
+	@Html.ActionLink("Back to List", "Index")
+</div>

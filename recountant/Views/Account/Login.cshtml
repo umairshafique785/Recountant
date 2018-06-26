@@ -1,0 +1,64 @@
+﻿@using ReCountant.Models
+@model LoginViewModel
+@{
+    Layout = "";
+    ViewBag.Title = "Log in";
+}
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="~/assets/css/cs-skin-elastic.css" rel="stylesheet" />
+    <link href="~/assets/css/themify-icons.css" rel="stylesheet" />
+    <link href="~/assets/css/normalize.css" rel="stylesheet" />
+    <link href="~/assets/scss/style.css" rel="stylesheet" />
+    <link href="~/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/css/flag-icon.min.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body class="bg-dark">
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="index.html">
+                        <img class="align-content" src="images/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="login-form">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label>Email address</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" , placeholder = "Email" })
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            @Html.PasswordFor(m => m.Password, new { type = "password",  placeholder = "Password", @class = "form-control" })
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.RememberMe)Remember Me
+                            </label>
+                            <label class="pull-right">
+                                <a href="#">Forgotten Password?</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/plugins.js"></script>
+    <script src="~/assets/js/main.js"></script>
+</body>
+</html>

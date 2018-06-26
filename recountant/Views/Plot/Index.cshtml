@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ReCountant.Models.D_Plot>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Block_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UOM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Length)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Width)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Front)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date_Of_Sale)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plot_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Userid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plot_Availibilty)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Block_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UOM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Length)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Width)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Front)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date_Of_Sale)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Plot_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Userid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Plot_Availibilty)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

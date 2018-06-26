@@ -1,0 +1,125 @@
+﻿@model ReCountant.Models.D_Projects
+
+@{
+	ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script>
+
+	var handlevalidation = function () {
+		$('.ProjectForm').validate({
+			errorElement: 'span', //default input error message container
+			errorClass: 'help-block', // default input error message class
+			focusInvalid: false, // do not focus the last invalid input
+			ignore: "",
+			rules: {
+
+				Name: {
+					required: true,
+					maxlength: 25
+				},
+			
+			},
+
+			invalidHandler: function (event, validator) { //display error alert on form submit
+
+			},
+
+			highlight: function (element) { // hightlight error inputs
+				$(element)
+					.closest('.form-group').addClass('has-error'); // set error class to the control group
+			},
+
+			success: function (label) {
+				label.closest('.form-group').removeClass('has-error');
+				label.remove();
+			},
+
+			
+
+			submitHandler: function (form) {
+			
+		var data = $(".ProjectForm").serialize();
+			$.post(
+			"/Projects/Create",
+			$(".ProjectForm").serialize(),
+			function (value) {
+				if (value != "error") {
+
+					window.location = '/Projects/Index';
+				}
+
+			}
+		);
+			
+				return false;
+			}
+		});
+
+		$('.ProjectForm').keypress(function (e) {
+			if (e.which == 13) {
+				if ($('.ProjectForm').validate().form()) {
+					$('.ProjectForm').submit();
+				}
+				return false;
+			}
+		});
+		jQuery('#btn-save').click(function () {
+			if ($('.ProjectForm').validate().form()) {
+			
+				$('.ProjectForm').submit();
+			}
+		});
+	}
+
+
+
+
+
+
+	//$(document).on('click', '#btn-save', function () {
+
+	//	var data = $(".ProjectForm").serialize();
+	//	$.post(
+	//		"/Projects/Create",
+	//		$(".ProjectForm").serialize(),
+	//		function (value) {
+	//			if (value != "error") {
+
+	//				window.location = '/Projects/Index';
+	//			}
+
+	//		}
+	//	);
+	//});
+
+
+
+	$(document).ready(function () {
+
+		handlevalidation();
+
+	});
+
+</script>
+
+
+<form action="#" class="ProjectForm">
+	<div class="col-md-6">
+
+		<div class="form-group">
+			<label>Name <span class="text-danger">*</span></label>
+			<input class="form-control text-box single-line" id="Name" name="Name" type="text" value="" />
+		</div>
+	</div>
+</form>
+<div class="form-group">
+	<div class="col-md-offset-2 col-md-10">
+		<button type="submit" class="btn btn-info " id="btn-save"><i class="fa fa-save"></i> <span>Create </span></button>
+	</div>
+</div>
+
+<div>
+	@Html.ActionLink("Back to List", "Index")
+</div>

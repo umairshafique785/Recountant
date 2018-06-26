@@ -1,0 +1,259 @@
+﻿<div class="row">
+    <div class="col-2">Enter Plot Number</div>
+    <div class="col-4"><input id="plot" type="text" /></div>
+    <div class="col-2"><button class="searchplot">Search</button></div>
+</div>
+<hr />
+<div class="row" id="plotalldetails" style="display:none">
+    @* Hidden Info *@
+    <input type="hidden" id="plotid" />
+    <input type="hidden" id="plotcode" />
+    <input type="hidden" id="block" />
+    <input type="hidden" id="phaserec" />
+    <input type="hidden" id="instid" />
+    <input type="hidden" id="custid" />
+    <input type="hidden" id="custname" />
+    @* End Hidden Info *@
+
+    <div class="col-12 row">
+        <input type="hidden" id="c_Id" />
+        <div class="col-lg-4">
+            <label class="control-label col-md-4">Customer Information</label>
+        </div>
+        <hr />
+        <div class="col-4">
+            <div class="col-4">Name</div>
+            <div class="col-8"><input type="text" id="c_name" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">CNIC</div>
+            <div class="col-8"><input type="text" id="c_cnic" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Address</div>
+            <div class="col-8"><input type="text" id="c_address" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Phone</div>
+            <div class="col-8"><input type="text" id="c_num" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Gender</div>
+            <div class="col-8">
+                <input type="text" id="c_gender" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">NTN</div>
+            <div class="col-8"><input type="text" id="c_ntn" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">STRN</div>
+            <div class="col-8"><input type="text" id="c_strn" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Filer</div>
+            <div class="col-8">
+                <input type="text" id="c_filer" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Industry</div>
+            <div class="col-8"><input type="text" id="c_ind" /></div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Resident</div>
+            <div class="col-8">
+                <input type="text" id="c_res" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="col-4">Business</div>
+            <div class="col-8"><input type="text" id="c_buss" /></div>
+        </div>
+    </div>
+    <hr />
+    <div class="col-12 row">
+        <input type="hidden" id="t_plotid" />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Phase</th>
+                    <th>Block</th>
+                    <th>Plot No</th>
+                    <th>Price</th>
+                    <th>Area</th>
+                    <th>Length</th>
+                    <th>Width</th>
+                    <th>Front</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="t_phase"></td>
+                    <td id="t_block"></td>
+                    <td id="t_plot"></td>
+                    <td id="t_price"></td>
+                    <td id="t_area"></td>
+                    <td id="t_length"></td>
+                    <td id="t_width"></td>
+                    <td id="t_front"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    <div class="row col-12" id="instdetails">
+        <div class="col-12 row">
+            <div class="col-lg-4">
+                <h4>Installments</h4>
+            </div>
+            <div class="col-lg-4">
+                <div class="col-lg-4">Balance</div>
+                <div class="col-lg-8"><h4 id="balamt"></h4></div>
+            </div>
+            <div class="col-lg-4">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-8"><button data-toggle="modal" data-target="#myModal" class="recotheramt">Receive Amount</button></div>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-bordered" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>Installment No.</th>
+                        <th>Currency</th>
+                        <th>Amount TC</th>
+                        <th>Exchange Rate</th>
+                        <th>Amount LC</th>
+                        <th>Due Date</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('click', '.searchplot', function () {
+        var e = $('#plot').val();
+        $.ajax({
+            type: "POST",
+            data: { id: e },
+            url: "/PlotManagement/PlotDetails/",
+            success: function (data) {
+                $("#plotid").val(data.Plot.Id);
+                $("#plotcode").val(data.Plot.Plot_No);
+                $("#block").val(data.Plot.Block_Code);
+                $("#phaserec").val(data.Plot.Phase_Code);
+                $("#custid").val(data.Customer.Id);
+                $('#custname').val(data.Customer.Name);
+
+
+                $('#balamt').text(data.Balance);
+                $('#plotalldetails').show();
+                $('#t_plotid').val(data.Plot.Id);
+                $('#t_phase').text(data.Plot.Phase_Code);
+                $('#t_block').text(data.Plot.Block_Code);
+                $('#t_plot').text(data.Plot.Plot_No);
+                $('#t_price').text(data.Plot.Plot_Value);
+                $('#t_area').text(data.Plot.Area);
+                $('#t_length').text(data.Plot.Length);
+                $('#t_width').text(data.Plot.Width);
+                $('#t_front').text(data.Plot.Front);
+
+                // customer info
+                $('#c_Id').val(data.Customer.Id);
+                $('#c_name').val(data.Customer.Name);
+                $('#c_cnic').val(data.Customer.CNIC_Number);
+                $('#c_address').val(data.Customer.Address);
+                $('#c_num').val(data.Customer.Contact_Number);
+                $('#c_gender').val(data.Customer.Gender);
+                $('#c_ntn').val(data.Customer.NTN);
+                $('#c_strn').val(data.Customer.STRN);
+                $('#c_filer').val(data.Customer.Filer_NonFiler);
+                $('#c_ind').val(data.Customer.Industry);
+                $('#c_res').val(data.Customer.Residential_Status);
+                $('#c_buss').val(data.Customer.Business);
+
+                $.each(data.Installments, function (key, value) {
+                    var inst, transrec;
+                    if (value.Status == 2) {
+                        inst = '<td><button data-toggle="modal" data-target="#myModal" class="payins">Receive</button></td>';
+                    }
+                    else {
+                        inst = '<td></td>';
+                    }
+                    if (value.Rec_Revenue_Status == false) {
+                        transrec = '<td><button onclick="RecordTrans(' + data.Plot.Id + ',' + data.Customer.Id + ',\'' + value.Currency + '\',' + value.Amount_TC + ',' + value.Amount_LC + ',' + value.Exchange_Rate + ',' + value.Id + ' )" class"rectran">Record Reveue</button></td>';
+                    }
+                    else {
+                        transrec = '<td></td>';
+                    }
+                    var html = '<tr id="' + value.Id + '" data-instid="' + value.Id + '">' +
+                        '<td>' + value.Nth_Installment + '</td>' +
+                        '<td class="curr">' + value.Currency + '</td>' +
+                        '<td class="amttc">' + value.Amount_TC + '</td>' +
+                        '<td class="exrate">' + value.Exchange_Rate + '</td>' +
+                        '<td class="amtlc">' + value.Amount_LC + '</td>' +
+                        '<td>' + moment(value.Due_Date).format("DD-MM-YYYY") + '</td>' +
+                        inst +
+                        transrec +
+                        '</tr>';
+                    $("#instdetails tbody").append(html);
+                });
+
+
+            },
+            error: function () {
+
+            }
+        });
+    });
+
+    $(document).on('click', '.recotheramt', function () {
+        debugger;
+        var plotid = $("#plotid").val();
+        var plotCode = $("#plotcode").val();
+        var block = $("#block").val();
+        var phase = $("#phaserec").val();
+        var custid = $("#custid").val();
+        var bal = parseFloat($('#balamt').text()).toFixed(2);
+
+        $('.modal-body').load('/PlotManagement/ReceiveOtherInst/', {
+            Plotid: plotid,
+            Plot_Code: plotCode,
+            Block: block,
+            Phase_Code: phase,
+            Custid: custid,
+            Balance: bal
+        });
+    });
+
+
+    // installments
+    $(document).on('click', '.payins', function () {
+        var instid = $(this).closest('tr').attr('data-instid')
+        var plotid = $("#plotid").val();
+        var plotCode = $("#plotcode").val();
+        var block = $("#block").val();
+        var phase = $("#phaserec").val();
+        var amounttc = $("#" + instid + " .amttc").text();
+        var currency = $("#" + instid + " .curr").text();
+        var amountlc = $("#" + instid + " .amtlc").text();
+        var exchange_rate = $("#" + instid + " .exrate").text();
+        var instalid = instid;
+        var custid = $("#custid").val();
+        var bal = parseFloat($('#balamt').text()).toFixed(2);
+
+        $('.modal-body').load('/PlotManagement/ReceiveInst/', { Plotid: plotid, Plot_Code: plotCode, Block: block, Phase_Code: phase, Amount_TC: amounttc, Currency: currency, Amount_LC: amountlc, Exchange_rate: exchange_rate, InstId: instid, Custid: custid, Balance: bal });
+    });
+    function RecordTrans(plotid, customerid, currency, amounttc, amountlc, exchrate, InstId) {
+        window.location.href = '/FinancialTransactions/CreateFinancialTrans?Plotid=' + plotid + '&CustomerId=' + customerid + '&Currency=' + currency + '&AmountTC=' + amounttc + '&AmountLC=' + amountlc + '&ExchangeRate=' + exchrate + '&InstId=' + InstId;
+    }
+
+
+</script>
