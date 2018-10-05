@@ -1,0 +1,3110 @@
+﻿@{Html.RenderAction("LeftSidePanel", "SideWidget");}
+@{Html.RenderAction("HeaderInfo", "Home");}
+<!-- Auto Complete TextBOx -->
+@*<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+    <script src='https://cdn.rawgit.com/pguso/jquery-plugin-circliful/master/js/jquery.circliful.min.js'></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>*@
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
+
+
+@*select 2 plugin*@
+
+
+
+
+
+<script>
+    var companies = @Html.Raw(Json.Encode(ViewBag.companies));
+
+</script>
+<script>
+
+    window.onload = function () {
+        startTab();
+    };
+
+    function startTab() {
+        document.getElementById("defaultOpen").click();
+
+    }
+
+    function openProcess(evt, processName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(processName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+
+
+<div class="right_col" role="main" id="">
+    <div class="">
+        <div class="page-title">
+
+
+            @*<div id="div2">
+                    <ul class="tabPurchase">
+                        <li>
+                            <a href="javascript:void(0)" class="tablinks" onclick="openProcess(event, 'Process1')" id="defaultOpen">Transaction Processing</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="tablinks" onclick="openProcess(event, 'Process2')">Report</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="tablinks" onclick="openProcess(event, 'Process3')">Setup</a>
+                        </li>
+                    </ul>
+                </div>*@
+            <div id="div2" class="">
+                
+                    <ul class="col-md-12 col-md-12 col-md-12">
+
+                        <li>
+                            <a href="javascript:void(0)" class=" w3-bar-item w3-button w3-black" onclick="openProcess(event, 'Process1')" id="defaultOpen" style="width:33.3%">Transaction Processing</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class=" w3-bar-item w3-button w3-teal" onclick="openProcess(event, 'Process2')" style="width:33.3%">Report</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class=" w3-bar-item w3-button w3-red" onclick="openProcess(event, 'Process3')" style="width:33.3%">Setup</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+
+            <div class="title_left">
+                <h2>Purchase And Payables</h2>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        @*//process id 1 strat for Transaction recording*@
+        <div id="Process1" class="tabcontent">
+            <div class="row" id="">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title1">
+
+                            <h2 class="Slide-Grid-Heading"> Purchase Order</h2>
+                            <ul class="nav navbar-right ">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                </li>
+
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" style="display:none">
+                            <br />
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                <div class='col-sm-3'>
+                                    <label>Date</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type='text' class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>PO Number</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type='text' id="PO_Number" name="PO_Number" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>Total Amount</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type='text' id="Total_Amount" name="Total_Amount" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>Supplier</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <select id="supplier" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>Responsibility Center</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <select id="Responsibiltycenter" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="x_panel">
+                                    <div class="x_content table-responsive">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Requisition </th>
+                                                    <th>Product</th>
+                                                    <th>Description</th>
+                                                    <th>Amount</th>
+                                                    <th>Quantity</th>
+                                                    <th>UOM</th>
+                                                    <th>Rate</th>
+                                                    <th>Amount(TC)</th>
+                                                    <th>Exchange Rate</th>
+                                                    <th>Currency</th>
+                                                    <th>Amount(LC)</th>
+                                                    <th>Customer </th>
+                                                    <th>Employee </th>
+                                                    <th>Shareholder</th>
+                                                    <th>Beneficiary Department</th>
+                                                    <th>Region </th>
+                                                    <th>Company</th>
+                                                    <th>Business Line</th>
+                                                    <th>Project</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input type="text" class="form-control"></td>
+                                                    <td><input class="form-control" formate="number"></td>
+                                                    <td><input class="form-control" type="number" formate="number"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control "></td>
+                                                    <td><input class="form-control "></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                    <td><input class="form-control"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class=" form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-2 grid-down-buttons">
+                                        <button type="submit" class="button-grid-blue">Submit</button>
+                                        <button class="button" type="button">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row" id="">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title2">
+                                <h2 class="Slide-Grid-Heading"> Transaction Recording</h2>
+                                <ul class="nav navbar-right ">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <form id="" data-parsley-validate class="form-horizontal form-label-left transaction-form ">
+                                    <div class="all-forms">
+                                        <div class="trans-1">
+                                            <div class="row">
+                                                @*<div class="fa-hover col-md-10 col-sm-10 col-xs-12">
+                                                    <a href="javascript:void" class="rm-transaction" data-rowindex="1"><i class="fa fa-minus-square"></i></a>
+                                                </div>*@
+                                                <div class="">
+                                                    <button class="grid-down-buttons button-3-for-golden searchinv " data-searchrow="1" data-toggle="modal" data-target=".bs-example-modal-lg" type="button">Search</button>
+                                                </div>
+                                                @*<button class="btn btn-primary searchinv " data-searchrow="1" data-toggle="modal" data-target=".bs-example-modal-lg" type="button">Search</button>*@
+                                            </div>
+
+
+                                            <div class="row">
+                                                <input type="hidden" id="voucher_num" />
+                                                <div class='col-sm-3'>
+                                                    <label>Company <span class="text-danger"> *</span></label>
+                                                    <div class="form-group">
+                                                        <input id="" class="form-control company_search" placeholder="Enter Company">
+                                                        <input  class="company_search_id" type="hidden">
+                                                        <div class="my_suggestionsforcompany">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Voucher Date<span class="text-danger"> *</span></label>
+                                                    <div class="form-group">
+                                                        <input id="" name="Date" required class="form-control date-picker Voucher_Date"  >
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Supplier<span class="text-danger"> *</span></label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input name="Supplier_Id" class="form-control supplier_search" placeholder="Enter Supplier">
+                                                        <input id="" class="form-control supplier_search_id" type="hidden">
+                                                        <div class="my_suggestionsforsup">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Responsibility Center<span class="text-danger"> *</span></label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input id="" class="form-control responsibility_search" placeholder="Enter Responsibility Center">
+                                                        <input id="" class="form-control responsibility_search_id" type="hidden">
+                                                       
+                                                        <div class="my_suggestionsforresponsibility"></div>
+
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Transaction Type<span class="text-danger"> *</span></label>
+                                                    <div class="form-group">
+                                                        <select id="" class="form-control trans-type">
+                                                            <option value="Invoice Recording">Invoice Recording</option>
+                                                            <option value="Credit Note">Credit Note</option>
+                                                            <option value="Debit Note">Debit Note</option>
+                                                            <option value="Immediate Note">Immediate Note</option>
+                                                            <option value="Pre Payment">Pre Payment</option>
+                                                            <option value="Adjust Advance">Adjust Advance</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3 Html_TextBox_Hidden_members'>
+                                                    <label>Nature<span class="text-danger"> *</span></label>
+                                                    <div class="form-group">
+                                                        <select id="" class="form-control nature">
+                                                            <option>Account Payables</option>
+                                                            <option>Revenues</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Currency</label>
+                                                    <div class="form-group radio_type">
+
+                                                        <input type="radio" value="Local_Currency" name="currency_radio" class="local_curr_radio " checked onchange="trans_val_hid()"> Local
+                                                        <input type="radio" value="Foreign_Currency" name="currency_radio" class="foreign_curr_radio " onchange="trans_val_show()"> Foreign
+
+                                                    </div>
+
+                                                </div>
+                                              
+
+                                            </div>
+                                            <div class="row">
+                                                <div class='col-sm-3'>
+                                                    <label>Total Federal Excise Duty</label>
+                                                    <div class="form-group">
+                                                        <input id="" class="form-control fedral-tax" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Total Advance Tax</label>
+                                                    <div class="form-group">
+                                                        <input id="" class="form-control wth-tax" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Total GST</label>
+                                                    <div class="form-group">
+                                                        <input type="text" id="" class="form-control sales-tax" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Total Amount</label>
+                                                    <div class="form-group">
+                                                        <input type="text" id="" class="form-control totalamt total-amt" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<div class="row">
+                                                <div class="fa-hover col-md-10 col-sm-10 col-xs-12">
+                                                    <a href="javascript:void" class="addrowtr add-trans-row addnewformscolor" data-rowindex="1"><i class="fa fa-plus-square"> Add new row</i></a>
+                                                </div>
+                                            </div>*@  
+                                            <div class="x_panel">
+                                                <div class="x_content table-responsive">
+                                                    <table class="table table-bordered transrectable" id="">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="min-width:170px">Invoice</th>
+                                                                <th style="min-width:100px">Purchase Order </th>
+                                                                <th style="min-width:100px">Product</th>
+                                                                <th style="min-width:100px">Space Type</th>
+                                                                <th style="min-width:350px">Description </th>
+                                                                <th style="min-width:100px">Quantity</th>
+                                                                <th style="min-width:100px">UOM</th>
+                                                                <th style="min-width:100px">Rate</th>
+                                                                <th style="min-width:100px">Amount(TC)</th>
+                                                                <th style="min-width:100px" class="">Exchange Rate</th>
+                                                                <th style="min-width:100px" class="">Currency</th>
+                                                                <th style="min-width:100px">Amount(LC) Excl. Tax</th>
+                                                                <th style="min-width:100px">Fedral Excise Duty @*<input type="checkbox" name="name1" />*@</th>
+                                                                <th style="min-width:100px">GST</th>
+                                                                <th style="min-width:100px">Advance Tax</th>
+                                                                <th style="min-width:100px">Amount Incl. Tax</th>
+                                                                <th style="min-width:100px">Customer </th>
+                                                                <th style="min-width:100px">Employee </th>
+                                                                <th style="min-width:100px">Owner </th>
+                                                                <th style="min-width:100px">Beneficiary Department </th>
+                                                                @*<th style="min-width:100px">Region </th>*@
+                                                                <th style="min-width:100px">REP </th>
+                                                                <th style="min-width:100px">REA </th>
+                                                                <th style="min-width:100px">Project</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="1 rows-for-payment">
+                                                                <td><input class="form-control invoice"></td>
+                                                                <td><input class="form-control ponum"></td>
+                                                                <td><input type="text" class="form-control prod"></td>
+                                                                <td>
+                                                                <input id="" class="form-control SpaceType_Name_search" placeholder="Space TySpe">
+                                                                <input id="" class=" form-control SpaceType_nam_id_search_id" type="hidden">
+                                                                <div class="my_suggestionsforST"></div>
+                                                                </td>
+                                                                <td><input class="form-control desc"></td>
+                                                                <td><input class="form-control qty" type="number"></td>
+                                                                <td><input class="form-control uom"></td>
+                                                                <td><input class="form-control rate"></td>
+                                                                <td><input class="form-control amt-tc amt-tc-ex-rate"></td>
+                                                                <td class=""><input class="form-control exch-rate amt-tc-ex-rate "></td>
+                                                                <td class=""><select class="form-control curr"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>
+                                                                <td><input class="form-control amt-lc-ex sumall" formate="number"></td>
+                                                                <td><input class="form-control fedtax sumall" formate="number"></td>
+                                                                <td><input class="form-control gst sumall" formate="number"></td>
+                                                                <td><input class="form-control wth sumall" formate="number"></td>
+                                                                <td><input class="form-control amt-lc-in"></td>
+                                                          
+                                                                <td>
+                                                                <input id="" class="form-control Customer_Name_search" placeholder="Customer">
+                                                                <input id="" class=" form-control Cus_nam_id_search_id" type="hidden">
+                                                                <div class="my_suggestionsforCN"></div>
+                                                                </td>
+                                                              
+                                                                <td>
+                                                                <input id="" class="form-control Employee_Name_search" placeholder="Employee">
+                                                                <input id="" class=" form-control Emp_nam_id_search_id" type="hidden">
+                                                                <div class="my_suggestionsforEN"></div>
+                                                                </td>
+                                                                <td>
+                                                                <input id="" class="form-control Owner_Name_search" placeholder="Owner">
+                                                                <input id="" class=" form-control Owner_nam_id_search_id" type="hidden">
+                                                                <div class="my_suggestionsforOwnerN"></div>
+                                                                </td>
+                                                               
+                                                                <td><input class="form-control benf-dep"></td>
+                                                                <td>
+                                                                <input id="" class="form-control RealStatePlayer_search" placeholder="REP">
+                                                                <input id="" class=" form-control rep_search_id" type="hidden">
+                                                                <div class="my_suggestionsforrsp"></div>
+                                                                </td>
+                                                             
+                                                                <td>
+                                                                <input id="" class="form-control RealStateActivity_search" placeholder="REA">
+                                                                <input id="" class=" form-control rea_search_id" type="hidden">
+                                                                <div class="my_suggestionsforres"></div>
+                                                                </td>
+                                                                <td>
+                                                                <input id="" class="form-control ProjectName_search" placeholder="Project">
+                                                                <input id="" class=" form-control Project_search_id" type="hidden">
+                                                                <div class="my_suggestionsforres"></div>
+                                                                </td>
+                                                               
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        </div>
+                                    <div class="concat"></div>
+                                    <div class="row">
+                                        <div class="fa-hover col-md-3 col-sm-4 col-xs-12">
+                                            <a href="javascript:void" class="add-transaction addnewformscolor"><i class="fa fa-plus-square"></i>  Add new Transaction</a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 grid-down-buttons">
+                                            <button type="submit" class="button-grid-blue posttrans">Post</button>
+                                            <button class="button payinv" type="button" disabled>Pay Inovice</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            
+                                <div class="clearfix"></div>
+                              
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+
+
+
+
+
+
+                    function autoCompleteDropdownCompany(){
+
+                        //for (var i = 0; i < temp.length; i++) {
+
+                        //}
+
+                        var CompanyNameSearch=[];
+                        jQuery.ajax({
+                            url: '@Url.Action("GetCompanyName", "Company")',
+                            method:'GET',
+                            success:function(response){
+                            var CompanyName= response;
+                                for (var i = 0; i < CompanyName.length; i++) {
+                                    var obj= {lable:CompanyName[i].Id_company, value:CompanyName[i].Name};
+                                    CompanyNameSearch.push(obj);
+                                           }
+                                            jQuery('.company_search').autocomplete({
+                                    source: CompanyNameSearch,
+                                                select: function (event, ui) {
+
+
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.company_search_id').val(ui.item.lable);
+                                                    return false;
+                                                }
+                                    });
+                              },
+                            error:function(err){
+                                console.log(err);
+                            }
+                        });
+
+
+
+                    }
+
+                    function autoCompleteDropdownSupplier() {
+                        var SupplierNameSearch = [];
+                        jQuery.ajax({
+                            url: '@Url.Action("SearchSpplierName", "Supplier")',
+                            method:'GET',
+                            success:function(response){
+                            var SupplierName= response;
+                                for (var i = 0; i < SupplierName.length; i++) {
+                                    var obj= {lable:SupplierName[i].Id, value:SupplierName[i].Name};
+                                    SupplierNameSearch.push(obj);
+                                }
+                                            jQuery('.supplier_search').autocomplete({
+                                                source: SupplierNameSearch,
+                                                select: function (event, ui)
+                                                {
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.supplier_search_id').val(ui.item.lable);
+                                                    return false;
+                                                }
+                                           });
+                            },
+                            error: function (err)
+                            {
+                                   console.log(err);
+                            }
+                        });
+                    }
+                    function autoCompleteDropdownResponsibility() {
+                        var ResponsibilityNameSearch=[];
+                        jQuery.ajax({
+                            url: '@Url.Action("SearchResponsibilityCenterName", "ResponsibilityCenter")',
+                            method:'GET',
+                            success:function(response){
+                            var ResponsibilityCenterName= response;
+                                for (var i = 0; i < ResponsibilityCenterName.length; i++) {
+                                    var obj= {lable:ResponsibilityCenterName[i].Id, value:ResponsibilityCenterName[i].Responsibility_Center};
+                                    ResponsibilityNameSearch.push(obj);
+                                }
+                                            jQuery('.responsibility_search').autocomplete({
+                                                source: ResponsibilityNameSearch,
+                                                select: function (event, ui) {
+
+
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.responsibility_search_id').val(ui.item.lable);
+                                                    return false;
+                                                }
+                                            });
+                            },
+                            error: function (err)
+                            {
+                                console.log(err);
+                            }
+                        });
+
+
+
+                    }
+
+
+
+
+
+                    function autoCompleteDropdown(){
+                        var temp= jQuery('.RealStateActivity_search');
+
+                        var rsa=[];
+                        jQuery.ajax({
+                            url:'@Url.Action("SearchRealStateActivityName", "RealStateActivity")',
+                            method:'GET',
+                            success:function(response){
+                            var stateList= response;
+                                for (var i = 0; i < stateList.length; i++) {
+                                    var obj= {lable:stateList[i].Id, value:stateList[i].RealEstate_Activites};
+                                    rsa.push(obj);
+                                           }
+                                            jQuery('.RealStateActivity_search').autocomplete({
+                                    source: rsa,
+                                    select: function (event, ui) {
+                                        $(this).val(ui.item.value);
+                                                     $(this).parent().find('.rea_search_id').val(ui.item.lable);
+                                                    return false;
+                                                }
+                                    });
+                              },
+                            error:function(err){
+                                console.log(err);
+                            }
+                        });
+
+
+
+                    }
+
+                    function autoCompleteDropdownForRealStatePlayer(){
+                       var rsa=[];
+                        jQuery.ajax({
+                            url:'@Url.Action("SearchRealStatePlayerName", "RealStatePlayer")',
+                            method:'GET',
+                            success:function(response){
+                            var PlayerList= response;
+                                for (var i = 0; i < PlayerList.length; i++) {
+                                    var obj= {lable:PlayerList[i].Id, value:PlayerList[i].Name};
+                                    rsa.push(obj);
+                                           }
+                                            jQuery('.RealStatePlayer_search').autocomplete({
+                                    source: rsa,
+                                                select: function (event, ui) {
+
+
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.rep_search_id').val(ui.item.lable);
+                                                      return false;
+                                                }
+                                    });
+                              },
+                            error:function(err){
+                                console.log(err);
+                            }
+                        });
+
+
+
+                    }
+
+                    function autoCompleteDropdownForCustomerName(){
+
+
+                        var rsa=[];
+                        jQuery.ajax({
+                            url:'@Url.Action("SearchCustomerName", "Customer")',
+                            method:'GET',
+                            success:function(response){
+                            var CustomerNameList= response;
+                                for (var i = 0; i < CustomerNameList.length; i++) {
+                                    var obj= {lable:CustomerNameList[i].Id, value:CustomerNameList[i].Name};
+                                    rsa.push(obj);
+                                           }
+                                            jQuery('.Customer_Name_search').autocomplete({
+                                    source: rsa,
+                                                select: function (event, ui) {
+
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.Cus_nam_id_search_id').val(ui.item.lable);
+                                                      return false;
+                                                }
+                                    });
+                              },
+                            error:function(err){
+                                console.log(err);
+                            }
+                        });
+
+
+
+                    }
+
+                    function autoCompleteDropdownForEmployeeName(){
+
+
+                        var rsa=[];
+                        jQuery.ajax({
+                            url:'@Url.Action("SearchRealStateActivityName", "Employee")',
+                            method:'GET',
+                            success:function(response){
+                            var EmployeeNameList= response;
+                                for (var i = 0; i < EmployeeNameList.length; i++) {
+                                    var obj= {lable:EmployeeNameList[i].Id, value:EmployeeNameList[i].Name};
+                                    rsa.push(obj);
+                                           }
+                                            jQuery('.Employee_Name_search').autocomplete({
+                                    source: rsa,
+                                                select: function (event, ui) {
+
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.Emp_nam_id_search_id').val(ui.item.lable);
+                                                      return false;
+                                                }
+                                    });
+                              },
+                            error:function(err){
+                                console.log(err);
+                            }
+                        });
+
+
+
+                    }
+
+                     function autoCompleteDropdownForSpaceType(){
+
+
+                        var rsa=[];
+                        jQuery.ajax({
+                            url:'@Url.Action("SearchSpaceType", "SpaceType")',
+                            method:'GET',
+                            success:function(response){
+                            var SpaceTypeList= response;
+                                for (var i = 0; i < SpaceTypeList.length; i++) {
+                                    var obj= {lable:SpaceTypeList[i].Id, value:SpaceTypeList[i].Space_Type};
+                                    rsa.push(obj);
+                                           }
+                                            jQuery('.SpaceType_Name_search').autocomplete({
+                                    source: rsa,
+                                                select: function (event, ui) {
+
+
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.SpaceType_nam_id_search_id').val(ui.item.lable);
+                                                      return false;
+                                                }
+                                    });
+                              },
+                            error:function(err){
+                                console.log(err);
+                            }
+                        });
+
+
+
+                    }
+                     function autoCompleteDropdownForOwnerName(){
+
+
+                        var rsa=[];
+                        jQuery.ajax({
+                            url:'@Url.Action("SearchOwnerName", "Owner")',
+                            method:'GET',
+                            success:function(response){
+                            var OwnerNameList= response;
+                                for (var i = 0; i < OwnerNameList.length; i++) {
+                                    var obj= {lable:OwnerNameList[i].Id, value:OwnerNameList[i].Name};
+                                    rsa.push(obj);
+                                           }
+                                            jQuery('.Owner_Name_search').autocomplete({
+                                    source: rsa,
+                                                select: function (event, ui) {
+
+
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.Owner_nam_id_search_id').val(ui.item.lable);
+                                                      return false;
+                                                }
+                                    });
+                              },
+                            error:function(err){
+                                console.log(err);
+                            }
+                        });
+
+
+
+                    }
+                     function autoCompleteDropdownForProjectName(){
+
+
+                        var rsa=[];
+                        jQuery.ajax({
+                            url:'@Url.Action("SearchProjectName", "Projects")',
+                            method:'GET',
+                            success:function(response){
+                            var ProjectNameList= response;
+                                for (var i = 0; i < ProjectNameList.length; i++) {
+                                    var obj= {lable:ProjectNameList[i].Id, value:ProjectNameList[i].Name};
+                                    rsa.push(obj);
+                                           }
+                                            jQuery('.ProjectName_search').autocomplete({
+                                    source: rsa,
+                                                select: function (event, ui) {
+
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.Project_search_id').val(ui.item.lable);
+                                                      return false;
+                                                }
+                                    });
+                              },
+                            error:function(err){
+                                console.log(err);
+                            }
+                        });
+
+
+
+                    }
+                     @*jQuery('.RealStateActivity_search').autocomplete({
+                                    source: function (request, response) {
+                                         $.ajax({
+                                            url: '@Url.Action("SearchRealStateActivityName", "RealStateActivity")',
+                                            dataType: "json",
+                                            data: { RealStateAct: $(".RealStateActivity_search").val() },
+
+                                            success: function (data) {
+
+                                                response($.map(data, function (item) {
+                                                    return { Id: item.Id, value: item.RealEstate_Activites };
+
+                                                }));
+
+                                            },
+                                            error: function (xhr, status, error) {
+                                                alert("Error");
+                                            },
+                                            });
+                                    }, focus: function (event, ui) {
+                                         $(".rea_search_id").val(ui.item.Id);
+                                    }, appendTo: '.my_suggestionsforres',
+                                    select: function (event, ui) {
+                                        $(this).val(ui.item.RealEstate_Activites);
+                                    }
+                                    });*@
+                     function autoCompleteDropdownSupplierforlpayments() {
+                        var SupplierNameSearch = [];
+                        jQuery.ajax({
+                            url: '@Url.Action("SearchSpplierName", "Supplier")',
+                            method:'GET',
+                            success:function(response){
+                            var SupplierName= response;
+                                for (var i = 0; i < SupplierName.length; i++) {
+                                    var obj= {lable:SupplierName[i].Id, value:SupplierName[i].Name};
+                                    SupplierNameSearch.push(obj);
+                                }
+                                jQuery('.supplier_search_for_payments').autocomplete({
+                                                source: SupplierNameSearch,
+                                                select: function (event, ui)
+                                                {
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.supplier_search_id_for_payments').val(ui.item.lable);
+                                                    return false;
+                                                }
+
+                                           });
+                            },
+                            error: function (err)
+                            {
+                                   console.log(err);
+                            }
+                        });
+                     }
+
+
+                    // here are report of transaction recording
+
+
+                     function autoCompleteDropdownVoucherType() {
+
+
+                         $("#Supplier_VT").autocomplete({
+
+                             source: function (request, response) {
+                                 debugger;
+                                 $.ajax({
+                                     url: '@Url.Action("SearchSpplierVoucher", "Supplier")',
+                                     dataType: "json",
+                                     data: { Supplier_VT: $("#Supplier_VT").val() },
+
+                                     success: function (data) {
+
+                                         response($.map(data, function (item) {
+                                             return { value: item.Voucher_Type };
+                                         }));
+                                     },
+                                     error: function (xhr, status, error) {
+                                         alert("Error");
+                                     }
+
+
+                                 });
+
+
+
+                             },
+                             appendTo: '#my_suggestionsforvoucher'
+
+
+                         });
+                     }
+                        // search vouvher type(purchase and payables, SetUp Tab)
+                     function autoCompleteDropdownproject() {
+                         $("#Supplier_Pro").autocomplete({
+
+                             source: function (request, response) {
+                                 debugger;
+                                 $.ajax({
+                                     url: '@Url.Action("SearchSpplierProject", "Supplier")',
+                                     dataType: "json",
+                                     data: { Supplier_project: $("#Supplier_Pro").val() },
+
+                                     success: function (data) {
+
+                                         response($.map(data, function (item) {
+                                             return { value: item.Name };
+                                         }));
+                                     },
+                                     error: function (xhr, status, error) {
+                                         alert("Error");
+                                     }
+
+
+                                 });
+
+
+
+                             },
+                             appendTo: '#my_suggestionsforProject'
+
+
+                         });
+                     }
+                        // search unique code (purchase and payables, SetUp Tab)
+                     function autoCompleteDropdownUniqueCode() {
+                         $("#supp_unique_code").autocomplete
+                             ({
+                                 source: function (request, response) {
+                                     $.ajax({
+                                         url: '@Url.Action("SearchSpplierUniqueCode", "Supplier")',
+                                         dataType: "json",
+                                         data: { Supplier_U_Id: $("#supp_unique_code").val() },
+
+                                         success: function (data) {
+
+                                             response($.map(data, function (item) {
+                                                 return { value: item.Supplier_Code };
+                                             }));
+                                         },
+                                         error: function (xhr, status, error) {
+                                             alert("Error");
+                                         }
+
+
+                                     });
+                                 }, appendTo: '#my_suggestionsforunique'
+
+                             });
+                     }
+
+
+                    // this is for transaction recording setup tab cnic and name search for supplier addition
+
+
+
+                     function autoCompleteDropdown_user_name_search_for_setup_tab_transaction_recording() {
+                        var aop_comp_name_search = [];
+                        jQuery.ajax({
+                            url: '@Url.Action("individual_aop_comp_name_search", "Home")',
+                            method:'GET',
+                            success:function(response){
+                            var aop_compn_name= response;
+                            for (var i = 0; i < aop_compn_name.length; i++) {
+                                var obj = { lable: aop_compn_name[i].Id, value: aop_compn_name[i].Name};
+                                aop_comp_name_search.push(obj);
+                                }
+                                jQuery('.aop_company_name').autocomplete({
+                                    source: aop_comp_name_search,
+                                                select: function (event, ui)
+                                                {
+                                                    $(this).val(ui.item.value);
+                                                    $(this).parent().find('.aop_company_name_id').val(ui.item.lable);
+                                                    return false;
+                                                }
+
+                                           });
+                            },
+                            error: function (err)
+                            {
+                                   console.log(err);
+                            }
+                        });
+                     } 
+
+                     @*function autoCompleteDropdown_user_name_CNIC_for_setup_tab_transaction_recording() {
+                        var Cnic_search = [];
+                        jQuery.ajax({
+                            url: '@Url.Action("individual_aop_comp_name_search", "Home")',
+                            method:'GET',
+                            success:function(response){
+                            var cnic_val_sear= response;
+                            for (var i = 0; i < cnic_val_sear.length; i++) {
+                                var obj = { lable: cnic_val_sear[i].Id, value: cnic_val_sear[i].Name};
+                                Cnic_search.push(obj);
+                                }
+                            jQuery('.usercnic').autocomplete({
+                                    source: Cnic_search,
+                                                select: function (event, ui)
+                                                {
+                                                    $(this).val(ui.item.lable);
+                                                    //$(this).parent().find('.usercnic').val(ui.item.lable);
+                                                    return false;
+                                                }
+
+                                           });
+                            },
+                            error: function (err)
+                            {
+                                   console.log(err);
+                            }
+                        });
+                     }*@
+
+
+                    // here is all function calling of autocomplete dropdown
+
+
+                    autoCompleteDropdownCompany();
+                    autoCompleteDropdownSupplier();
+                    autoCompleteDropdownResponsibility();
+                    autoCompleteDropdown();
+                    autoCompleteDropdownForRealStatePlayer();
+                    autoCompleteDropdownForCustomerName();
+                    autoCompleteDropdownForEmployeeName();
+                    autoCompleteDropdownForSpaceType();
+                    autoCompleteDropdownForOwnerName();
+                    autoCompleteDropdownForProjectName();
+
+
+                    // paymets function
+
+                    autoCompleteDropdownSupplierforlpayments();
+
+
+                    // setup functions autocomplete dropdown*****************************************
+                    autoCompleteDropdown_user_name_search_for_setup_tab_transaction_recording();
+                    //autoCompleteDropdown_user_name_CNIC_for_setup_tab_transaction_recording();
+
+                    //************************************
+
+                        //$(document).on('click', '.RealStateActivity_search', function () {
+
+
+                    //});
+                    //.data("ui-autocomplete")._renderItem = function (ul, item) {
+                    //        return $("<li></li>").data("item.autocomplete", item)
+                    //            .append("<a>" + item.Id + "<br>" + item.RealEstate_Activites + "</a>")
+                    //            .appendTo(ul);
+                    //    };
+
+
+
+
+                    //function clea()
+                    //{
+
+                    //    $(".rea_search_id").val("");
+                    //    $(".RealStateActivity_search").val("");
+                    //}
+                    //function clea_s() {
+                    //    $('.RealStateActivity_search').autocomplete("destroy");
+                    //    //$('.rea_search_id').autocomplete('enable');
+
+                    //}
+                    // get report with all conditions
+                    function Gen_Rep_With_Vali() {
+                        debugger;
+
+                        var sup_U_Id = $('#supp_unique_code').val();
+                        var sVocTy = $('#Supplier_VT').val();
+                        var fdate = $('#fromdatereport').val();
+                        var todate = $('#todatereport').val();
+                        $.ajax({
+                            type: "POST",
+                            url: "/Supplier/GetReportWIthNameNAndCnic/",
+                            data: {
+                                VT: sVocTy,
+                                Supplier_Unique_Id: sup_U_Id,
+                                fromdate: fdate,
+                                todate: todate
+                            },
+
+                            success: function (data) {
+                                $('#tblsupplier SupplierTableTD').empty();
+                                var items = '';
+                                var rows = "<tr>" +
+                                    "<th align='left' class='SupplierTableTH'>Project</th><th align='left' class='SupplierTableTH'>Transaction Party</th><th align='left' class='SupplierTableTH'>Voucher Type</th>" +
+                                    "<th align='left' class='SupplierTableTH'>Voucher Number</th><th align='left' class='SupplierTableTH'>Document Date</th><th align='left' class='SupplierTableTH'>Document Date Of Entry</th>" +
+                                    "<th align='left' class='SupplierTableTH'>Description</th><th align='left' class='SupplierTableTH'>Space Type</th><th align='left' class='SupplierTableTH'>Plot</th>" +
+                                    "<th align='left' class='SupplierTableTH'>Land</th><th align='left' class='SupplierTableTH'>Quantity</th><th align='left' class='SupplierTableTH'>Amount (LC)</th>" +
+
+                                    "</tr>";
+                                $('#tblSupplier tbody').append(rows);
+
+                                $.each(data, function (i, item) {
+                                    var rows = "<tr class='SupplierTableTD'>" +
+                                        "<td style='border: 1px solid black;'>" + item.Project + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.Transaction_Party + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.Voucher_Type + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.voucher_number + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.document_Date + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.dateTime_Of_Entry + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.Description + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.Space_Type + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.Plot + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.Land + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.Quantity + "</td>" +
+                                        "<td style='border: 1px solid black;'>" + item.Amount_LC + "</td>" +
+                                        "</tr>";
+                                    $('#tblSupplier tbody').append(rows);
+                                });
+                                ClearTextBoxOfSearchFeild();
+                            },
+
+                        });
+                        function ClearTextBoxOfSearchFeild() {
+                            $('#supp_unique_code').val("");
+                            $('#Supplier_VT').val("");
+                            $('#fromdatereport').val("");
+                            $('#todatereport').val("");
+                        }
+
+
+                    }
+
+
+
+                </script>
+            </div>
+            <div class="row" id="">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title1">
+                            <h2 class="Slide-Grid-Heading"> Payment</h2>
+                            <ul class="nav navbar-right">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                            <form id="" data-parsley-validate class="form-horizontal form-label-left payment-form">
+                                
+                               
+                                <div class="row">
+                                    @*<div class='col-sm-3'>
+                                        <label>Company</label>
+                                        <div class="form-group">
+                                            <select id="company" class="form-control"></select>
+                                        </div>
+                                    </div>*@
+                                   
+                                    <div class='col-sm-3'>
+                                        <label>Date</label>
+                                        <div class="form-group">
+                                            <input id="voucher-date-payments" name="Date"  required="required" class="form-control date-picker">
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-3'>
+                                        <label>Payment Method</label>
+                                        <div class="form-group">
+                                            <select class="form-control selected_Method_Of_Payment">
+                                                <option value="">Select</option>
+                                                <option value="invocice_payment_method">Invoice</option>
+                                                <option value="running_balance_payment_method">Running Balance</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-3 pay_method_selec_members_hide pay_method_selec_members_supp_show'>
+                                        <label>Supplier<span class="text-danger"> *</span></label>
+                                        <div class="form-group">
+
+                                            <input id="Suplier_payment" class="form-control supplier_search_for_payments" placeholder="Enter Supplier">
+                                            <input id="" class="form-control supplier_search_id_for_payments" type="hidden" >
+                                            <div class="my_suggestionsforsup_for_payments">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-3 pay_method_selec_members_hide'>
+                                        <label>Select Invoice</label>
+                                        <div class="form-group">
+                                            <select   class="form-control selected_Invoices">
+                                                <option>Selecct Invoice</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-3 pay_method_selec_members_hide'>
+                                        <label>Payment</label>
+                                        <div class="form-group radio_type">
+                                            
+                                            <input type="radio" value="Full_Payment" name="payment-radio" class="full_payment_radio " @*checked*@> Full 
+                                            <input type="radio" value="Partial_Payment" name="payment-radio" class="partial_payment_radio "> Partial<br />  
+                                           
+
+                                        </div>
+
+                                    </div>
+                                    <div class='col-sm-3 pay_method_selec_members_hide pay_method_selec_members_radio_running'>
+                                        <label>Payment</label>
+                                        <div class="form-group radio_type">
+
+                                           
+                                            <input type="radio" value="Running_Balance" name="payment-radio" class="running_balance_payment_radio "> Running Balance
+
+                                        </div>
+
+                                    </div>
+                                    @*<div class='col-sm-3'>
+                                        <label>Transaction Type</label>
+                                        <div class="form-group">
+                                            <select id="trans_type" class="form-control" required="required">
+                                                <option value="">Select Transaction Type</option>
+                                                <option value="Pay Advance">Pay Advance</option>
+                                                <option value="Pay Invoice">Pay Invoice</option>
+                                                <option value="Pay Fine/Penalties">Pay Fine/Penalties</option>
+                                                <option value="Pre Payment">Pre Payment</option>
+                                            </select>
+                                        </div>
+                                    </div>*@
+                                    @*<div class='col-sm-3'>
+                                        <label>Nature</label>
+                                        <div class="form-group">
+                                            <select id="nature" class="form-control">
+                                                <option>Account Payables</option>
+                                                <option>Revenues</option>
+                                            </select>
+                                        </div>
+                                    </div>*@
+                                    @*<div class='col-sm-3'>
+                                        <label>Payment Type</label>
+                                        <div class="form-group">
+                                            <select id="payment_type" class="form-control" required="required">
+                                                <option value="">Select Payment Type</option>
+                                                <option value="cash">Cash</option>
+                                                <option value="bank">Bank</option>
+                                            </select>
+                                        </div>
+                                    </div>*@
+                                    @*<div class='col-sm-3' style="display:none" id="cash-bank">
+                                        <label>Bank Acc Number</label>
+                                        <div class="form-group">
+                                            <input type="text" id="BankAccNum" class="form-control">
+                                        </div>
+                                    </div>*@
+                                </div>
+                                <div class="row">
+                                    <div class='col-sm-3'>
+                                        <label>Total WTH Tax</label>
+                                        <div class="form-group">
+                                            <input id="" name="Date"  class="form-control total-wth2">
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-3'>
+                                        <label>Total Amount</label>
+                                        <div class="form-group">
+                                            <input  id=""  class="form-control total-amt-pay" disabled>
+                                        </div>
+                                    </div>
+                                   
+                                    
+                                    <div class='col-sm-3 payment_hidden_members payment_hidden_members_for_running'>
+                                        <label>Payment Through</label>
+                                        <div class="form-group">
+                                            <select id="" class="form-control payment_type_of_full_payment">
+
+                                                <option value="cash">Cash</option>
+                                                <option value="bank">Bank</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                        <div class='col-sm-3 payment_hidden_members  payment_hidden_members_for_running'>
+                                            <label>Discount</label>
+                                            <div class="form-group">
+                                                <input id="" class="form-control dicount_amount_full_ayment" placeholder="Enter Discount Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                              
+                                <div class="x_panel">
+                                    <div class="x_content table-responsive">
+                                        <table id="" class="table table-bordered paymenttable pay_count_header">
+                                            <thead>
+                                                <tr>
+                                                    @*<th style="min-width:170px">Invoice</th>*@
+                                                    @*<th style="min-width:100px">Purchase Order </th>*@
+                                                    @*<th style="min-width:100px">Product</th>*@
+                                                    @*<th style="min-width:350px">Description </th>*@
+                                                    @*<th style="min-width:100px">Quantity</th>*@
+                                                    @*<th style="min-width:100px">UOM</th>*@
+                                                    <th style="min-width:100px">Invoice Amount</th>
+                                                    <th style="min-width:100px">Exchange Rate</th>
+                                                    <th style="min-width:100px">Payment</th>
+                                                    <th style="min-width:100px">Discount</th>
+                                                    <th style="min-width:100px">Amount(TC)</th>
+                                                    <th style="min-width:100px">Payment Through</th>
+                                                    <th style="min-width:100px">Currency</th>
+                                                    <th style="min-width:100px">Amount(LC) Excl. Tax</th>
+                                                    <th style="min-width:100px">Withholding Tax</th>
+                                                    <th style="min-width:100px">Amount (LC)</th>
+                                                   
+                                                    @*<th style="min-width:100px">Customer </th>
+                                                    <th style="min-width:100px">Employee </th>
+                                                    <th style="min-width:100px">Owner </th>
+                                                    <th style="min-width:100px">Beneficiary Department </th>*@
+                                                    @*<th style="min-width:100px">Region </th>
+                                                    <th style="min-width:100px">Business Line </th>*@
+                                                    @*<th style="min-width:100px">Project</th>*@
+                                                    
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @*<tr class="">
+                                                    <td><input class="form-control invoice"></td>
+                                                    <td><input class="form-control ponum"></td>
+                                                    <td><input type="text" class="form-control prod"></td>
+                                                    <td><input class="form-control desc"></td>
+                                                    <td><input class="form-control qty" type="number"></td>
+                                                    <td><input class="form-control uom"></td>
+                                                    <td><input class="form-control rate"></td>
+                                                    <td><input class="form-control gross-amt"></td>
+                                                    <td><input class="form-control disc"></td>
+                                                    <td><input class="form-control amt-tc"></td>
+                                                    <td><input class="form-control exch-rate"></td>
+                                                    <td><select class="form-control curr"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>
+                                                    <td><input class="form-control amt-lc-ex" formate="number"></td>
+                                                    <td><input class="form-control wth2 sumrowpayment" formate="number"></td>
+                                                    <td><input class="form-control amt-lc-in"></td>
+                                                    <td><input class="form-control cust"></td>
+                                                    <td><input class="form-control emp"></td>
+                                                    <td><input class="form-control sharehold"></td>
+                                                    <td><input class="form-control benf-dep"></td>
+                                                    <td><input class="form-control region"></td>
+                                                    <td><input class="form-control busines-line"></td>
+                                                    <td><input class="form-control proj"></td>
+                                                    <td><input class="form-control vou-num" style="display:none"></td>
+                                                </tr>*@
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 grid-down-buttons">
+                                        <button type="submit" class="button-grid-blue ">Post</button>
+                                        <button class="button" type="button">Record Invoice</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*//process id 2 strat for reports*@
+        <div id="Process2" class="tabcontent">
+
+            @*Supplier report start here*@
+            <div>
+
+                <div class="row" id="">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title1">
+
+                                <h2 class="Slide-Grid-Heading"> Supplier Report</h2>
+                                <ul class="nav navbar-right ">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                    </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content" @*style="display:none"*@>
+                                <br />
+                                <div id="" class="form-horizontal form-label-left">
+                                    @*<div class="row">
+                                        <div class="col-sm-3">
+                                                <label>Search</label>
+                                                <div class="form-group">
+                                                    <select id="SupplierGridOption" name="SupplierGridOption" class="form-control">
+                                                        <option value="">Select</option>
+                                                        <option value="allsupplier">All Suppliers</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="row">
+
+
+                                    </div>*@
+
+
+                                </div>
+                                <div class="row">
+                                    <div class='col-sm-3'>
+                                        <label class="">Select Project</label>
+                                        <div class="form-group">
+
+                                            <input class="form-control" id="Supplier_Pro" placeholder="Enter Project" />
+                                            <div id="my_suggestionsforProject">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Supplier Code</label>
+                                        <div>
+                                            <input class="form-control" id="supp_unique_code" @*onchange="Getname(this.value)"*@ placeholder="Enter Code" />
+                                            <div id="my_suggestionsforunique">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class='col-sm-3'>
+                                        <label class="">Voucher Type</label>
+                                        <div class="form-group">
+
+                                            <input class="form-control" id="Supplier_VT" placeholder="Enter Voucher Type" />
+                                            <div id="my_suggestionsforvoucher">
+                                            </div>
+                                            @*<select id="allsup_name" class="form-control">
+                                                    <option></option>
+                                                </select>*@
+                                        </div>
+                                    </div>
+
+                                    <div class='col-sm-3'>
+                                        <label></label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+
+
+                                            </div>
+
+                                            @*<input class="form-control" id="AS_cnic" />*@
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class='col-sm-3'>
+                                        <label> From Date</label>
+                                        <div class="form-group">
+                                            <input id="fromdatereport" name="Date"  required="required" class="form-control date-picker">
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-3'>
+                                        <label> To Date</label>
+                                        <div class="form-group">
+                                            <input id="todatereport" name="Date"  required="required" class="form-control date-picker">
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-3'>
+                                        <label></label>
+                                        <div class="form-group">
+                                            <button class="button-grid-blue" type="button" onclick="Gen_Rep_With_Vali()">Report</button>
+                                        </div>
+                                    </div>
+                                    <label></label>
+                                   
+                                </div>
+                                <div class="row">
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div>
+                                        <table id="tblSupplier" class="tblSupplier">
+                                            <thead>
+
+                                            </thead>
+                                            <tbody class="SupplierTableTD"> </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+
+                  
+                </div>
+            </div>
+            @*End Supplier Report*@
+        </div>
+        @*end*@
+
+        @*//process id 3 strat for user role assign*@
+
+        <div id="Process3" class="tabcontent">
+
+            @*@{Html.RenderAction("PostUser", "Users");}*@
+
+            @*<table id="paymentcontroller" style="display:none">
+                    <tbody></tbody>
+                </table>*@
+            <div>
+                <div class="row">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title1">
+                                <h2 class="Slide-Grid-Heading">Add Supplier</h2>
+                                <ul class="nav navbar-right ">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <div class="form-horizontal form-label-left">
+                                    <div class="all-user-forms">
+                                        <div id="user-1">
+                                            <div class="row">
+                                                @*<div class="fa-hover col-md-10 col-sm-10 col-xs-12">
+                                                        <a href="javascript:void" class="rm-userRole" data-rowindex="1"><i class="fa fa-minus-square"></i></a>
+                                                    </div>*@
+
+                                                @*<button class="open">Open</button>*@
+
+                                            </div>
+                                            <div class="row">
+
+                                                <input id="" type="hidden" class="Cus_Id">
+                                                <div>
+                                                    <button onclick="searchuserinfo()" class="button-3-for-golden"> Search</button>
+                                                </div>
+                                                <div class="col-sm-3"><label>Legal Status</label>
+                                                <div class="form-group">
+                                                    <select id="" class="form-control Cus_IAP_check">
+                                                    <option value="">Please select</option>
+                                                    <option value="individual">Individual</option>
+                                                    <option value="aop">AOP</option><option value="company">Company</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 Html_TextBox_Hidden_members_Setup_cnic">
+                                                    <label>CINC <span class="text-danger">*</span></label>
+                                                    <div class="form-group">
+                                                        
+
+                                                        <input type="text" id="" class="form-control usercnic " placeholder="Enter CNIC" />
+                                                        @*<div class="my_suggestionsfor_user_cnic">
+                                                        </div>*@
+                                                </div>
+                                                    </div>
+                                                <div class="col-sm-3 Html_TextBox_Hidden_members_Setup_ind_aop_comp">
+                                                    <label>Aop/Company Name<span class="text-danger">*</span></label>
+                                                    <div class="form-group">
+
+
+                                                        <input type="text" id="" class="form-control aop_company_name " placeholder="Enter Name" />
+                                                        <input id="" class="form-control aop_company_name_id" type="text">
+                                                        <div class="my_suggestionsfor_aop_company_name_id">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-3"><label>Name</label><div class="form-group"><input id="" class="form-control Cus_name" type="text" name="Name" readonly></div></div>
+                                                <div class="col-sm-3 "><label>CNIC</label><div class="form-group"><input id="" class="form-control Cus_cnic" type="text" name="CNIC_Number" readonly></div></div>
+                                                <div class="col-sm-3"><label>Address</label><div class="form-group"><input id="" class="form-control Cus_address" type="text" readonly></div></div>
+                                                <div class="col-sm-3 "><label>Gender</label><div class="form-group"><select id="" class="form-control Cus_gender" disabled><option value=""></option><option value="male">Male</option><option value="female">Female</option></select></div></div>
+                                                <div class="col-sm-3"><label>NTN</label><div class="form-group"><input id="" class="form-control Cus_ntn" type="text" readonly></div></div>
+                                                <div class="col-sm-3"><label>STRN</label><div class="form-group"><input id="" class="form-control Cus_strn" type="text" readonly></div></div>
+                                                <div class="col-sm-3"><label>Residentail Status</label><div class="form-group"><select id="" class="form-control Cus_res" disabled><option value=""> </option><option value="yes">Yes</option><option value="no">No</option></select></div></div>
+                                                <div class="col-sm-3"><label>Industry</label><div class="form-group"><input id="" class="form-control Cus_ind" type="text" readonly></div></div>
+                                                <div class="col-sm-3"><label>Filer</label><div class="form-group"><select id="" class="form-control Cus_filer" disabled><option value=""></option><option value="filer">Yes</option><option value="nonfiler">No</option></select></div></div>
+                                                <div class="col-sm-3"><label>Legal Status</label><div class="form-group"><select id="" class="form-control Cus_IAP"><option value=""></option><option value="individual">Individual</option><option value="aop">AOP</option><option value="company">Company</option></select></div></div>
+                                                <div class="col-sm-3"><label>Business</label><div class="form-group"><input id="" class="form-control Cus_buss" type="text" readonly></div></div>
+                                                <div class="col-sm-3"><label>Supply Chain Role</label><div class="form-group"><input id="" class="form-control Cus_SCR" type="text" readonly></div></div>
+                                                <div class="col-sm-3"><label>EPZ</label><div class="form-group"><input id="" class="form-control Cus_epz" type="text" readonly></div></div>
+                                                <div class="col-sm-3"><label>Email</label><div class="form-group"><input type="text" class="form-control Cus_email" id="" readonly></div></div>
+                                                <div class="col-sm-3"><label>Phone Number</label><div class="form-group"><input type="text" class="form-control Cus_num" id="" readonly></div></div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="fa-hover col-md-3 col-sm-4 col-xs-12">
+                                                <a href="javascript:void" class="user-search addnewformscolor hide_add_as_supplier_link" onclick="searchsuppplier()"><i class="fa fa-plus-square"></i>  Add a Supplier</a>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                   
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<table id="paymentcontroller" style="display:none">
+    <tbody></tbody>
+</table>
+
+@*script for complete transaction recording*@
+<script>
+
+    autoCompleteDropdownVoucherType();
+    autoCompleteDropdownUniqueCode();
+    autoCompleteDropdownproject();
+
+    var counter = 1;
+
+    function transrowchange() {
+        $(document).on("change", ".transrectable input", function () {
+
+            var totalrow = $(this).closest('.transrectable tbody tr').length;
+            var tds = $(this).children('.transrectable').children('tbody').children('tr').length;
+            var rowCount = $(this).parents().closest('.transrectable').find('tbody').find('tr').length;
+          //  var rowCount = $('table#myTable tr:last').index() + 1;
+            var index = $(this).closest('tr').index() + 1;
+
+
+            if (rowCount == index) {
+            counter++;
+            var html = '<tr class="' + counter + ' rows-for-payment"><td><input class="form-control invoice"></td>' +
+                '<td><input class="form-control ponum"></td>' +
+                '<td><input type="text" class="form-control prod"></td>' +
+                '<td>' +
+                '<input id="" class="form-control SpaceType_Name_search" placeholder="Space TYpe">' +
+                '<input id="" class=" form-control SpaceType_nam_id_search_id" type="hidden">' +
+                '<div class="my_suggestionsforST"></div>' +
+                '</td>' +
+                '<td><input class="form-control desc"></td>' +
+                '<td><input class="form-control qty" type="number"></td>' +
+                '<td><input class="form-control uom"></td>' +
+                '<td><input class="form-control rate"></td>' +
+                '<td><input class="form-control amt-tc"></td>' +
+                '<td class=""><input class="form-control exch-rate amt-tc-ex-rate "></td>' +
+                '<td class=""><select class="form-control curr"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>' +
+                '<td><input class="form-control amt-lc-ex sumall" formate="number"></td>' +
+
+                '<td><input class="form-control fedtax sumall" formate="number"></td>' +
+                '<td><input class="form-control gst sumall" formate="number"></td>' +
+                '<td><input class="form-control wth sumall" formate="number"></td>' +
+                '<td><input class="form-control amt-lc-in" formate="number"></td>' +
+                '<td>' +
+                '<input id="" class="form-control Customer_Name_search" placeholder="Customer">' +
+                '<input id="" class=" form-control Cus_nam_id_search_id" type="hidden">' +
+                '<div class="my_suggestionsforCN"></div>' +
+                '</td>' +
+                '<td>' +
+                '<input id="" class="form-control Employee_Name_search" placeholder="Employee">' +
+                '<input id="" class=" form-control Emp_nam_id_search_id" type="hidden">' +
+                '<div class="my_suggestionsforEN"></div>' +
+                '</td>' +
+                //'<td><input class="form-control sharehold">'+
+                '<td>' +
+                '<input id="" class="form-control Owner_Name_search" placeholder="Owner">' +
+                '<input id="" class=" form-control Owner_nam_id_search_id" type="hidden">' +
+                '<div class="my_suggestionsforOwnerN"></div' +
+                '</td>' +
+                '</td><td><input class="form-control benf-dep"></td>' +
+                //'<td><input class="form-control cust"></td><td>'+
+
+                //'<input class="form-control emp"></td>'+
+
+                //'</td><td><input class="form-control benf-dep"></td>'+
+                //'<td><input class="form-control region"></td>'+
+                '<td>' +
+                '<input id="" class="form-control RealStatePlayer_search" placeholder="REP">' +
+                '<input id="" class=" form-control rep_search_id" type="hidden">' +
+                '<div class="my_suggestionsforrsp"></div>' +
+                '</td>' +
+                '<td><input class="form-control RealStateActivity_search"  placeholder="REA" >' +
+                '<input class="form-control rea_search_id" type= "hidden" ><div class="my_suggestionsforrea"></div></td>' +
+                //'<td><input class="form-control proj"></td>'+
+                '<td>' +
+                '<input id="" class="form-control ProjectName_search" placeholder="Project">' +
+                '<input id="" class=" form-control Project_search_id" type="hidden">' +
+                '<div class="my_suggestionsforres"></div>' +
+                '</td>' +
+                '</tr>';
+            $(this).closest('.transrectable tbody').append(html);
+
+            autoCompleteDropdown();
+            autoCompleteDropdownForRealStatePlayer();
+            autoCompleteDropdownForCustomerName();
+            autoCompleteDropdownForEmployeeName();
+            autoCompleteDropdownForSpaceType();
+            autoCompleteDropdownForOwnerName();
+            autoCompleteDropdownForProjectName();
+
+            all_trans_rec();
+
+
+            }
+
+
+        });
+    }
+    transrowchange();
+
+    var invsum = 0, supliertotalval = 0;
+
+    function dynamicTransRec() {
+        $(document).on("submit", ".transaction-form", function (e) {
+
+            e.preventDefault();
+            var transData = [];
+            var total_payable_row_maker = [];
+            var transType = $('.transaction-form .trans-type').val();
+            var mintransType = transType.replace(' ', '');
+            for (var i = 1; i < counter; i++) {
+                // Inventory Debit
+                {
+                    var invdataarray = {
+                        VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                        Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                        Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "",
+                        Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                        Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                        Bank_Account_Number: "", Region: "", Product: "",COA:"", product_Name:"",Reference_Number:"",Invoice:""
+                    };
+                    invdataarray.Recording_Index = "Transaction Records";
+                    invdataarray.Voucher_Date = $('.transaction-form .Voucher_Date').val();
+                    invdataarray.Invoice = $('.transaction-form .invoice').val();
+
+                    invdataarray.VoucherNumber = mintransType + "_" + invdataarray.Voucher_Date;
+                    invdataarray.Reference_Number = mintransType + "_" + invdataarray.Voucher_Date + "_" + invdataarray.Invoice;
+                    invdataarray.Voucher_Type = transType;
+                    invdataarray.ChartofAccount = "Inventory";
+                    invdataarray.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                    invdataarray.Customer_Id = $('.' + i + ' .Cus_nam_id_search_id').val();
+                    invdataarray.Employee_Id = $('.' + i + ' .Emp_nam_id_search_id').val();
+                    invdataarray.Owner_Id = $('.' + i + ' .Owner_nam_id_search_id').val();
+                    invdataarray.Company_Id = $('.transaction-form .company_search_id').val();
+                    invdataarray.transparty = $('.transaction-form .supplier_search').val();
+                    invdataarray.Uom = $('.' + i + ' .uom').val();
+                    invdataarray.Rate = $('.' + i + ' .rate').val();
+                    invdataarray.Quantity = $('.' + i + ' .qty').val();
+                    invdataarray.Currency = $('.' + i + ' .curr').val();
+                    invdataarray.Amount_TC = $('.' + i + ' .amt-tc').val();
+                    invdataarray.Exchange_Rate = $('.' + i + ' .exch-rate').val();
+                    invdataarray.Amount_LC = $('.' + i + ' .amt-lc-ex').val();
+                    invdataarray.Space_Type = $('.' + i + ' .SpaceType_nam_id_search_id').val();
+                    invdataarray.Description = $('.' + i + ' .desc').val();
+                    invdataarray.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                    invdataarray.Function_Id = $('.' + i + ' .benf-dep').val();
+                    invdataarray.Project = $('.' + i + ' .Project_search_id').val();
+                    invdataarray.Transaction_Document_Number = $('.' + i + ' .invoice').val();
+                    //invdataarray.Region = $('.' + i + ' .region').val();
+                    invdataarray.Product = $('.' + i + ' .prod').val();
+                    invdataarray.REA = $('.' + i + ' .rea_arch_id').val();
+                    invdataarray.COA = $('.' + i + ' .prod').val();
+                    //invdataarray.REP = $('.' + i + ' .Account_Id').val();
+                    invdataarray.REP = $('.' + i + ' .rep_search_id').val();
+
+                    invsum = parseFloat(invsum) + parseFloat(invdataarray.Amount_LC);
+                    if (invdataarray != null)
+                    {
+                        transData.push(invdataarray);
+                    }
+
+
+                }
+                // Supplier Credit
+                {
+                    var supdataarray = {
+                        VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                        Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                        Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "",
+                        Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                        Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                        Bank_Account_Number: "", Region: "", Product: "", COA: "",Reference_Number: "", invoice: "",status:""
+                    };
+                    supdataarray.Recording_Index = "Transaction Records";
+                    supdataarray.Voucher_Date = invdataarray.Voucher_Date;
+                    supdataarray.VoucherNumber = mintransType + "_" + supdataarray.Voucher_Date;
+                    supdataarray.invoice = $('.transaction-form .invoice').val();
+                    supdataarray.Reference_Number = mintransType + "_" + supdataarray.Voucher_Date + "_" + supdataarray.invoice;
+                    supdataarray.Voucher_Type = transType;
+                    supdataarray.ChartofAccount = "Account Payables";
+                    supdataarray.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                    supdataarray.Customer_Id = $('.' + i + ' .Cus_nam_id_search_id').val();
+                    supdataarray.Employee_Id = $('.' + i + ' .Emp_nam_id_search_id').val();
+                    supdataarray.Owner_Id = $('.' + i + ' .Owner_nam_id_search_id').val();
+                    supdataarray.Company_Id = $('.transaction-form .company_search_id').val();
+                    supdataarray.transparty = $('.transaction-form .supplier_search').val();
+                    supdataarray.Uom = $('.' + i + ' .uom').val();
+                    supdataarray.Rate = $('.' + i + ' .rate').val();
+                    supdataarray.Quantity = $('.' + i + ' .qty').val();
+                    supdataarray.Currency = $('.' + i + ' .curr').val();
+                    supdataarray.Amount_TC = $('.' + i + ' .amt-lc-in').val();
+                    supdataarray.Exchange_Rate = $('.' + i + ' .exch-rate').val();
+                    supdataarray.Amount_LC = $('.' + i + ' .amt-lc-in').val();
+                    supdataarray.Space_Type = $('.' + i + ' .SpaceType_nam_id_search_id').val();
+                    supdataarray.Description = $('.' + i + ' .desc').val();
+                    supdataarray.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                    supdataarray.Function_Id = $('.' + i + ' .benf-dep').val();
+                    supdataarray.Project = $('.' + i + ' .Project_search_id').val();
+                    supdataarray.Transaction_Document_Number = $('.' + i + ' .invoice').val();
+                    //supdataarray.Region = $('.' + i + ' .region').val();
+                    supdataarray.Product = $('.' + i + ' .prod').val();
+                    supdataarray.REA = $('.' + i + ' .rea_search_id').val();
+                    supdataarray.COA = "supplier";
+                    supdataarray.status="pending"
+                    //supdataarray.REP = $('.' + i + ' .Account_Id').val();
+                    supdataarray.REP = $('.' + i + ' .rep_search_id').val();
+                    if (supdataarray != null)
+                    {
+                        transData.push(supdataarray);
+                    }
+
+                }
+
+                //{
+
+
+                //    var totalPayablerowmaker = {
+                //        VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                //        Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                //        Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "",
+                //        Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                //        Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                //        Bank_Account_Number: "", Region: "", Product: ""
+                //    };
+                //    totalPayablerowmaker.Recording_Index = "Transaction Records";
+                //    totalPayablerowmaker.Voucher_Date = invdataarray.Voucher_Date;
+                //    totalPayablerowmaker.VoucherNumber = mintransType + "_" + totalPayablerowmaker.Voucher_Date;
+                //    totalPayablerowmaker.Voucher_Type = transType;
+                //    totalPayablerowmaker.ChartofAccount = "Account Payables";
+                //    totalPayablerowmaker.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                //    totalPayablerowmaker.Customer_Id = $('.' + i + ' .Cus_nam_id_search_id').val();
+                //    totalPayablerowmaker.Employee_Id = $('.' + i + ' .Emp_nam_id_search_id').val();
+                //    totalPayablerowmaker.Owner_Id = $('.' + i + ' .Owner_nam_id_search_id').val();
+                //    totalPayablerowmaker.Company_Id = $('.transaction-form .company_search_id').val();
+                //    totalPayablerowmaker.transparty = $('.transaction-form .supplier_search').val();
+                //    totalPayablerowmaker.Uom = $('.' + i + ' .uom').val();
+                //    totalPayablerowmaker.Rate = $('.' + i + ' .rate').val();
+                //    totalPayablerowmaker.Quantity = $('.' + i + ' .qty').val();
+                //    totalPayablerowmaker.Currency = $('.' +  i + ' .curr').val();
+                //    totalPayablerowmaker.Amount_TC = $('.' + i + ' .amt-lc-in').val();
+                //    totalPayablerowmaker.Exchange_Rate = $('.' + i + ' .exch-rate').val();
+                //    totalPayablerowmaker.Amount_LC = $('.' + i +' .amt-lc-in').val();
+                //    totalPayablerowmaker.Space_Type = $('.' + i + ' .SpaceType_nam_id_search_id').val();
+                //    totalPayablerowmaker.Description = $('.' + i + ' .desc').val();
+                //    totalPayablerowmaker.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                //    totalPayablerowmaker.Function_Id = $('.' + i + ' .benf-dep').val();
+                //    totalPayablerowmaker.Project = $('.' + i + ' .Project_search_id').val();
+                //    totalPayablerowmaker.Transaction_Document_Number = $('.' + i + ' .invoice').val();
+                //    //totalPayablerowmaker.Region = $('.' + i + ' .region').val();
+                //    totalPayablerowmaker.Product = $('.' + i + ' .prod').val();
+                //    totalPayablerowmaker.REA = $('.' + i + ' .rea_search_id').val();
+                //    //totalPayablerowmaker.REP = $('.' + i + ' .Account_Id').val();
+                //    totalPayablerowmaker.REP = $('.' + i + ' .rep_search_id').val();
+                //    totalPayablerowmaker.Credit = $('.transaction-form .total-amt').val();
+                //    if (totalPayablerowmaker != null) {
+                //        total_payable_row_maker.push(totalPayablerowmaker);
+                //    }
+                //}
+
+
+
+                var fedraltax = $('.' + i + ' .fedtax').val();
+                var salestax = $('.' + i + ' .gst').val();
+                var holdingtax = $('.' + i + ' .wth').val();
+                var excha_rate = $('.exch-rate').val();
+
+                var fd_tax = excha_rate * fedraltax;
+                var sal_tax = excha_rate * salestax;
+                var hold_tax = excha_rate * holdingtax
+
+                // Fedral Tax
+                if (fedraltax > 0) {
+
+                    var fedtaxdata = {
+                        VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "Federal Tax", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                        Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                        Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "",
+                        Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                        Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                        Bank_Account_Number: "", Region: "", Product: "", COA: "", Reference_Number: "", invoice: ""
+                    };
+                    var fedtaxval = $('.' + i + ' .fedtax').val();
+                    fedtaxdata.Recording_Index = "Transaction Records";
+                    fedtaxdata.Voucher_Date = invdataarray.Voucher_Date;
+                    fedtaxdata.VoucherNumber = mintransType + "_" + fedtaxdata.Voucher_Date;
+                    fedtaxdata.invoice = $('.transaction-form .invoice').val();
+                    fedtaxdata.Reference_Number = mintransType + "_" + fedtaxdata.Voucher_Date + "_" + fedtaxdata.invoice;
+                    fedtaxdata.Voucher_Type = transType;
+                    fedtaxdata.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                    fedtaxdata.Customer_Id = $('.' + i + ' .Cus_nam_id_search_id').val();
+                    fedtaxdata.Employee_Id = $('.' + i + ' .Emp_nam_id_search_id').val();
+                    fedtaxdata.Owner_Id = $('.' + i + ' .Owner_nam_id_search_id').val();
+                    fedtaxdata.Company_Id = $('.transaction-form .company_search_id').val();
+                    fedtaxdata.transparty = $('.transaction-form .supplier_search').val();
+                    fedtaxdata.Uom = $('.' + i + ' .uom').val();
+                    fedtaxdata.Rate = $('.' + i + ' .rate').val();
+                    fedtaxdata.Quantity = $('.' + i + ' .qty').val();
+                    fedtaxdata.Currency = $('.' + i + ' .curr').val();
+                    fedtaxdata.Amount_TC = fedtaxval;
+                    fedtaxdata.Exchange_Rate = $('.' + i + ' .exch-rate').val();
+                    fedtaxdata.Amount_LC = fd_tax;                     // umair shafique chang
+                    fedtaxdata.Space_Type = $('.' + i + ' .SpaceType_nam_id_search_id').val();
+                    fedtaxdata.Description = $('.' + i + ' .desc').val();
+                    fedtaxdata.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                    fedtaxdata.Function_Id = $('.' + i + ' .benf-dep').val();
+                    fedtaxdata.Project = $('.' + i + ' .Project_search_id').val();
+                    fedtaxdata.Transaction_Document_Number = $('.' + i + ' .invoice').val();
+                    //fedtaxdata.Region = $('.' + i + ' .region').val();
+                    fedtaxdata.Product = $('.' + i + ' .prod').val();
+                    fedtaxdata.REA = $('.' + i + ' .rea_search_id').val();
+                    fedtaxdata.COA = "FedralExciseDuty";
+                    //fedtaxdata.REP = $('.' + i + ' .Account_Id').val();
+                    fedtaxdata.REP = $('.' + i + ' .rep_search_id').val();
+                    if (fedtaxdata != null) {
+                        transData.push(fedtaxdata);
+                    }
+
+                }
+
+                // Sales Tax
+                if (salestax > 0) {
+                    var salestaxdata = {
+                        VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "General Sales Tax", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                        Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                        Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "",
+                        Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                        Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                        Bank_Account_Number: "", Region: "", Product: "", COA: "",Reference_Number: "", invoice: ""
+                    };
+                    var gstval = $('.' + i + ' .gst').val()
+                    salestaxdata.Recording_Index = "Transaction Records";
+                    salestaxdata.Voucher_Date = invdataarray.Voucher_Date;
+                    salestaxdata.VoucherNumber = mintransType + "_" + salestaxdata.Voucher_Date;
+                    salestaxdata.invoice = $('.transaction-form .invoice').val();
+                    salestaxdata.Reference_Number = mintransType + "_" + salestaxdata.Voucher_Date + "_" + salestaxdata.invoice;
+
+                    salestaxdata.Voucher_Type = transType;
+                    salestaxdata.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                    salestaxdata.Customer_Id = $('.' + i + ' .Cus_nam_id_search_id').val();
+                    salestaxdata.Employee_Id = $('.' + i + ' .Emp_nam_id_search_id').val();
+                    salestaxdata.Owner_Id = $('.' + i + ' .Owner_nam_id_search_id').val();
+                    salestaxdata.Company_Id = $('.transaction-form .company_search_id').val();
+                    salestaxdata.transparty = $('.transaction-form .supplier_search').val();
+                    salestaxdata.Uom = $('.' + i + ' .uom').val();
+                    salestaxdata.Rate = $('.' + i + ' .rate').val();
+                    salestaxdata.Quantity = $('.' + i + ' .qty').val();
+                    salestaxdata.Currency = $('.' + i + ' .curr').val();
+                    salestaxdata.Amount_TC = gstval;
+                    salestaxdata.Exchange_Rate = $('.' + i + ' .exch-rate').val();
+                    salestaxdata.Amount_LC = sal_tax;
+                    salestaxdata.Space_Type = $('.' + i + ' .SpaceType_nam_id_search_id').val();
+                    salestaxdata.Description = $('.' + i + ' .desc').val();
+                    salestaxdata.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                    salestaxdata.Function_Id = $('.' + i + ' .benf-dep').val();
+                    salestaxdata.Project = $('.' + i + ' .Project_search_id').val();
+                    salestaxdata.Transaction_Document_Number = $('.' + i + ' .invoice').val();
+                    //salestaxdata.Region = $('.' + i + ' .region').val();
+                    salestaxdata.Product = $('.' + i + ' .prod').val();
+                    salestaxdata.REA = $('.' + i + ' .rea_search_id').val();
+                    salestaxdata.COA = "GST";
+                    //salestaxdata.REP = $('.' + i + ' .Account_Id').val();
+                    salestaxdata.REP = $('.' + i + ' .rep_search_id').val();
+
+                    if (salestaxdata != null)
+                    {
+                        transData.push(salestaxdata);
+                    }
+
+                }
+
+                // With Holding Tax
+                if (holdingtax > 0) {
+                    var holdingtaxdata = {
+                        VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "Withholding Tax", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                        Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                        Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "",
+                        Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                        Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                        Bank_Account_Number: "", Region: "", Product: "", COA: "", Reference_Number: "", invoice: ""
+                    };
+                    var wthval = $('.' + i + ' .wth').val();
+                    holdingtaxdata.Recording_Index = "Transaction Records";
+                    holdingtaxdata.Voucher_Date = invdataarray.Voucher_Date;
+                    holdingtaxdata.VoucherNumber = mintransType + "_" + holdingtaxdata.Voucher_Date;
+                    holdingtaxdata.invoice = $('.transaction-form .invoice').val();
+                    holdingtaxdata.Reference_Number = mintransType + "_" + holdingtaxdata.Voucher_Date + "_" + holdingtaxdata.invoice;
+                    holdingtaxdata.Voucher_Type = transType;
+                    holdingtaxdata.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                    holdingtaxdata.Customer_Id = $('.' + i + ' .Cus_nam_id_search_id').val();
+                    holdingtaxdata.Employee_Id = $('.' + i + ' .Emp_nam_id_search_id').val();
+                    holdingtaxdata.Owner_Id = $('.' + i + ' .Owner_nam_id_search_id').val();
+                    holdingtaxdata.Company_Id = $('.transaction-form .company_search_id').val();
+                    holdingtaxdata.transparty = $('.transaction-form .supplier_search').val();
+                    holdingtaxdata.Uom = $('.' + i + ' .uom').val();
+                    holdingtaxdata.Rate = $('.' + i + ' .rate').val();
+                    holdingtaxdata.Quantity = $('.' + i + ' .qty').val();
+                    holdingtaxdata.Currency = $('.' + i + ' .curr').val();
+                    holdingtaxdata.Amount_TC = wthval;
+                    holdingtaxdata.Exchange_Rate = $('.' + i + ' .exch-rate').val();
+                    holdingtaxdata.Amount_LC = hold_tax;
+                    holdingtaxdata.Space_Type = $('.' + i + ' .SpaceType_nam_id_search_id').val();
+                    holdingtaxdata.Description = $('.' + i + ' .desc').val();
+                    holdingtaxdata.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                    holdingtaxdata.Function_Id = $('.' + i + ' .benf-dep').val();
+                    holdingtaxdata.Project = $('.' + i + ' .Project_search_id').val();
+                    holdingtaxdata.Transaction_Document_Number = $('.' + i + ' .invoice').val();
+                    //holdingtaxdata.Region = $('.' + i + ' .region').val();
+                    holdingtaxdata.Product = $('.' + i + ' .prod').val();
+                    holdingtaxdata.REA = $('.' + i + ' .rea_search_id').val();
+                    holdingtaxdata.COA = "AdvanceTax";
+                    //holdingtaxdata.REP = $('.' + i + ' .Account_Id').val();
+                    holdingtaxdata.REP = $('.' + i + ' .rep_search_id').val();
+
+                    if (holdingtaxdata != null) {
+                        transData.push(holdingtaxdata);
+                    }
+
+                }
+            }
+            //////////////////////////////////////////////////////////////// this is summary area registration
+            var Summary = [];
+            var inventsum = {
+                VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "Inventory", Supplier_Id: "",
+                Company_Id: "", Debit: "", Credit: "", ResponsibilityCenter_Id: "", Reference_Number: "", invoice: ""
+            };
+            {
+                inventsum.Company_Id = $('.transaction-form .company_search_id').val();
+                inventsum.Voucher_Date = $('.transaction-form .Voucher_Date').val();
+                inventsum.invoice = $('.transaction-form .invoice').val();
+                inventsum.Reference_Number = mintransType + "_" + inventsum.Voucher_Date + "_" + inventsum.invoice;
+                //inventsum.Voucher_Date = $('.transaction-form .Voucher_Date').val();
+                inventsum.VoucherNumber = mintransType + "_" + inventsum.Voucher_Date;
+                inventsum.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                inventsum.Voucher_Type = transType;
+                inventsum.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                inventsum.Debit = invsum;
+            }
+            Summary.push(inventsum);
+            //////////////////
+
+            var supliersum = {
+                VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "Account Payables", Supplier_Id: "",
+                Company_Id: "", Debit: "", Credit: "", ResponsibilityCenter_Id: "", Function_Id: "", Transaction_Document_Number: "",
+                 Reference_Number: "", invoice: ""
+            };
+            {
+                supliersum.Company_Id = $('.transaction-form .company_search_id').val();
+                supliersum.Voucher_Date = $('.transaction-form .Voucher_Date').val();
+                supliersum.invoice = $('.transaction-form .invoice').val();
+                supliersum.Reference_Number = mintransType + "_" + supliersum.Voucher_Date + "_" + supliersum.invoice;
+                supliersum.VoucherNumber = mintransType + "_" + supliersum.Voucher_Date;
+                supliersum.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                supliersum.Voucher_Type = transType;
+                supliersum.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                var suptotalval = $('.transaction-form .total-amt').val()
+                supliersum.Credit = suptotalval
+                Summary.push(supliersum);
+            }
+
+            if (gst > 0) {
+                var gstsum = {
+                    VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "General Sales Tax", Supplier_Id: "",
+                    Company_Id: "", Debit: "", Credit: "", ResponsibilityCenter_Id: "", Function_Id: "", Transaction_Document_Number: "",
+                    Reference_Number: "", invoice: ""
+                };
+                gstsum.Company_Id = $('.transaction-form .company_search_id').val();
+                gstsum.Voucher_Date = $('.transaction-form .Voucher_Date').val();
+                gstsum.invoice = $('.transaction-form .invoice').val();
+                gstsum.Reference_Number = mintransType + "_" + gstsum.Voucher_Date + "_" + gstsum.invoice;
+                gstsum.VoucherNumber = mintransType + "_" + gstsum.Voucher_Date;
+                gstsum.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                gstsum.Voucher_Type = transType;
+                gstsum.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                gstsum.Debit = gst;
+                Summary.push(gstsum);
+            }
+            if (wth > 0) {
+                var wthsum = {
+                    VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "Withholding Tax", Supplier_Id: "",
+                    Company_Id: "", Debit: "", Credit: "", ResponsibilityCenter_Id: "", Function_Id: "", Transaction_Document_Number: "",
+                    Reference_Number: "", invoice: ""
+                };
+                wthsum.Company_Id = $('.transaction-form .company_search_id').val();
+                wthsum.Voucher_Date = $('.transaction-form .Voucher_Date').val();
+                wthsum.invoice = $('.transaction-form .invoice').val();
+                wthsum.Reference_Number = mintransType + "_" + wthsum.Voucher_Date + "_" + wthsum.invoice;
+                wthsum.VoucherNumber = mintransType + "_" + wthsum.Voucher_Date;
+                wthsum.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                wthsum.Voucher_Type = transType;
+                wthsum.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                wthsum.Debit = wth;
+                Summary.push(wthsum);
+            }
+            if (fedtax > 0) {
+                var fedtaxsum = {
+                    VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "Federal Tax", Supplier_Id: "",
+                    Company_Id: "", Debit: "", Credit: "", ResponsibilityCenter_Id: "", Function_Id: "", Transaction_Document_Number: "",
+                    Reference_Number: "", invoice: ""
+                };
+                fedtaxsum.Company_Id = $('.transaction-form .company_search_id').val();
+                fedtaxsum.Voucher_Date = $('.transaction-form .Voucher_Date').val();
+                fedtaxsum.invoice = $('.transaction-form .invoice').val();
+                fedtaxsum.Reference_Number = mintransType + "_" + fedtaxsum.Voucher_Date + "_" + fedtaxsum.invoice;
+                fedtaxsum.VoucherNumber = mintransType + "_" + fedtaxsum.Voucher_Date;
+                fedtaxsum.Supplier_Id = $('.transaction-form .supplier_search_id').val();
+                fedtaxsum.Voucher_Type = transType;
+                fedtaxsum.ResponsibilityCenter_Id = $('.transaction-form .responsibility_search_id').val();
+                fedtaxsum.Debit = fedtax;
+                Summary.push(fedtaxsum);
+            }
+             // total credit amount for payment
+
+            var AllData = { transaction: transData, TransSum: Summary/*, payablerow: total_payable_row_maker*/ }
+            $.ajax({
+                traditional: true,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(AllData),
+                url: "/PurchaseAndPayables/PostTransactionRecord/",
+                success: function () {
+                    success();
+                    //alert("Transaction Recorded");
+                    $(".transaction-form .payinv").prop("disabled", false);
+                },
+                error: function () {
+                    FalseReturn();
+                }
+            });
+        });
+
+    }
+    dynamicTransRec();
+
+
+        $(document).on("keyup", ".amt-tc-ex-rate", function () {
+            var index = $(this).closest('tr').index() + 1;
+            var amt_tc = parseFloat($("." + index + " .amt-tc").val() || 0);
+            var ex_rate = parseFloat($("." + index + " .exch-rate").val() || 1);
+            var amountlc = amt_tc * ex_rate;
+            $("." + index + " .amt-lc-ex").val(amountlc);
+
+        });
+
+
+        var gst = 0, wth = 0, fedtax = 0, TotalAmt = 0;
+        function all_trans_rec() {
+            $(document).on("keyup", ".sumall", function () {
+                var index = $(this).closest('tr').index() + 1;
+                var wthold = parseFloat($("." + index + " .wth").val() || 0);
+                var fedral = parseFloat($("." + index + " .fedtax").val() || 0);
+                var gstax = parseFloat($("." + index + " .gst").val() || 0);
+                var amtex = parseFloat($("." + index + " .amt-lc-ex").val() || 0);
+                var excha_rate_for_total_calculations = $('.exch-rate').val();
+                var temp = amtex + (wthold * excha_rate_for_total_calculations) + (fedral * excha_rate_for_total_calculations) + (gstax * excha_rate_for_total_calculations);
+                $("." + index + " .amt-lc-in").val(temp);
+
+                updatetotalamt();
+            });
+        } all_trans_rec();
+
+    $(document).on("keyup", ".gst", function () {
+        gst = 0;
+        $(".gst").each(function () {
+            var gstax = parseFloat($(this).val() || 0);
+            gst = gst + gstax;
+        });
+        $('.sales-tax').val(gst);
+        updatetotalamt();
+    });
+
+
+    $(document).on("keyup", ".wth", function () {
+        wth = 0;
+        $(".wth").each(function () {
+            var wthold = parseFloat($(this).val() || 0);
+            wth = wth + wthold;
+        });
+        $('.wth-tax').val(wth);
+        updatetotalamt();
+    });
+
+
+    $(document).on("keyup", ".fedtax", function () {
+        fedtax = 0;
+        $(".fedtax").each(function () {
+            var fedral = parseFloat($(this).val() || 0);
+            fedtax = fedtax + fedral;
+        });
+        $('.fedral-tax').val(fedtax);
+        updatetotalamt();
+    });
+
+
+    var wth2 = 0;
+    $(document).on("keyup", ".wth2", function () {
+        wth2 = 0;
+        $(".wth2").each(function () {
+            var wthold2 = parseFloat($(this).val() || 0);
+            wth2 = wth2 + wthold2;
+        });
+        $('.total-wth2').val(wth2);
+        updatetotalpayamt();
+    });
+
+    //this is for payment
+    var wth3 = 0;
+    $(document).on("keyup", ".payment_wth2", function () {
+        wth3 = 0;
+        $(".payment_wth2").each(function () {
+            var wthold2 = parseFloat($(this).val() || 0);
+            wth3 = wth3 + wthold2;
+        });
+        $('.total-wth2').val(wth3);
+        updatetotalpayamt();
+    });
+
+
+    $(document).on("keyup", ".sumrowpayment", function () {
+        var index = $(this).closest('tr').index() + 1;
+        var wtholdval2 = parseFloat($("." + index + " .wth2").val() || 0);
+        var amtex = parseFloat($("." + index + " .amt-lc-ex").val() || 0);
+
+        var temp = amtex + wtholdval2;
+        $("." + index + " .amt-lc-in").val(temp);
+        updatetotalpayamt();
+    });
+
+    $(document).on("keyup", ".sumrowpayments", function () {
+        var index = $(this).closest('tr').index();
+
+
+        var payment_wth2 = parseFloat($("." + index + ".payment_wth2").val() || 0);
+        var payment_amt_lc_ex = parseFloat($("." + index + ".payment_amt_lc_ex").val() || 0);
+
+        var temp2 = payment_wth2 + payment_amt_lc_ex;
+        $("." + index + " .payment_amt_lc_in").val(temp2);
+        updatetotalpayamts();
+    });
+
+
+    // this is payment calculation function
+    $(document).on("keyup", ".payment_am_tc_cal", function () {
+        var index = $(this).closest('tr').index();
+
+
+        var payment_gross_amt = parseFloat($("." + index + " .payment_gross_amt").val() || 0);
+        var payment_disc = parseFloat($("." + index + " .payment_disc").val() || 0);
+
+        var temp2 = payment_gross_amt - payment_disc;
+        $("." + index + " .payment_amt_tc").val(temp2);
+
+        var getexchrate = parseFloat($("." + index + " .payment_exch_rate").val() || 0);
+
+
+        var amount_lc_ecl = temp2 * getexchrate;
+
+        $("." + index + " .payment_amt_lc_ex").val(amount_lc_ecl);
+
+        var payment_wth2 = parseFloat($("." + index + " .payment_wth2").val() || 0);
+        var amount_paid_cal = amount_lc_ecl - payment_wth2;
+
+        $("." + index + " .payment_amt_lc_in").val(amount_paid_cal);
+
+        updatetotalpayamts();
+    });
+
+    function updatetotalpayamt() {
+        var totalpaymentamt = 0;
+        $('.amt-lc-in').each(function () {
+            totalpaymentamt += parseFloat($(this).val());
+        });
+        $('.payment-form .total-amt').val(totalpaymentamt);
+    }
+
+    function updatetotalpayamts() {
+        var totalpaymentamts = 0;
+        $('.payment_amt-_lc_in').each(function () {
+            totalpaymentamts += parseFloat($(this).val());
+        });
+        $('.payment-form .total-amt-pay').val(totalpaymentamts);
+    }
+
+
+    //here working pending ************************************************************************ this is payment method in trransaction recording
+
+    //*********************************************************************************
+
+
+    $(document).on("submit", "#payment-form", function (e) {
+        e.preventDefault();
+        var transData = [];
+        var transType = $('#payment-form #trans_type').val();
+        var mintranstype = transType.replace(' ', '');
+        var pay_type = $('#payment-form #payment_type').val();
+
+        for (var i = 1; i < paymentrowscounter; i++) {
+            // Bank - Cash Credit
+            {
+                var bank_cash_array = {
+                    VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                    Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                    Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "",
+                    Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                    Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                    Bank_Account_Number: "", Region: "", Product: ""
+                };
+                if (pay_type == "cash") {
+                    bank_cash_array.ChartofAccount = "Cash";
+                }
+                else {
+                    bank_cash_array.ChartofAccount = "Bank";
+                }
+
+                bank_cash_array.Bank_Account_Number = $('#payment-form #BankAccNum').val();
+                bank_cash_array.Voucher_Date = $('#payment-form #voucher-date').val();
+                bank_cash_array.VoucherNumber = mintranstype + "_" + bank_cash_array.Voucher_Date;
+                bank_cash_array.Voucher_Type = transType;
+                bank_cash_array.Supplier_Id = $('#payment-form #supplier_search_id').val();
+                bank_cash_array.Customer_Id = $('.' + i + ' .cust').val();
+                bank_cash_array.Employee_Id = $('.' + i + ' .emp').val();
+                bank_cash_array.Owner_Id = $('.' + i + ' .sharehold').val();
+                bank_cash_array.Company_Id = $('#payment-form #company_search_id').val();
+                bank_cash_array.transparty = $('#payment-form #supplier_search').val();
+                bank_cash_array.Uom = $('.' + i + ' .uom').val();
+                bank_cash_array.Rate = $('.' + i + ' .rate').val();
+                bank_cash_array.Quantity = $('.' + i + ' .qty').val();
+                bank_cash_array.Currency = $('.' + i + ' .curr').val();
+                bank_cash_array.Amount_TC = $('.' + i + ' .amt-tc').val();
+                bank_cash_array.Exchange_Rate = $('.' + i + ' .exch-rate').val();
+                bank_cash_array.Amount_LC = $('.' + i + ' .amt-lc-ex').val();
+                bank_cash_array.Description = $('.' + i + ' .desc').val();
+                bank_cash_array.ResponsibilityCenter_Id = $('#payment-form #responsibility_search_id').val();
+                bank_cash_array.Function_Id = $('.' + i + ' .benf-dep').val();
+                bank_cash_array.Project = $('.' + i + ' .proj').val();
+                bank_cash_array.Transaction_Document_Number = $('.' + i + ' .invoice').val();
+                bank_cash_array.Region = $('.' + i + ' .region').val();
+                bank_cash_array.Product = $('.' + i + ' .prod').val();
+                bank_cash_array.REA = $('.' + i + ' .busines-line').val();
+                bank_cash_array.Credit = $('.' + i + ' .Account_Id').val();
+
+                invsum = parseFloat(invsum) + parseFloat(bank_cash_array.Amount_LC);
+                transData.push(bank_cash_array);
+            }
+            // Supplier Debit
+            {
+                var supdataarray = {
+                    VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                    Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                    Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "",
+                    Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                    Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                    Bank_Account_Number: "", Region: "", Product: ""
+                };
+
+                supdataarray.Voucher_Date = bank_cash_array.Voucher_Date;
+                supdataarray.VoucherNumber = mintranstype + "_" + supdataarray.Voucher_Date;
+                supdataarray.Voucher_Type = transType;
+                supdataarray.ChartofAccount = "Account Payables";
+                supdataarray.Supplier_Id = $('#payment-form #supplier_search_id').val();
+                supdataarray.Customer_Id = $('.' + i + ' .cust').val();
+                supdataarray.Employee_Id = $('.' + i + ' .emp').val();
+                supdataarray.Owner_Id = $('.' + i + ' .sharehold').val();
+                supdataarray.Company_Id = $('#payment-form #company_search_id').val();
+                supdataarray.transparty = $('#payment-form #supplier_search').val();
+                supdataarray.Uom = $('.' + i + ' .uom').val();
+                supdataarray.Rate = $('.' + i + ' .rate').val();
+                supdataarray.Quantity = $('.' + i + ' .qty').val();
+                supdataarray.Currency = $('.' + i + ' .curr').val();
+                supdataarray.Amount_TC = $('.' + i + ' .amt-lc-in').val();
+                supdataarray.Exchange_Rate = $('.' + i + ' .exch-rate').val();
+                supdataarray.Amount_LC = $('.' + i + ' .amt-lc-in').val();
+                supdataarray.Description = $('.' + i + ' .desc').val();
+                supdataarray.ResponsibilityCenter_Id = $('#payment-form #responsibility_search_id').val();
+                supdataarray.Function_Id = $('.' + i + ' .benf-dep').val();
+                supdataarray.Project = $('.' + i + ' .proj').val();
+                supdataarray.Transaction_Document_Number = $('.' + i + ' .invoice').val();
+                supdataarray.Region = $('.' + i + ' .region').val();
+                supdataarray.Product = $('.' + i + ' .prod').val();
+                supdataarray.REA = $('.' + i + ' .busines-line').val();
+                supdataarray.Debit = $('.' + i + ' .busines-line').val();
+
+                transData.push(supdataarray);
+            }
+
+            var holdingtax = $('.' + i + ' .wth').val();
+            // With Holding Tax
+            if (holdingtax > 0) {
+                var holdingtaxdata = {
+                    VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "With Holding TAX 2", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                    Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                    Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "",
+                    Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                    Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                    Bank_Account_Number: "", Region: "", Product: ""
+                };
+                var wthval = $('.' + i + ' .wth').val()
+                holdingtaxdata.Voucher_Date = invdataarray.Voucher_Date;
+                holdingtaxdata.VoucherNumber = mintranstype + "_" + holdingtaxdata.Voucher_Date;
+                holdingtaxdata.Voucher_Type = transType;
+                holdingtaxdata.Supplier_Id = $('#payment-form #supplier_search_id').val();
+                holdingtaxdata.Customer_Id = $('.' + i + ' .cust').val();
+                holdingtaxdata.Employee_Id = $('.' + i + ' .emp').val();
+                holdingtaxdata.Owner_Id = $('.' + i + ' .sharehold').val();
+                holdingtaxdata.Company_Id = $('#payment-form #company_search_id').val();
+                holdingtaxdata.transparty = $('#payment-form #supplier_search').val();
+                holdingtaxdata.Uom = $('.' + i + ' .uom').val();
+                holdingtaxdata.Rate = $('.' + i + ' .rate').val();
+                holdingtaxdata.Quantity = $('.' + i + ' .qty').val();
+                holdingtaxdata.Currency = $('.' + i + ' .curr').val();
+                holdingtaxdata.Amount_TC = wthval;
+                holdingtaxdata.Exchange_Rate = $('.' + i + ' .exch-rate').val();
+                holdingtaxdata.Amount_LC = wthval;
+                holdingtaxdata.Description = $('.' + i + ' .desc').val();
+                holdingtaxdata.ResponsibilityCenter_Id = $('#payment-form #responsibility_search_id').val();
+                holdingtaxdata.Function_Id = $('.' + i + ' .benf-dep').val();
+                holdingtaxdata.Project = $('.' + i + ' .proj').val();
+                holdingtaxdata.Transaction_Document_Number = $('.' + i + ' .invoice').val();
+                holdingtaxdata.Region = $('.' + i + ' .region').val();
+                holdingtaxdata.Product = $('.' + i + ' .prod').val();
+                holdingtaxdata.REA = $('.' + i + ' .busines-line').val();
+                transData.push(holdingtaxdata);
+            }
+        }
+
+        var Summary = [];
+        var bank_cash_sum = {
+            VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "", Supplier_Id: "",
+            Company_Id: "", Debit: "", Credit: "", ResponsibilityCenter_Id: ""
+        };
+        {
+            if (pay_type == "cash") {
+                bank_cash_sum.ChartofAccount = "Cash";
+            }
+            else {
+                bank_cash_sum.ChartofAccount = "Bank";
+            }
+            bank_cash_sum.Company_Id = $('#payment-form #company_search_id').val();
+            bank_cash_sum.Voucher_Date = $('#payment-form #voucher-date').val();
+            bank_cash_sum.VoucherNumber = mintranstype + "_" + bank_cash_sum.Voucher_Date;
+            bank_cash_sum.Supplier_Id = $('#payment-form #supplier_search_id').val();
+            bank_cash_sum.Voucher_Type = transType;
+            bank_cash_sum.ResponsibilityCenter_Id = $('#payment-form #responsibility_search_id').val();
+            bank_cash_sum.Credit = $('#payment-form #total-amt').val();
+        }
+        Summary.push(bank_cash_sum);
+        //////////////////
+
+        var supliersum = {
+            VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "Account Payables", Supplier_Id: "",
+            Company_Id: "", Debit: "", Credit: "", ResponsibilityCenter_Id: "", Function_Id: "", Transaction_Document_Number: ""
+        };
+        {
+            supliersum.Company_Id = $('#payment-form #company_search_id').val();
+            supliersum.Voucher_Date = $('#payment-form #voucher-date').val();
+            supliersum.VoucherNumber = mintranstype + "_" + supliersum.Voucher_Date;
+            supliersum.Supplier_Id = $('#payment-form #supplier_search_id').val();
+            supliersum.Voucher_Type = transType;
+            supliersum.ResponsibilityCenter_Id = $('#payment-form #responsibility_search_id').val();
+            supliersum.Debit = $('#payment-form #total-amt').val();
+        }
+        Summary.push(supliersum);
+
+        if (wth2 > 0) {
+            var wth2sum = {
+                VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", ChartofAccount: "With Holding TAX 2", Supplier_Id: "",
+                Company_Id: "", Debit: "", Credit: "", ResponsibilityCenter_Id: "", Function_Id: "", Transaction_Document_Number: ""
+            };
+            wth2sum.Company_Id = $('#payment-form #company_search_id').val();
+            wth2sum.Voucher_Date = $('#payment-form #voucher-date').val();
+            wth2sum.VoucherNumber = mintranstype + "_" + gstsum.Voucher_Date;
+            wth2sum.Supplier_Id = $('#payment-form #supplier_search_id').val();
+            wth2sum.Voucher_Type = transType;
+            wth2sum.ResponsibilityCenter_Id = $('#payment-form #responsibility_search_id').val();
+            wth2sum.Debit = $('#payment-form .total-wth2').val();
+            Summary.push(wth2sum);
+        }
+        var AllData = { transaction: transData, TransSum: Summary }
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(AllData),
+            url: "/PurchaseAndPayables/PostTransactionRecord/",
+            success: function () {
+                alert("Payment Recorded");
+                $("#payment-form .postpayments").prop("disabled", true);
+            },
+            error: function () {
+                alert("Error")
+            }
+        });
+    });
+    $(function () {
+        $('.date-picker').datetimepicker({
+            ignoreReadonly: true,
+            format: 'DD-MM-YYYY'
+        });
+        $('.transaction-form #company').append('<option value="">Select Company</option>');
+        $.each(companies, function (key, value) {
+            $('.transaction-form #company').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+        });
+    });
+
+
+    $('#Suplier_payment').change(function() {
+
+        var s_id = $('.supplier_search_id_for_payments').val();
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            data: { id: s_id },
+            url: "/FinancialTransactions/GetInvoices/",
+            success: function (data) {
+                $('.selected_Invoices').empty();
+                $('.selected_Invoices').append('<option value="">Select Invoices</option>');
+                $.each(data, function (key, value) {
+                    $('.selected_Invoices').append('<option value=' + value.Id + '>' + value.Reference_Number + '</option>');
+                });
+            },
+            error: function () {
+                FalseReturn();
+            }
+        });
+    });
+
+    var PaymentCounter = 0;
+
+    $('.partial_payment_radio').change(function () {
+
+        $('.total-amt-pay').val('');
+        $('.payment_hidden_members').hide();
+
+        var invo_num = $('.selected_Invoices :selected').text();
+        var supp_id = $('.supplier_search_id_for_payments').val();
+            $.ajax({
+                traditional: true,
+                type: "POST",
+                data: { invo: invo_num, sup: supp_id},
+                url: "/FinancialTransactions/GetInvoicesDetails/",
+                success: function (data)
+                {
+                    $(".paymenttable tbody").empty();
+                    //if (data.length <= 0) {
+                    //    var invo = "<tr><td  align='center'>No Record Found</td></tr>";
+                    //    $(".paymenttable tbody").append(invo);
+                    //    return false;
+                    //}
+                    if (data == false) {
+                        //FalseReturn();
+
+                        FalseReturnpaid();
+
+
+                    }
+                    else
+                    {
+                        $('.pay_count_header').show();
+                        var PaymentCounter = 0;
+                        var invo = '<tr class="' + PaymentCounter + ' rows-for-pay pay_count">' +
+
+                            //' <td><input class="form-control payment_invoice" value="' + data[i].Transaction_Document_Number + '" readonly ></td>'+
+                            //'<input type="hidden" class="form-control payment_purchase_order" value="' + data[i].Purchase_Order + '" >' +
+                            //'<input type="hidden" class="form-control payment_prod" value="' + data[i].Product + '" >' +
+                            //'<input type="hidden" class=" payment_desc hidden_values_of_payments" value="' + data[i].Description + '">' +
+                            //'<input type="hidden" class="form-control payment_qty" type="number" value="' + data[i].Quantity + '" >' +
+                            //'<input  type="hidden" class="form-control payment_uom" value="' + data[i].Uom + '" readonly>' +
+                            '<td><input   class="form-control total_credit_amount " value="' + data + '" readonly></td>' +
+                            '<td><input   class="form-control payment_exch_rate "></td>' +
+                            //'<td><input class="form-control payment_rate" value="' + data[i].Rate + '" readonly></td>' +
+
+                            '<td><input  class="form-control payment_gross_amt payment_am_tc_cal"></td>' +
+
+                            '<td><input  class="form-control payment_disc payment_am_tc_cal"></td>' +
+
+                            '<td><input  class="form-control payment_amt_tc payment_am_tc_cal" ></td>' +
+
+
+                            '<td><select class="form-control payment_curr" type="hidden"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>' +
+                            '<td><select class="form-control " id="selected_option_cash_or_bank"><option value="cash" selected="selected">Cash</option><option value="bank">Bank</option></select></td>' +
+                            //'<td><select type="hidden" class="form-control " id="selected_option_curr"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>' +
+
+                            '<td><input   class="form-control payment_amt_lc_ex payment_am_tc_cal" formate="number"></td>' +
+                            '<td><input   class="form-control payment_wth2 payment_am_tc_cal" formate="number"></td>' +
+
+                            '<td><input  class="form-control payment_amt_lc_in "></td>' +
+
+                            '<input type="hidden" class="form-control voucher_num_pay " value="' + data.Voucher_Number + '" readonly>' +
+
+                            //'<input type="hidden" class="form-control payment_cust" value="' + data[i].Customer_Id + '" >' +
+                            //'<input type="hidden" class="form-control payment_emp" value="' + data[i].Employee_Id + '"  >' +
+                            //'<input type="hidden" class="form-control payment_owner" value="' + data[i].Owner_Id + '" >' +
+                            //'<input  type="hidden" class="form-control payment_benf-dep">' +
+                            //'<td><input class="form-control region"></td>' +
+                            //'<td><input class="form-control busines-line"></td>' +
+                            //'<input type="hidden" class="form-control payment_proj" value="' + data[i].Project + '" >' +
+                            //'<input  type="hidden" class="form-control payment_REA" value="' + data[i].REA + '" >' +
+                            //'<input  type="hidden" class="form-control payment_REP" value="' + data[i].REP + '" >' +
+
+                            //'<input type="hidden" class="form-control payment_res_id" value="' + data[i].ResponsibilityCenter_Id + '">' +
+                            //'<input  type="hidden" class="form-control payment_com_id" value="' + data[i].Company_Id + '">' +
+                            //'<input  type="hidden" class="form-control payment_spc_id" value="' + data[i].Space_Type + '" >' +
+                            //'<input type="hidden" class="form-control payment_vou-num" >' +
+
+
+                            '</tr>';
+                        $(".paymenttable tbody").append(invo);
+
+                    }
+
+                },
+                error: function () {
+                    alert("Error")
+                }
+
+            });
+
+
+
+    });
+
+    $('.running_balance_payment_radio').change(function () {
+
+        //$('.total-amt-pay').val('');
+        //$('.payment_hidden_members').hide();
+
+        var invo_num = $('.running_balance_payment_radio ').val();
+        var supp_id = $('.supplier_search_id_for_payments').val();
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            data: { invo: invo_num, sup: supp_id },
+            url: "/FinancialTransactions/GetInvoicesDetails/",
+            success: function (data) {
+                $(".paymenttable tbody").empty();
+                //if (data.length <= 0) {
+                //    var invo = "<tr><td  align='center'>No Record Found</td></tr>";
+                //    $(".paymenttable tbody").append(invo);
+                //    return false;
+                //}
+                if (data == false) {
+                    //FalseReturn();
+
+                    FalseReturnpaid();
+
+
+                }
+                else {
+                    $('.pay_count_header').show();
+                    var PaymentCounter = 0;
+                    var invo = '<tr class="' + PaymentCounter + ' rows-for-pay pay_count">' +
+
+                        //' <td><input class="form-control payment_invoice" value="' + data[i].Transaction_Document_Number + '" readonly ></td>'+
+                        //'<input type="hidden" class="form-control payment_purchase_order" value="' + data[i].Purchase_Order + '" >' +
+                        //'<input type="hidden" class="form-control payment_prod" value="' + data[i].Product + '" >' +
+                        //'<input type="hidden" class=" payment_desc hidden_values_of_payments" value="' + data[i].Description + '">' +
+                        //'<input type="hidden" class="form-control payment_qty" type="number" value="' + data[i].Quantity + '" >' +
+                        //'<input  type="hidden" class="form-control payment_uom" value="' + data[i].Uom + '" readonly>' +
+                        '<td><input   class="form-control total_credit_amount " value="' + data + '" readonly></td>' +
+                        '<td><input   class="form-control payment_exch_rate "></td>' +
+                        //'<td><input class="form-control payment_rate" value="' + data[i].Rate + '" readonly></td>' +
+
+                        '<td><input  class="form-control payment_gross_amt payment_am_tc_cal"></td>' +
+
+                        '<td><input  class="form-control payment_disc payment_am_tc_cal"></td>' +
+
+                        '<td><input  class="form-control payment_amt_tc payment_am_tc_cal" ></td>' +
+
+
+                        '<td><select class="form-control payment_curr" type="hidden"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>' +
+                        '<td><select class="form-control " id="selected_option_cash_or_bank"><option value="cash" selected="selected">Cash</option><option value="bank">Bank</option></select></td>' +
+                        //'<td><select type="hidden" class="form-control " id="selected_option_curr"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>' +
+
+                        '<td><input   class="form-control payment_amt_lc_ex payment_am_tc_cal" formate="number"></td>' +
+                        '<td><input   class="form-control payment_wth2 payment_am_tc_cal" formate="number"></td>' +
+
+                        '<td><input  class="form-control payment_amt_lc_in "></td>' +
+
+                        '<input type="hidden" class="form-control voucher_num_pay " value="' + data.Voucher_Number + '" readonly>' +
+
+                        //'<input type="hidden" class="form-control payment_cust" value="' + data[i].Customer_Id + '" >' +
+                        //'<input type="hidden" class="form-control payment_emp" value="' + data[i].Employee_Id + '"  >' +
+                        //'<input type="hidden" class="form-control payment_owner" value="' + data[i].Owner_Id + '" >' +
+                        //'<input  type="hidden" class="form-control payment_benf-dep">' +
+                        //'<td><input class="form-control region"></td>' +
+                        //'<td><input class="form-control busines-line"></td>' +
+                        //'<input type="hidden" class="form-control payment_proj" value="' + data[i].Project + '" >' +
+                        //'<input  type="hidden" class="form-control payment_REA" value="' + data[i].REA + '" >' +
+                        //'<input  type="hidden" class="form-control payment_REP" value="' + data[i].REP + '" >' +
+
+                        //'<input type="hidden" class="form-control payment_res_id" value="' + data[i].ResponsibilityCenter_Id + '">' +
+                        //'<input  type="hidden" class="form-control payment_com_id" value="' + data[i].Company_Id + '">' +
+                        //'<input  type="hidden" class="form-control payment_spc_id" value="' + data[i].Space_Type + '" >' +
+                        //'<input type="hidden" class="form-control payment_vou-num" >' +
+
+
+                        '</tr>';
+                    $(".paymenttable tbody").append(invo);
+
+                }
+
+            },
+            error: function () {
+                alert("Error")
+            }
+
+        });
+
+
+
+    });
+
+    $('.Html_TextBox_Hidden_members').hide();
+    $('.payment_hidden_members').hide();
+    $('.pay_count_header').hide();
+
+
+    $('.full_payment_radio').change(function () {
+        $('.total-wth2').val('');
+        $('.payment_hidden_members').show();
+        var invo_num = $('.selected_Invoices :selected').text();
+        var supp_id = $('.supplier_search_id_for_payments').val();
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            data: { invo: invo_num, sup: supp_id},
+            url: "/FinancialTransactions/GetInvoicesDetails/",
+            success: function (data) {
+                $(".paymenttable tbody").empty();
+                if (data.length <= 0) {
+                    var invo = "<tr><td  align='center'>No Record Found</td></tr>";
+                    $(".paymenttable tbody").append(invo);
+                    return false;
+                }
+                if (data == false) {
+                    //FalseReturn();
+                    $('.payment_hidden_members').hide();
+                    $('.total-amt-pay').val('');
+                    //$('.full_payment_radio ').val('');
+                    $('.full_payment_radio').prop('checked', false);
+                    FalseReturnpaid();
+
+
+                } else {
+
+                    $('.total-amt-pay').val(data);
+                    var PaymentCounter = 0;
+                    var invo = '<tr class="' + PaymentCounter + ' rows-for-pay pay_count">' +
+
+                        //' <td><input class="form-control payment_invoice" value="' + data[i].Transaction_Document_Number + '" readonly ></td>'+
+                        //'<input type="hidden" class="form-control payment_purchase_order" value="' + data[i].Purchase_Order + '" >' +
+                        //'<input type="hidden" class="form-control payment_prod" value="' + data[i].Product + '" >' +
+                        //'<input type="hidden" class=" payment_desc hidden_values_of_payments" value="' + data[i].Description + '">' +
+                        //'<input type="hidden" class="form-control payment_qty" type="number" value="' + data[i].Quantity + '" >' +
+                        //'<input  type="hidden" class="form-control payment_uom" value="' + data[i].Uom + '" readonly>' +
+                        '<td><input type="hidden"  class="form-control total_credit_amount " value="' + data + '" readonly></td>' +
+                        '<td><input type="hidden"  class="form-control payment_exch_rate "></td>' +
+                        //'<td><input class="form-control payment_rate" value="' + data[i].Rate + '" readonly></td>' +
+
+                        '<td><input type="hidden" class="form-control payment_gross_amt payment_am_tc_cal"></td>' +
+
+                        '<td><input type="hidden" class="form-control payment_disc payment_am_tc_cal"></td>' +
+
+                        '<td><input type="hidden" class="form-control payment_amt_tc payment_am_tc_cal" ></td>' +
+
+                        //'<td><select class="form-control payment_curr" type="hidden"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>' +
+                        //'<td><select class="form-control " id="selected_option_cash_or_bank"><option value="cash" selected="selected">Cash</option><option value="bank">Bank</option></select></td>' +
+                        //'<td><select type="hidden" class="form-control " id="selected_option_curr"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>' +
+
+                        '<td><input  type="hidden" class="form-control payment_amt_lc_ex payment_am_tc_cal" formate="number"></td>' +
+                        '<td><input  type="hidden" class="form-control payment_wth2 payment_am_tc_cal" formate="number"></td>' +
+
+                        '<td><input type="hidden" class="form-control payment_amt_lc_in "></td>' +
+
+                        '<input type="hidden" class="form-control voucher_num_pay " value="' + data.Voucher_Number + '" readonly>' +
+                        //'<input type="hidden" class="form-control payment_cust" value="' + data[i].Customer_Id + '" >' +
+                        //'<input type="hidden" class="form-control payment_emp" value="' + data[i].Employee_Id + '"  >' +
+                        //'<input type="hidden" class="form-control payment_owner" value="' + data[i].Owner_Id + '" >' +
+                        //'<input  type="hidden" class="form-control payment_benf-dep">' +
+                        //'<td><input class="form-control region"></td>' +
+                        //'<td><input class="form-control busines-line"></td>' +
+                        //'<input type="hidden" class="form-control payment_proj" value="' + data[i].Project + '" >' +
+                        //'<input  type="hidden" class="form-control payment_REA" value="' + data[i].REA + '" >' +
+                        //'<input  type="hidden" class="form-control payment_REP" value="' + data[i].REP + '" >' +
+
+                        //'<input type="hidden" class="form-control payment_res_id" value="' + data[i].ResponsibilityCenter_Id + '">' +
+                        //'<input  type="hidden" class="form-control payment_com_id" value="' + data[i].Company_Id + '">' +
+                        //'<input  type="hidden" class="form-control payment_spc_id" value="' + data[i].Space_Type + '" >' +
+                        //'<input type="hidden" class="form-control payment_vou-num" >' +
+
+
+                        '</tr>';
+                    $(".paymenttable tbody").append(invo);
+                    $('.pay_count').hide();
+                    $('.pay_count_header').hide();
+                    //$('.full_payment_radio').prop('checked', false);
+
+
+
+                }
+
+            },
+            error: function () {
+                alert("Error")
+            }
+        });
+    });
+
+
+    // payment form submit
+    $(document).on("submit", ".payment-form", function (e) {
+
+        e.preventDefault();
+        var VnFPay = $('.selected_Invoices :selected').text();
+        var T_Credit = $(' .total_credit_amount').val();
+        var LC_PAid = $(' .payment_amt_lc_in').val();
+        var Exc_Rate = $(' .payment_exch_rate').val();
+        var amt_tc = $(' .payment_amt_tc').val();
+        var cash_or_bank = $('#selected_option_cash_or_bank :selected').text();
+        var pay_type_ful = $('.payment_type_of_full_payment :selected').text();
+        var curr_option = $('#selected_option_curr :selected').text();
+        var pay_dis_amount = $('.dicount_amount_full_ayment').val();
+        var transData = [];
+        var transType = $('.transaction-form .trans-type').val();
+        var radioValue = $('input[name=payment-radio]:checked').val();
+
+
+
+        if (radioValue == "Full_Payment") {
+            //var mintransType = transType.replace(' ', '');
+            for (var i = 0; i < PaymentCounter; i++)
+            {
+                // Inventory Debit
+                {
+                    var invdataarray = {
+                        VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                        Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                        Amount_LC: "", Description: "", Debit: "", Total_Credit: "", Knocking_Off: "",
+                        Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                        Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                        Bank_Account_Number: "", Region: "", Product: ""
+                    };
+                    invdataarray.Recording_Index = "Transaction Records";
+                    invdataarray.Voucher_Date = $('.payment-form #voucher-date-payments').val();
+
+                    invdataarray.Voucher_Type = transType;
+                    invdataarray.ChartofAccount = "Inventory";
+                    //invdataarray.Supplier_Id = $('.payment-form .supplier_search_id_for_payments').val();
+                    //invdataarray.Customer_Id = $('.' + i + ' .payment_cust').val();
+                    //invdataarray.Employee_Id = $('.' + i + ' .payment_emp').val();
+                    //invdataarray.Owner_Id = $('.' + i + ' .payment_owner').val();
+                    //invdataarray.Company_Id = $('.' + i + ' .payment_com_id').val();
+
+                    //invdataarray.transparty = $('.payment-form  .supplier_search_id_for_payments').val();
+                    //invdataarray.Uom = $('.' + i + ' .payment_uom').val();
+
+                    //invdataarray.Rate = $('.' + i + ' .payment_rate').val();
+                    //invdataarray.Quantity = $('.' + i + ' .payment_qty').val();
+                    //invdataarray.Currency = $('.' + i + ' .payment_curr').val();
+
+                    //invdataarray.Exchange_Rate = $('.' + i + ' .payment_exch_rate').val();
+
+
+                    //invdataarray.Space_Type = $('.' + i + ' .payment_spc_id').val();
+                    //invdataarray.Description = $('.' + i + ' .payment_desc').val();
+                    //invdataarray.ResponsibilityCenter_Id = $('.' + i + ' .payment_res_id').val();
+                    //invdataarray.Function_Id = $('.' + i + ' .benf-dep').val();
+                    //invdataarray.Project = $('.' + i + ' .payment_proj').val();
+                    //invdataarray.Transaction_Document_Number = $('.' + i + ' .payment_invoice').val();
+                    //invdataarray.Region = $('.' + i + ' .region').val();
+                    //invdataarray.Product = $('.' + i + ' .payment_prod').val();
+                    //invdataarray.REA = $('.' + i + ' .payment_REA').val();
+                    //invdataarray.REP = $('.' + i + ' .payment_REP').val();
+
+                    //invsum = parseFloat(invsum) + parseFloat(invdataarray.Amount_LC);
+
+                        transData.push(invdataarray);
+
+
+
+                }
+                // Supplier Credit
+
+            }
+            var AllData = { vouch_N: VnFPay, TotalSumOfCredits: T_Credit, lc: LC_PAid, EX_R: Exc_Rate, Amt_tc: amt_tc, CashBank: cash_or_bank, curroption: curr_option, pay_radio_val: radioValue, full_pay_dis: pay_dis_amount, pay_ty_full:pay_type_ful}
+            $.ajax({
+                traditional: true,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(AllData),
+                url: "/PurchaseAndPayables/PostTransactionpayments/",
+                success: function () {
+                    success();
+                    //alert("Transaction Recorded");
+                    //$(".transaction-form .payinv").prop("disabled", false);
+                },
+                error: function () {
+                    FalseReturn();
+                }
+            });
+        }
+        else if (radioValue == "Partial_Payment")
+        {
+            //var mintransType = transType.replace(' ', '');
+            for (var i = 0; i < PaymentCounter; i++) {
+                // Inventory Debit
+                {
+                    var invdataarray = {
+                        VoucherNumber: "", Voucher_Date: "", Voucher_Type: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "",
+                        Company_Id: "", transparty: "", Uom: "", Rate: "", Quantity: "", Amount_TC: "", Exchange_Rate: "",
+                        Amount_LC: "", Description: "", Debit: "", Total_Credit: "", Knocking_Off: "",
+                        Plot: "", Land: "", ResponsibilityCenter_Id: "", Function_Id: "",
+                        Project: "", REA: "", REP: "", Space_Type: "", Transaction_Document_Number: "",
+                        Bank_Account_Number: "", Region: "", Product: ""
+                    };
+                    invdataarray.Recording_Index = "Transaction Records";
+                    invdataarray.Voucher_Date = $('.payment-form #voucher-date-payments').val();
+
+                    invdataarray.Voucher_Type = transType;
+                    invdataarray.ChartofAccount = "Inventory";
+                    //invdataarray.Supplier_Id = $('.payment-form .supplier_search_id_for_payments').val();
+                    //invdataarray.Customer_Id = $('.' + i + ' .payment_cust').val();
+                    //invdataarray.Employee_Id = $('.' + i + ' .payment_emp').val();
+                    //invdataarray.Owner_Id = $('.' + i + ' .payment_owner').val();
+                    //invdataarray.Company_Id = $('.' + i + ' .payment_com_id').val();
+
+                    //invdataarray.transparty = $('.payment-form  .supplier_search_id_for_payments').val();
+                    //invdataarray.Uom = $('.' + i + ' .payment_uom').val();
+
+                    //invdataarray.Rate = $('.' + i + ' .payment_rate').val();
+                    //invdataarray.Quantity = $('.' + i + ' .payment_qty').val();
+                    //invdataarray.Currency = $('.' + i + ' .payment_curr').val();
+
+                    //invdataarray.Exchange_Rate = $('.' + i + ' .payment_exch_rate').val();
+
+
+                    //invdataarray.Space_Type = $('.' + i + ' .payment_spc_id').val();
+                    //invdataarray.Description = $('.' + i + ' .payment_desc').val();
+                    //invdataarray.ResponsibilityCenter_Id = $('.' + i + ' .payment_res_id').val();
+                    //invdataarray.Function_Id = $('.' + i + ' .benf-dep').val();
+                    //invdataarray.Project = $('.' + i + ' .payment_proj').val();
+                    //invdataarray.Transaction_Document_Number = $('.' + i + ' .payment_invoice').val();
+                    //invdataarray.Region = $('.' + i + ' .region').val();
+                    //invdataarray.Product = $('.' + i + ' .payment_prod').val();
+                    //invdataarray.REA = $('.' + i + ' .payment_REA').val();
+                    //invdataarray.REP = $('.' + i + ' .payment_REP').val();
+
+                    //invsum = parseFloat(invsum) + parseFloat(invdataarray.Amount_LC);
+                    if (invdataarray != null) {
+                        transData.push(invdataarray);
+                    }
+
+
+                }
+                // Supplier Credit
+            }
+            var AllData = {
+                vouch_N: VnFPay,
+                TotalSumOfCredits: T_Credit,
+                lc: LC_PAid,
+                EX_R: Exc_Rate,
+                Amt_tc: amt_tc,
+                CashBank: cash_or_bank,
+                curroption: curr_option,
+                pay_radio_val: radioValue,
+                full_pay_dis: pay_dis_amount,
+                pay_ty_full: pay_type_ful
+            }
+            $.ajax({
+                traditional: true,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(AllData),
+                url: "/PurchaseAndPayables/PostTransactionpayments/",
+                success: function () {
+                    success();
+                    clear_payment_form_data();
+                    //alert("Transaction Recorded");
+                    //$(".transaction-form .payinv").prop("disabled", false);
+                },
+                error: function () {
+                    FalseReturn();
+                }
+            });
+        }
+    });
+
+    function clear_payment_form_data()
+    {
+        $('#voucher-date-payments').val('');
+        $('.supplier_search_for_payments ').val('');
+        $('.supplier_search_id_for_payments').val('');
+        $('.selected_Invoices').val('');
+        $('input[name=payment-radio]:checked').val('');
+        $('.total-amt-pay').val('');
+    }
+    //*****************************here is payment mehtod selection*****************************
+    $('.pay_method_selec_members_hide').hide();
+    function clearvaluesaymentTextBoxes()
+    {
+        // empty the text boxes of payments
+        $('.supplier_search_for_payments ').val("");
+        $('.supplier_search_id_for_payments').val("");
+        $('.selected_Invoices').empty();
+        // radio null
+        $('.full_payment_radio').prop('checked', false);
+        $('.partial_payment_radio').prop('checked', false);
+        $('.running_balance_payment_radio ').prop('checked', false);
+        //full paymet
+        $('.total-amt-pay').val("");
+        $('.dicount_amount_full_ayment').val("");
+    }
+
+    $('.selected_Method_Of_Payment').change(function () {
+        var selected_text_Of_Payment_Method = $('.selected_Method_Of_Payment').val();
+
+        if (selected_text_Of_Payment_Method == "invocice_payment_method") {
+            $('.pay_method_selec_members_hide').show();
+            $('.pay_method_selec_members_radio_running').hide();
+
+            clearvaluesaymentTextBoxes();
+
+        }
+        else if (selected_text_Of_Payment_Method == "running_balance_payment_method") {
+
+            $('.pay_method_selec_members_hide').hide();
+            $('.pay_method_selec_members_radio_running').show();
+            $('.pay_method_selec_members_supp_show').show();
+            $('.payment_hidden_members_for_running').hide();
+            $('.payment_type_of_full_payment').val("");
+
+            // row and coloums hide
+            $('.pay_count').hide();
+            $('.pay_count_header').hide();
+            // clear all text boxes of payments
+            clearvaluesaymentTextBoxes();
+
+            // call this only running balance suppliers
+             function autoCompleteDropdownSupplierforlpayments_runnings() {
+                        var SupplierNameSearch = [];
+                        jQuery.ajax({
+                            url: '@Url.Action("Search_Only_Running_Balance_suppliers", "Supplier")',
+                            method:'GET',
+                            success:function(response){
+                            var SupplierName= response;
+                                for (var i = 0; i < SupplierName.length; i++) {
+                                    var obj= {lable:SupplierName[i].Id, value:SupplierName[i].Name};
+                                    SupplierNameSearch.push(obj);
+                                }
+                                jQuery('.supplier_search_for_payments').autocomplete({
+                                                source: SupplierNameSearch,
+                                                select: function (event, ui)
+                                                {
+                                                    $(this).val(ui.item.value);
+                                                     $(this).parent().find('.supplier_search_id_for_payments').val(ui.item.lable);
+                                                    return false;
+                                                }
+
+                                           });
+                            },
+                            error: function (err)
+                            {
+                                   console.log(err);
+                            }
+                        });
+            }
+             autoCompleteDropdownSupplierforlpayments_runnings();
+
+        }
+        else
+        {
+            $('.pay_method_selec_members_hide').hide();
+            clearvaluesaymentTextBoxes();
+
+        }
+    });
+
+
+
+
+
+</script>
+
+
+
