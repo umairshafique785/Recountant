@@ -1,16 +1,21 @@
-﻿@{Html.RenderAction("LeftSidePanel", "SideWidget");}
+﻿
 @{Html.RenderAction("SECO", "Home");}
-@{Html.RenderAction("HeaderInfo", "Home");}
+
 <script>
     var coa = @Html.Raw(Json.Encode(ViewBag.COA))
 </script>
-<div class="right_col" role="main">
-    <div class="">
-        <div class="row">
+
+        @*<div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Create A new Transaction Type</h2>
+                    <div class="x_title1">
+                       
+                        <h2 class="Slide-Grid-Heading"> Transaction Type</h2>
+                        <ul class="nav navbar-right ">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -50,7 +55,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="submit" class="button-grid-blue">Post</button>
                                 </div>
                             </div>
                         </form>
@@ -58,9 +63,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
+   
 
 <script>
 
@@ -136,4 +139,4 @@
             $('.transrows-' + i + ' .coa').append('<option value=' + value.Value + '>' + value.Text + '</option>');
         });
     }
-</script>
+</script>*@

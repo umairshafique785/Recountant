@@ -21,21 +21,52 @@ namespace ReCountant.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult AddCustomer(UserInfo userinfo)
+
+        public JsonResult AddCustomer(User userinfo)
         {
-            AccountController ac = new AccountController();
-            long userid = ac.RegisterUser(userinfo);
+
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(userinfo);
+                db.SaveChanges();
+            }
+            //var GetUserIdForCustomer= db.Users.Select(x => x.Id).ToList().LastOrDefault();
+
+            //AccountController ac = new AccountController();
+            //long userid = ac.RegisterUser(userinfo);
 
             D_Customer cus = new D_Customer()
             {
-                Userid = userid,
-                Customer_Info = "Customer ki info"
+                Userid = userinfo.Id,
+                Customer_Info = "Customer ki info",
+                Name = userinfo.Name
+
             };
             db.D_Customer.Add(cus);
             db.SaveChanges();
 
             return Json(true);
+        }
+
+        public JsonResult SearchCustomerName()
+        {
+
+            List<Customer> allsearch = db.D_Customer.Select(x => new Customer
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+
+            if (allsearch != null)
+            {
+                return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                return Json(false);
+            }
+
         }
     }
 }

@@ -196,6 +196,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BalanceController.cs" />
     <Compile Include="Controllers\BlockController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\FinancialTransactionsController.cs" />
@@ -207,9 +208,15 @@
     <Compile Include="Controllers\PlotManagementController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\PurchaseAndPayablesController.cs" />
+    <Compile Include="Controllers\RealStateActivityController.cs" />
+    <Compile Include="Controllers\RealStatePlayerController.cs" />
+    <Compile Include="Controllers\ResponsibilityCenterController.cs" />
     <Compile Include="Controllers\RevenueAndReceiveablesController.cs" />
     <Compile Include="Controllers\SideWidgetController.cs" />
+    <Compile Include="Controllers\SpaceTypeController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\SweetController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -366,9 +373,14 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="build\css\BeefBurgerStyleSheet.css" />
+    <Content Include="build\css\component-min.css" />
     <Content Include="build\css\custom.css" />
     <Content Include="build\css\custom.min.css" />
     <Content Include="build\css\CustomeTwo.css" />
+    <Content Include="build\css\icon.min.css" />
+    <Content Include="build\css\layout.min.css" />
+    <Content Include="build\css\usmanEditing.css" />
     <Content Include="build\images\back_disabled.png" />
     <Content Include="build\images\back_enabled.png" />
     <Content Include="build\images\back_enabled_hover.png" />
@@ -376,10 +388,16 @@
     <Content Include="build\images\forward_enabled.png" />
     <Content Include="build\images\forward_enabled_hover.png" />
     <Content Include="build\images\loading.gif" />
+    <Content Include="build\images\PaymentModuleImages\paid-512.png" />
+    <Content Include="build\js\beefburgerquicknav.js" />
     <Content Include="build\js\custom.js" />
     <Content Include="build\js\custom.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
+    <Content Include="Content\sweetalert\docs.css" />
+    <Content Include="Content\sweetalert\sweet-alert.css" />
+    <Content Include="Content\sweetalert\thumbs-up.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1191,6 +1209,11 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\sweetalert\sweet-alert.less" />
+    <Content Include="Content\sweetalert\sweet-alert-combine.less" />
+    <Content Include="Content\sweetalert\sweet-alert-animations.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1204,6 +1227,9 @@
     <Content Include="Scripts\MyScripts.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\SweetAlert.js" />
+    <Content Include="Scripts\TransactionRecordingDropdowns.js" />
+    <Content Include="Scripts\umairJavaScript.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="vendors\animate.css\animate.css" />
     <Content Include="vendors\animate.css\animate.min.css" />
@@ -5507,13 +5533,23 @@
     <Content Include="Views\PurchaseAndPayables\SearchInvoiceBody.cshtml" />
     <Content Include="Views\Home\SECO.cshtml" />
     <Content Include="Views\FinancialTransactions\CreateTransactionTypes.cshtml" />
+    <Content Include="Views\Users\PostUser.cshtml" />
+    <Content Include="Views\Company\PostCompany.cshtml" />
+    <Content Include="Views\FinancialTransactions\Index.cshtml" />
+    <Content Include="Views\RevenueAndReceiveables\Index.cshtml" />
+    <Content Include="Views\Customer\AddCustomer.cshtml" />
+    <Content Include="Views\Sweet\Alert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Customer\" />
     <Folder Include="Views\Employee\" />
     <Folder Include="Views\Installments\" />
     <Folder Include="Views\Owner\" />
+    <Folder Include="Views\RealStateActivity\" />
+    <Folder Include="Views\RealStatePlayer\" />
+    <Folder Include="Views\ResponsibilityCenter\" />
+    <Folder Include="Views\Responsibility\" />
+    <Folder Include="Views\SpaceType\" />
     <Folder Include="Views\Supplier\" />
   </ItemGroup>
   <ItemGroup>

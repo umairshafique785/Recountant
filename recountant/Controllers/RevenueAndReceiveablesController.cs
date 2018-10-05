@@ -8,6 +8,10 @@ namespace ReCountant.Controllers
 {
     public class RevenueAndReceiveablesController : Controller
     {
+        public ActionResult Index()
+        {
+            return PartialView();
+        }
         // GET: RevenueAndReceiveables
         public ActionResult Revenues()
         {

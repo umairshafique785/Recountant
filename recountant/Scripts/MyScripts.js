@@ -3,7 +3,7 @@ var counter = 1;
 var newtransactionreccounter = 1;
 var paymentrowscounter = 1;
 
-var res_center = "", sup = "", comp = "", total_amt = "";
+var res_center = "", sup = "", comp = "", total_amt = "", VN="", datetimeforpayments="";
 
 /********************/
 $(document).on('click', '.addrow', function () {
@@ -163,33 +163,87 @@ $(document).ready(function () {
 });
 $(document).on("click", ".add-transaction", function () {
     newtransactionreccounter++;
-    var html = '<div id="trans-' + newtransactionreccounter + '">' +
+    var html = '<form id="" data-parsley-validate class="form-horizontal form-label-left transaction-form">' +
+        '<div class="trans-' + newtransactionreccounter + '">' +
+        '<div class="row">' +
+        '<hr/>' +
+        '<div class="fa-hover col-md-10 col-sm-10 col-xs-12">' +
+        '<a href="javascript:void" class="rm-transaction addnewformscolor" data-rowindex="' + newtransactionreccounter + '"><i class="fa fa-minus-square"></i></a>' +
+
+        '</div>' +
+
+        '<button class="grid-down-buttons button-3-for-golden searchinv" data-searchrow="' + newtransactionreccounter + '" data-toggle="modal" data-target=".bs-example-modal-lg" type="button">Search</button>' +
+        '</div>' +
+        ' <div class="' + newtransactionreccounter +' recording">'+
+        '<div class="row ">' +
+        '<div class="col-sm-3"> <label>Company<span class="text-danger"> *</span></label>' +
+        '<div class="form-group">' +
+        '<input id="" class="form-control company_search" placeholder="Enter Company">' +
+        '<input class="form-control company_search_id" type="text">' +
+        '<div class="my_suggestionsforcompany">' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+
+        //'<div class="col-sm-3"><label>Voucher Date<span class="text-danger"> *</span></label><div class="form-group"><input id="Voucher_Date" name="Date" required class="form-control date-picker" readonly></div></div>' +
+        '<div class="col-sm-3">' +
+        '<label>Voucher Date<span class="text-danger"> *</span></label>' +
+        '<div class="form-group">' +
+        '<input id="" name="Date" required class="form-control  " readonly >' +
+        '</div>' +
+        '</div>' +
+        //'<div class="col-sm-3"><label>Supplier</label><div class="form-group"><select id="supplier" class="form-control"></select></div></div>' +
+        '<div class="col-sm-3">' +
+        '<label>Supplier<span class="text-danger"> *</span></label>' +
+        '<div class="form-group">' +
+        '<input id="" class="form-control supplier_search" placeholder="Enter Supplier">' +
+        '<input id="" class="form-control supplier_search_id" type="text">' +
+        '<div class="my_suggestionsforsup">' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        //'<div class="col-sm-3"><label>Responsibility Center</label><div class="form-group"><select id="responsibility-center" class="form-control"></select></div></div>' +
+        '<div class="col-sm-3">' +
+        '<label>Responsibility Center<span class="text-danger"> *</span></label>' +
+        '<div class="form-group">' +
+        '<input id="" class="form-control responsibility_search" placeholder="Enter Responsibility Center">' +
+        '<input id="" class="form-control responsibility_search_id" type="text">' +
+        '<div class="my_suggestionsforresponsibility"></div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="col-sm-3"><label>Transaction Type<span class="text-danger"> *</span></label><div class="form-group"><select id="" class="form-control trans-type"><option value="IR">Invoice Recording</option><option value="CN">Credit Note</option><option value="DN">Debit Note</option><option value="IN">Immediate Note</option><option value="PP">Pre Payment</option><option value="AA">Adjust Advance</option></select></div></div>' +
+        //'<div class="col-sm-3"><label>Nature</label><div class="form-group"><select id="nature" class="form-control"></select></div></div>' +
+        //'<div class="col-sm-3"><label>Company</label><div class="form-group"><select id="company" class="form-control"></select></div></div>' +
+        '<div class="col-sm-3">' +
+        '<label>Nature<span class="text-danger"> *</span></label>' +
+        '<div class="form-group">' +
+        '<select id="" class="form-control nature">' +
+        '<option>Account Payables</option>' +
+        '<option>Revenues</option>' +
+        '</select>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        
+        '<div class="row">' +
+        '<div class="col-sm-3"><label>Total Federal Excise Duty</label><div class="form-group"><input id="" class="form-control fedral-tax" readonly></div></div>' +
+        '<div class="col-sm-3"><label>Total Advance Tax</label><div class="form-group"><input id="" class="form-control wth-tax" readonly></div></div>' +
+        '<div class="col-sm-3"><label>Total GST</label><div class="form-group"><input type="text" id="" class="form-control sales-tax" readonly></div></div>' +
+        '<div class="col-sm-3"><label>Total Amount</label><div class="form-group"><input type="text" id="" class="form-control totalamt total-amt" readonly></div></div>' +
+        '</div>' +
+        '</div>'+
         '<div class="row">' +
         '<div class="fa-hover col-md-10 col-sm-10 col-xs-12">' +
-        '<a href="javascript:void" class="rm-transaction" data-rowindex="' + newtransactionreccounter + '"><i class="fa fa-minus-square"></i></a>' +
+        //'<a href="javascript:void" class="addrowtr add-trans-row addnewformscolor" @*data-rowindex="1"*@><i class="fa fa-plus-square"> Add new row</i></a>'+
         '</div>' +
-        '<button class="btn btn-primary searchinv" data-searchrow="' + newtransactionreccounter + '" data-toggle="modal" data-target=".bs-example-modal-lg" type="button">Search</button>' +
-        '</div>' +
-        '<div class="row">' +
-        '<div class="col-sm-3"><label>Voucher Date</label><div class="form-group"><input id="Voucher_Date" name="Date" required class="form-control date-picker" readonly></div></div>' +
-        '<div class="col-sm-3"><label>Supplier</label><div class="form-group"><select id="supplier" class="form-control"></select></div></div>' +
-        '<div class="col-sm-3"><label>Responsibility Center</label><div class="form-group"><select id="responsibility-center" class="form-control"></select></div></div>' +
-        '<div class="col-sm-3"><label>Transaction Type</label><div class="form-group"><select id="trans-type" class="form-control"><option value="IR">Invoice Recording</option><option value="CN">Credit Note</option><option value="DN">Debit Note</option><option value="IN">Immediate Note</option><option value="PP">Pre Payment</option><option value="AA">Adjust Advance</option></select></div></div>' +
-        '<div class="col-sm-3"><label>Nature</label><div class="form-group"><select id="nature" class="form-control"></select></div></div>' +
-        '<div class="col-sm-3"><label>Company</label><div class="form-group"><select id="company" class="form-control"></select></div></div>' +
-        '</div>' +
-        '<div class="row">' +
-        '<div class="col-sm-3"><label>Total Federal Excise Duty</label><div class="form-group"><input id="fedral-tax" class="form-control" readonly></div></div>' +
-        '<div class="col-sm-3"><label>Total Advance Tax</label><div class="form-group"><input id="wth-tax" class="form-control" readonly></div></div>' +
-        '<div class="col-sm-3"><label>Total GST</label><div class="form-group"><input type="text" id="sales-tax" class="form-control" readonly></div></div>' +
-        '<div class="col-sm-3"><label>Total Amount</label><div class="form-group"><input type="text" id="total-amt" class="form-control totalamt" readonly></div></div>' +
         '</div>' +
         '<div class="x_panel">' +
-        '<div class="x_content table-responsive"><table class="table table-bordered" id="transrectable"><thead>' +
+        '<div class="x_content table-responsive"><table class="table table-bordered transrectable" id=""><thead>' +
         '<tr>' +
         '<th style="min-width:170px">Invoice</th>' +
         '<th style="min-width:100px">Purchase Order </th>' +
         '<th style="min-width:100px">Product</th>' +
+        '<th style="min-width:100px">Space Type</th>' +
         '<th style="min-width:350px">Description </th>' +
         '<th style="min-width:100px">Quantity</th>' +
         '<th style="min-width:100px">UOM</th>' +
@@ -204,18 +258,26 @@ $(document).on("click", ".add-transaction", function () {
         '<th style="min-width:100px">Amount(LC) Incl. Tax</th>' +
         '<th style="min-width:100px">Customer </th>' +
         '<th style="min-width:100px">Employee </th>' +
-        '<th style="min-width:100px">Shareholder </th>' +
+        '<th style="min-width:100px">Owner </th>' +
         '<th style="min-width:100px">Beneficiary Department </th>' +
-        '<th style="min-width:100px">Region </th>' +
-        '<th style="min-width:100px">Business Line </th>' +
+       
+        '<th style="min-width:100px">REP </th>' +
+        '<th style="min-width:100px">REA </th>' +
+
+        
         '<th style="min-width:100px">Project</th>' +
         '</tr>' +
         '</thead>' +
         '<tbody>' +
-        '<tr class="1">' +
+        '<tr class="1 rows-for-payment">' +
         '<td><input class="form-control invoice"></td>' +
         '<td><input class="form-control ponum"></td>' +
         '<td><input type="text" class="form-control prod"></td>' +
+        '<td>' +
+        '<input id="" class="form-control SpaceType_Name_search" placeholder="Space TySpe">' +
+        '<input id="" class=" form-control SpaceType_nam_id_search_id" type="text>' +
+        '<div class="my_suggestionsforST"></div>' +
+        '</td>' +
         '<td><input class="form-control desc"></td>' +
         '<td><input class="form-control qty" type="number"></td>' +
         '<td><input class="form-control uom"></td>' +
@@ -228,28 +290,92 @@ $(document).on("click", ".add-transaction", function () {
         '<td><input class="form-control gst sumall" formate="number"></td>' +
         '<td><input class="form-control wth sumall" formate="number"></td>' +
         '<td><input class="form-control amt-lc-in"></td>' +
-        '<td><input class="form-control cust"></td>' +
-        '<td><input class="form-control emp"></td>' +
-        '<td><input class="form-control sharehold"></td>' +
+ 
+        '<td>' +
+        '<input id="" class="form-control Customer_Name_search" placeholder="Customer">' +
+        '<input id="" class=" form-control Cus_nam_id_search_id" type="text">' +
+        '<div class="my_suggestionsforCN"></div>' +
+        '</td>' +
+       
+        '<td>' +
+        '<input id="" class="form-control Employee_Name_search" placeholder="Employee">' +
+        '<input id="" class=" form-control Emp_nam_id_search_id" type="text">' +
+        '<div class="my_suggestionsforEN"></div' +
+        '</td>' +
+       
+        '<td>' +
+        '<input id="" class="form-control Owner_Name_search" placeholder="Owner">' +
+        '<input id="" class=" form-control Owner_nam_id_search_id" type="text">' +
+        '<div class="my_suggestionsforOwnerN"></div>' +
+        '</td>' +
         '<td><input class="form-control benf-dep"></td>' +
-        '<td><input class="form-control region"></td>' +
-        '<td><input class="form-control busines-line"></td>' +
-        '<td><input class="form-control proj"></td>' +
+        '<td>' +
+        '<input id="" class="form-control RealStatePlayer_search" placeholder="REP">' +
+        '<input id="" class=" form-control rep_search_id" type="text">' +
+        '<div class="my_suggestionsforrsp"></div>' +
+        '</td>' +
+        ' <td>' +
+        '<input id="" class="form-control RealStateActivity_search" placeholder="REA">' +
+        '<input id="" class=" form-control rea_search_id" type="text">' +
+        '<div class="my_suggestionsforres"></div>' +
+        '</td>' +
+        '<td>' +
+        '<input id="" class="form-control ProjectName_search" placeholder="Project">' +
+        '<input id="" class=" form-control Project_search_id" type="text">' +
+        '<div class="my_suggestionsforres"></div>' +
+        '</td>' +
+      
         '</tr>' +
         '</tbody>' +
         '</table>' +
-        '</div>' +
-        '</div>' +
-        '</div>';
 
-    $('.all-forms').append(html);
+        '</div>' +
+        '</div>' +
+        '</div>'+
+       '</form>';
+
+         $('.concat').append(html);
+
+                    autoCompleteDropdownCompany();
+                    autoCompleteDropdownSupplier();
+                    autoCompleteDropdownResponsibility();
+                    autoCompleteDropdown();
+                    autoCompleteDropdownForRealStatePlayer();
+                    autoCompleteDropdownForCustomerName();
+                    autoCompleteDropdownForEmployeeName();
+                    autoCompleteDropdownForSpaceType();
+                    autoCompleteDropdownForOwnerName();
+                    autoCompleteDropdownForProjectName();
+                    
+                  
+    //********************************************************************************************** add dynamically row
+                   
+
+                    
+    //*******************************************************************************************again submission of transaction form
+                        
+                        
+    
+    //********************************************************************************************             
+
+          
+                  
+
+
+    //*****************************************
+    // tax function calling
+  
+
+    /// again
+    
+     
 });
 $(document).on("click", ".rm-transaction", function () {
     newtransactionreccounter--;
     var id = $(this).data("rowindex");
-    var voucher_num = $("#trans-" + id + " #voucher_num").val();
+    var voucher_num = $(".trans-" + id + " .voucher_num").val();
     $('#paymentcontroller tbody #t').remove();
-    $("#trans-" + id).remove();
+    $(".trans-" + id).remove();
 });
 
 $(document).on("click", ".get-transaction", function () {
@@ -261,9 +387,9 @@ $(document).on("click", ".get-transaction", function () {
         url: '/PurchaseAndPayables/GetTransaction/',
         success: function (data) {
             $(".modal").modal("hide");
-            $("#transaction-form .payinv").prop("disabled", false);
-            $("#transaction-form .posttrans").prop("disabled", true);
-            $("#transaction-form #trans-" + rowid + " #transrectable tbody").empty();
+            $(".transaction-form .payinv").prop("disabled", false);
+            $(".transaction-form .posttrans").prop("disabled", true);
+            $(".transaction-form #trans-" + rowid + " #transrectable tbody").empty();
             var groupedData = _.groupBy(data.Trans, function (d) { return d.Product; });
             var html = "";
 
@@ -339,30 +465,34 @@ $(document).on("click", ".get-transaction", function () {
                         $('#paymentcontroller tbody').append(paymentrows);
                         paymentrowscounter++;
                     }
-                    $("#transaction-form #trans-" + rowid + " #transrectable tbody").append(html);
+                    $(".transaction-form #trans-" + rowid + " #transrectable tbody").append(html);
                 }
 
             );
             $.each(data.Sumary, function (i) {
                 if (data.Sumary[i].COA == 1052) { // get the General Sales Tax row
-                    $('#transaction-form  #trans-' + rowid + ' #sales-tax').val(data.Sumary[i].Debit || 0);
+                    $('.transaction-form  .trans-' + rowid + ' .sales-tax').val(data.Sumary[i].Debit || 0);
                 }
                 else if (data.Sumary[i].COA == 1053) {  // get the With Holding Tax row
-                    $('#transaction-form #trans-' + rowid + ' #wth-tax').val(data.Sumary[i].Debit || 0);
+                    $('.transaction-form .trans-' + rowid + ' .wth-tax').val(data.Sumary[i].Debit || 0);
                 }
                 else if (data.Sumary[i].COA == 1051) {  // get the federal tax row
-                    $('#transaction-form #trans-' + rowid + ' #fedral-tax').val(data.Sumary[i].Debit || 0);
+                    $('.transaction-form .trans-' + rowid + ' .fedral-tax').val(data.Sumary[i].Debit || 0);
                 }
                 else if (data.Sumary[i].COA == 1059) {   // get other info
-                    total_amt = data.Sumary[i].Credit || 0; sup = data.Sumary[i].Supplier_Id;
+                    total_amt = data.Sumary[i].Credit || 0; sup = data.Sumary[i].Supplier_Id; VN = data.Sumary[i].Voucher_Number 
                     comp = data.Sumary[i].Company_Id; res_center = data.Sumary[i].ResponsibilityCenter_Id;
-                    $('#transaction-form #trans-' + rowid + ' #total-amt').val(total_amt);
-                    $('#transaction-form #trans-' + rowid + ' #Voucher_Date').val(moment(data.Sumary[i].Document_Date).format("DD-MM-YYYY"));
-                    $('#transaction-form #trans-' + rowid + ' #trans-type').val(data.Sumary[i].Voucher_Type);
-                    $('#transaction-form #trans-' + rowid + ' #company').val(comp);
-                    $('#transaction-form #trans-' + rowid + ' #supplier').val(sup);
-                    $('#transaction-form #trans-' + rowid + ' #responsibility-center').val(res_center);
-                    $('#transaction-form #trans-' + rowid + ' #voucher_num').val(data.Sumary[i].Voucher_Number);
+                    datetimeforpayments = moment(data.Sumary[i].Document_Date).format("DD-MM-YYYY");
+                    suppid = data.Sumary[i].supp_id;
+                    $('.transaction-form .trans-' + rowid + ' .total-amt').val(total_amt);
+                    $('.transaction-form .trans-' + rowid + ' .Voucher_Date').val(moment(data.Sumary[i].Document_Date).format("DD-MM-YYYY"));
+                    $('.transaction-form .trans-' + rowid + ' .trans-type').val(data.Sumary[i].Voucher_Type);
+                    $('.transaction-form .trans-' + rowid + ' .company_search').val(comp);
+                    $('.transaction-form .trans-' + rowid + ' .supplier_search').val(sup);
+                    $('.transaction-form .trans-' + rowid + ' .supplier_search_id').val(suppid);
+                    $('.transaction-form .trans-' + rowid + ' .responsibility_search').val(res_center);
+                    $('.transaction-form .trans-' + rowid + ' .voucher_num').val(data.Sumary[i].Voucher_Number);
+
                 }
             });
         },
@@ -385,19 +515,67 @@ function updatetotalamt() {
     $('.amt-lc-in').each(function () {
         TotalAmt = TotalAmt + parseFloat($(this).val() || 0);
     });
-    $('#total-amt').val(TotalAmt);
+    $('.total-amt').val(TotalAmt);
 }
 $(document).on("click", ".payinv", function () {
+    $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
     $(".paymenttable tbody").empty();
-    $(".paymenttable tbody").append($('#paymentcontroller tbody').html());
-    $('#payment-form #company').val(comp);
-    $('#payment-form #supplier').val(sup);
-    $('#payment-form #responsibility-center').val(res_center);
+    $('.payment-form .selected_Invoices').empty();
+    $(".paymenttable tbody").append($('.paymentcontroller tbody').html());
+    $('.payment-form .company').val(comp);
+    $('.payment-form .supplier_search_for_payments').val(sup);
+    $('.payment-form .responsibility-center').val(res_center);
+    $('.payment-form .total-amt-pay').val(total_amt);
+    $('.payment-form .supplier_search_id_for_payments').val(suppid);
+    $('.payment-form #voucher-date-payments').val(datetimeforpayments);
+
+    $('.payment-form .selected_Invoices').append('<option>' + VN + '</option>');
+   
+    //$('.payment-form .selected_Invoices').append(VN);
+    //$('.payment-form .selected_Invoices option[value="' + VN + '"]').prop("selected", true);
+ 
+    var PaymentCounter = 0;
+
+    //$('.full_payment_radio').change(function () {
+
+    //    var invo = '<tr class="' + PaymentCounter + ' rows-for-pay">' +
+    //        '<td><input  class="form-control total_credit_amount " value="' + total_amt + '" readonly></td>' +
+
+
+    //        '<td><input  class="form-control payment_exch_rate "></td>' +
+
+
+    //        '<td><input class="form-control payment_gross_amt payment_am_tc_cal"></td>' +
+
+    //        '<td><input class="form-control payment_disc payment_am_tc_cal"></td>' +
+
+    //        '<td><input class="form-control payment_amt_tc payment_am_tc_cal" ></td>' +
+
+
+    //        '<td><select class="form-control " id="selected_option_cash_or_bank"><option value="cash" selected="selected">Cash</option><option value="bank">Bank</option></select></td>' +
+    //        '<td><select class="form-control " id="selected_option_curr"><option value="PKR" selected="selected">PKR</option><option value="USD">USD</option></select></td>' +
+
+    //        '<td><input class="form-control payment_amt_lc_ex payment_am_tc_cal" formate="number"></td>' +
+    //        '<td><input class="form-control payment_wth2 payment_am_tc_cal" formate="number"></td>' +
+
+    //        '<td><input class="form-control payment_amt_lc_in "></td>' +
+
+    //        '<input type="hidden" class="form-control voucher_num_pay " value="' + VN + '" readonly>' +
+
+    //        '</tr>';
+    //    $(".paymenttable tbody").append(invo);
+
+
+    //});
+
+      
+    
+   
     var sum = 0;
     $('.totalamt').each(function () {
         sum += parseFloat($(this).val());
     });
-    $('#payment-form #total-amt').val(sum);
+    $('.payment-form .total-amt').val(sum);
 });
 $(document).on("click", ".searchinv", function () {
     var transrowid = $(this).data("searchrow");
@@ -436,4 +614,55 @@ function CheckTransType(Type, who, Amount, data) {
         case "AA":
             break;
     }
+}
+// this is payment calculation function
+$(document).on("keyup", ".payment_am_tc_cal", function () {
+    var index = $(this).closest('tr').index();
+
+
+    var payment_gross_amt = parseFloat($("." + index + " .payment_gross_amt").val() || 0);
+    var payment_disc = parseFloat($("." + index + " .payment_disc").val() || 0);
+
+    var temp2 = payment_gross_amt - payment_disc;
+    $("." + index + " .payment_amt_tc").val(temp2);
+
+    var getexchrate = parseFloat($("." + index + " .payment_exch_rate").val() || 0);
+
+
+    var amount_lc_ecl = temp2 * getexchrate;
+
+    $("." + index + " .payment_amt_lc_ex").val(amount_lc_ecl);
+
+    var payment_wth2 = parseFloat($("." + index + " .payment_wth2").val() || 0);
+    var amount_paid_cal = amount_lc_ecl - payment_wth2;
+
+    $("." + index + " .payment_amt_lc_in").val(amount_paid_cal);
+
+    updatetotalpayamts();
+});
+
+// sweet alerts for payments
+function FalseReturnpaid() {
+    swal({
+        title: "Paid!",
+        text: "This invoice already paid.",
+        imageUrl: '~/build/images/PaymentModuleImages/paid-512.png'
+    });
+}
+
+function UserNotFound() {
+    swal({
+        title: "Sorry!",
+        text: "No User Found.",
+        imageUrl: '~/build/images/PaymentModuleImages/paid-512.png'
+    });
+}
+
+
+function UserAsSupplier() {
+    swal({
+        title: "Sorry!",
+        text: "This user already added as supplier .",
+        imageUrl: '~/build/images/PaymentModuleImages/paid-512.png'
+    });
 }

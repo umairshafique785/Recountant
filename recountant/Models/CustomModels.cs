@@ -112,6 +112,8 @@ namespace ReCountant.Models
     }
     public class UserInfo
     {
+        public long Id { get; set; }
+
         public string Name { get; set; }
         public string CNIC_Number { get; set; }
         public string Address { get; set; }
@@ -127,6 +129,25 @@ namespace ReCountant.Models
         public string Individual_AOP_Company { get; set; }
         public string Business { get; set; }
         public string EPZ { get; set; }
+    }
+    public partial class supplier
+    {
+        public long Id { get; set; }
+        public long Userid { get; set; }
+        public string Supplier_Info { get; set; }
+        public string Name { get; set; }
+        public string CNIC_Number { get; set; }
+        public string Industry { get; set; }
+        public string Supply_Chain_Role { get; set; }
+        public string Business { get; set; }
+        public string Billing_Address { get; set; }
+        public string Shipping_Address { get; set; }
+        public string Billing_Contact_Number { get; set; }
+        public string Shipping_Contact_Number { get; set; }
+        public string Billing_Email_Id { get; set; }
+        public string Shipping_Email_Id { get; set; }
+        public string Product_Type { get; set; }
+        public string Supplier_Code { get; set; }
     }
     public class Record_Financial_Transactions
     {
@@ -148,5 +169,107 @@ namespace ReCountant.Models
         public float Balance { get; set; }
         public int? Instid { get; set; }
     }
+    public class Project
+    {
+        
+        public int Id { get; set; }
+        public string Name { get; set; }
+       
+    }
+    public class ResonsibilityCenter
+    {
+
+        public long Id { get; set; }
+        public string Responsibility_Center { get; set; }
+        public string Department_Head { get; set; }
+        public string Approving_Authority { get; set; }
+    }
+    public class RealStateActivity
+    {
+      
+        public long Id { get; set; }
+        public string RealEstate_Activites { get; set; }
+        public int RealEstate_Activites_L2 { get; set; }
+        
+    }
+    public class RealStatePlayer
+    {
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string CNIC { get; set; }
+        public string Address { get; set; }
+        public string Contact { get; set; }
+        public string Email { get; set; }
+        public string Gender { get; set; }
+        public string NTN { get; set; }
+        public string STRN { get; set; }
+        public string Residential_Status { get; set; }
+        public int Industry { get; set; }
+        public int Supply_Chain_Role { get; set; }
+        public bool Filer_NonFiler { get; set; }
+        public string Individual_AOP_Company { get; set; }
+        public string Bank_Account { get; set; }
+        public string Bussiness { get; set; }
+        public string EPZ { get; set; }
+        public long Userid { get; set; }
+
+    }
+    public class company
+    {
+        public int Id_company { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Contact_Information { get; set; }
+        public string NTN { get; set; }
+        public string STRN { get; set; }
+        public string Residential_Status { get; set; }
+        public string Filer_NonFiler { get; set; }
+        public string Individual_AOP_Company { get; set; }
+        public string Supply_Chain_Role { get; set; }
+        public string Business { get; set; }
+        public string EPZ { get; set; }
+        public string REP { get; set; }
+       
+
+    }
+    public class Customer
+    {
+        public int Id { get; set; }
+        public long USerid { get; set; }
+        public string Customer_Info { get; set; }
+        public string Name { get; set; }
+
+
+    }
+    public class Employee
+    {
+        public int Id { get; set; }
+        public long USerid { get; set; }
+        public string Employee_Info { get; set; }
+        public string Name { get; set; }
+
+
+    }
+    public class SpaceType
+    {
+        public int Id { get; set; }
+        
+        public string Space_Type { get; set; }
+      
+
+
+    }
+    public class Owner
+    {
+        public int Id { get; set; }
+
+        public long Userid { get; set; }
+        public string Owner_Info { get; set; }
+        public string Name { get; set; }
+        
+    }
+    
+
 
 }

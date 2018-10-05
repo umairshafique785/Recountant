@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    @*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
     <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
     <link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
     <link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
@@ -15,9 +16,24 @@
     <link href="~/build/css/custom.min.css" rel="stylesheet">
     <link href="~/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <link href="~/build/css/CustomeTwo.css" rel="stylesheet" />
+    <link href="~/build/css/usmanEditing.css" rel="stylesheet" />
+    <link href="~/build/css/BeefBurgerStyleSheet.css" rel="stylesheet" />
+    <link href="~/build/css/icon.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" ></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+
+  
+    
+
+    
 
 </head>
+
 <body class="nav-md">
+
+
+
     <div class="container body">
         <div class="main_container">
             @RenderBody()
@@ -32,7 +48,7 @@
                             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                         </div>
                         <div class="modal-body">
-                            
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="button-grid-blue" data-dismiss="modal">Close</button>
@@ -40,50 +56,115 @@
                     </div>
                 </div>
             </div>
+            @*beefburger menu*@
+            <nav class="quick-nav quick-is-visible">
+                <a class="quick-nav-trigger" href="#">
+                    <span aria-hidden="true"></span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" target="_blank" class="active">
+                            <span>Purchase Metronic</span>
+                            <i class="glyphicon glyphicon-credit-card green"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/reviews/4021469?ref=keenthemes" target="_blank">
+                            <span>Customer Reviews</span>
+                            <i class="glyphicon glyphicon-credit-card green"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://keenthemes.com/showcast/" target="_blank">
+                            <span>Showcase</span>
+                            <i class="glyphicon glyphicon-credit-card green"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://keenthemes.com/metronic-theme/changelog/" target="_blank">
+                            <span>Changelog</span>
+                            <i class="glyphicon glyphicon-credit-card green"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://keenthemes.com/metronic-theme/changelog/" target="_blank">
+                            <span>Changelog</span>
+                            <i class="glyphicon glyphicon-credit-card green"></i>
+                        </a>
+                    </li>
+                </ul>
+                <span aria-hidden="true" class="quick-nav-bg"></span>
+            </nav>
+            <div class="quick-nav-overlay"></div>
+
+            @*<footer style="background:#4d5b69; height:35px" class="navbar-fixed-bottom">
+                <div class="" style="color:whitesmoke; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                    All Right Reserved &copy; 2018 <a href="https://colorlib.com">Colorlib</a>
+                </div>
+                <div class=""></div>
+            </footer>*@
         </div>
+
     </div>
-    <script src="~/Scripts/MyScripts.js"></script>
-    <!-- jQuery -->
-    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="~/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="~/vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="~/vendors/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="~/vendors/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="~/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="~/vendors/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="~/vendors/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="~/vendors/Flot/jquery.flot.js"></script>
-    <script src="~/vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="~/vendors/Flot/jquery.flot.time.js"></script>
-    <script src="~/vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="~/vendors/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="~/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="~/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="~/vendors/flot.curvedlines/curvedLines.js"></script>
-    <!-- DateJS -->
-    <script src="~/vendors/DateJS/build/date.js"></script>
-    <!-- JQVMap -->
-    <script src="~/vendors/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="~/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="~/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="~/vendors/moment/min/moment.min.js"></script>
-    <script src="~/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="~/build/js/custom.min.js"></script>
-    <script src="~/Scripts/underscore.js"></script>
-    <script src="~/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+    
+
+
+
+
+                <!-- jQuery -->
+                <!-- Bootstrap -->
+                <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+                <!-- FastClick -->
+                <script src="~/vendors/fastclick/lib/fastclick.js"></script>
+                <!-- NProgress -->
+                <script src="~/vendors/nprogress/nprogress.js"></script>
+                <!-- Chart.js -->
+                <script src="~/vendors/Chart.js/dist/Chart.min.js"></script>
+                <!-- gauge.js -->
+                <script src="~/vendors/gauge.js/dist/gauge.min.js"></script>
+                <!-- bootstrap-progressbar -->
+                <script src="~/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+                <!-- iCheck -->
+                <script src="~/vendors/iCheck/icheck.min.js"></script>
+                <!-- Skycons -->
+                <script src="~/vendors/skycons/skycons.js"></script>
+                <!-- Flot -->
+                <script src="~/vendors/Flot/jquery.flot.js"></script>
+                <script src="~/vendors/Flot/jquery.flot.pie.js"></script>
+                <script src="~/vendors/Flot/jquery.flot.time.js"></script>
+                <script src="~/vendors/Flot/jquery.flot.stack.js"></script>
+                <script src="~/vendors/Flot/jquery.flot.resize.js"></script>
+                <!-- Flot plugins -->
+                <script src="~/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+                <script src="~/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+                <script src="~/vendors/flot.curvedlines/curvedLines.js"></script>
+                <!-- DateJS -->
+                <script src="~/vendors/DateJS/build/date.js"></script>
+                <!-- JQVMap -->
+                <script src="~/vendors/jqvmap/dist/jquery.vmap.js"></script>
+                <script src="~/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+                <script src="~/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+                <!-- bootstrap-daterangepicker -->
+                <script src="~/vendors/moment/min/moment.min.js"></script>
+                <script src="~/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+                <!-- Custom Theme Scripts -->
+                <script src="~/build/js/custom.min.js"></script>
+                <script src="~/Scripts/underscore.js"></script>
+                <script src="~/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+                <!-- Umair java script files Scripts -->
+
+                <script src="~/Scripts/umairJavaScript.js"></script>
+
+                <!-- Sweet Alert Scripts -->
+                <script src="~/Scripts/SweetAlert.js"></script>
+                <script src="~/Scripts/MyScripts.js"></script>
+                 <!-- beef burger Scripts -->
+    <script src="~/build/js/beefburgerquicknav.js"></script>
+
+
+
 
 
 </body>

@@ -1,0 +1,130 @@
+﻿
+
+@{Html.RenderAction("LeftSidePanel", "SideWidget");}
+@{Html.RenderAction("HeaderInfo", "Home");}
+
+@*<script>
+    var companies = @Html.Raw(Json.Encode(ViewBag.companies));
+    </script>*@
+<script>
+
+    window.onload = function () {
+        startTab();
+    };
+
+    function startTab() {
+        document.getElementById("defaultOpen").click();
+
+    }
+
+    function openProcess(evt, processName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(processName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div id="div2">
+                <ul class="tabPurchase">
+                    <li>
+                        <a href="javascript:void(0)" class="tablinks" onclick="openProcess(event, 'Process1')" id="defaultOpen">Transaction Processing</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="tablinks" onclick="openProcess(event, 'Process2')">Report</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="tablinks" onclick="openProcess(event, 'Process3')">Setup</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="title_left">
+                <h3>Revenue And Receivable</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div id="Process1" class="tabcontent">
+            @*@{Html.RenderAction("ReceiveInstallment", "Plot");}*@
+
+            <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title1">
+                                <h2 class="Slide-Grid-Heading"> Installment Plan</h2>
+                                <ul class="nav navbar-right">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title2">
+                                <h2 class="Slide-Grid-Heading"> Receipt</h2>
+                                <ul class="nav navbar-right ">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div id="Process2" class="tabcontent">
+
+            <h3 style="color:blue">this is Report section</h3>
+
+
+
+        </div>
+
+        @*this is process id 3 for call the user page in*@
+        <div id="Process3" class="tabcontent">
+
+
+            @{Html.RenderAction("PostUser", "Users");}
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

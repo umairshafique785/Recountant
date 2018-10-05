@@ -37,5 +37,25 @@ namespace ReCountant.Controllers
 
             return Json(true);
         }
+        public JsonResult SearchOwnerName()
+        {
+
+            List<Owner> allsearch = db.D_Owner.Select(x => new Owner
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+
+            if (allsearch != null)
+            {
+                return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                return Json(false);
+            }
+
+        }
     }
 }

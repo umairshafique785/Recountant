@@ -1,7 +1,11 @@
 ﻿.x_title1 {
     background-color: #0e92ab;
+    height:40px;
 }
-
+.x_title4 {
+    background-color: #0e92ab;
+    height:14px;
+}
 .Slide-Grid-Heading {
     display: inline-block;
     font-size: 18px;
@@ -13,7 +17,9 @@
 
 .x_title2 {
     background-color: #c49f47;
+    height: 40px;
 }
+
 
 .button-padding {
     padding-left: 50px;
@@ -59,10 +65,9 @@
     border: none;
     color: white;
     padding: 8px 8px;
-    margin-left:1000px;
+ 
     text-align: center;
     text-decoration: none;
-    
     font-size: 14px;
     margin: 1px 5px;
     cursor: pointer;
@@ -70,7 +75,15 @@
     position: static;
     float: right;
 }
-
+.addrowtr {
+    
+    
+   
+    margin-left: 1100px;
+    position: static;
+   
+    
+}
 .grid-down-buttons {
     margin-left: 51%;
 }
@@ -78,3 +91,281 @@
 .navbar-right {
     cursor: pointer;
 }
+.loadingdiv {
+top:0;
+left:0;
+position:fixed;
+z-index:10000000;
+background:none;
+height:100%;
+width:100%;
+margin:auto;
+
+}
+
+
+
+.tablink {
+    background-color: #0e92ab;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 12px 10px;
+    font-size: 17px;
+    width: 30%;
+}
+
+    .tablink:hover {
+        background-color: #0e92ab;
+    }
+
+.addnewformscolor {
+    color: #4d5b69;
+}
+
+/*transaction recording in purchases and payables grid autocomplete dropdowns*/
+
+.buttonReportGrid {
+    margin-left: 0.5px;
+    margin-top: 2px;
+}
+
+.tblSupplier {
+    font-family: verdana, arial, sans-serif;
+    font-size: 11px;
+    color: #333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+
+.SupplierTableTH {
+    border-width: 1px;
+    padding: 8.8px;
+    border-style: dashed;
+    border-color: #666666;
+    background-color: #dedede;
+}
+
+.SupplierTableTD {
+    border: 1px solid black;
+}
+/*.ui-autocomplete {*/
+/*max-height: 100px;
+                                overflow-y: auto;
+
+                                overflow-x: hidden;
+
+                                padding-right: inherit;
+                                margin-top:342px;
+                                margin-left:270px;
+                                position:absolute;*/
+/*}*/
+#my_suggestionsforvoucher {
+    position: absolute;
+}
+
+    #my_suggestionsforvoucher .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+#my_suggestionsforunique {
+    position: absolute;
+}
+
+    #my_suggestionsforunique .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+#my_suggestionsforProject {
+    position: absolute;
+}
+
+    #my_suggestionsforProject .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsforcompany {
+    position: absolute;
+}
+
+my_suggestionsforcompany .ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.my_suggestionsforsup {
+    position: absolute;
+}
+
+    .my_suggestionsforsup .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsforresponsibility {
+    position: absolute;
+}
+
+    .my_suggestionsforresponsibility .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsforres {
+    position: absolute;
+}
+
+    .my_suggestionsforres .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsforrsp {
+    position: absolute;
+}
+
+    .my_suggestionsforrsp .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsforCN {
+    position: absolute;
+}
+
+    .my_suggestionsforCN .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsforEN {
+    position: absolute;
+}
+
+    .my_suggestionsforEN .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsforST {
+    position: absolute;
+}
+
+    .my_suggestionsforST .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsforOwnerN {
+    position: absolute;
+}
+
+    .my_suggestionsforOwnerN .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsforsup_for_payments {
+    position: absolute;
+}
+
+    .my_suggestionsforsup_for_payments .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+.my_suggestionsfor_aop_company_name_id {
+    position: absolute;
+}
+
+.my_suggestionsfor_aop_company_name_id .ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+/*.my_suggestionsfor_user_cnic {
+    position: absolute;
+}
+
+    .my_suggestionsfor_user_cnic .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: default;
+        max-height: 100px;
+        overflow-y: auto;
+    }*/
+
+/*this is radio button styling*/
+.radio_type {
+    display: block;
+}
+
+
+
+
+
+
+ 

@@ -14,9 +14,18 @@ namespace ReCountant.Models
     
     public partial class D_Customer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public D_Customer()
+        {
+            this.F_Financial_Transactions = new HashSet<F_Financial_Transactions>();
+        }
+    
         public int Id { get; set; }
         public long Userid { get; set; }
         public string Customer_Info { get; set; }
         public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<F_Financial_Transactions> F_Financial_Transactions { get; set; }
     }
 }

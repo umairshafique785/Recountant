@@ -127,5 +127,27 @@ namespace ReCountant.Controllers
             }
             base.Dispose(disposing);
         }
+        public JsonResult SearchProjectName(string RealStateAct)
+        {
+            //return (from p in db.F_Financial_Transactions
+            //        where p.Voucher_Type.Contains(Supplier_voucher_type)
+            //        select new Financial_Transactions { Voucher_Type = p.Voucher_Type }).ToList();
+            List<Project> allsearch = db.D_Projects.Select(x => new Project
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+
+            if (allsearch != null)
+            {
+                return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                return Json(false);
+            }
+
+        }
     }
 }

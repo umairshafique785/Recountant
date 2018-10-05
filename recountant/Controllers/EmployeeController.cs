@@ -37,5 +37,27 @@ namespace ReCountant.Controllers
 
             return Json(true);
         }
+        public JsonResult SearchRealStateActivityName(string RealStateAct)
+        {
+            //return (from p in db.F_Financial_Transactions
+            //        where p.Voucher_Type.Contains(Supplier_voucher_type)
+            //        select new Financial_Transactions { Voucher_Type = p.Voucher_Type }).ToList();
+            List<Employee> allsearch = db.D_Employee.Select(x => new Employee
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+
+            if (allsearch != null)
+            {
+                return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                return Json(false);
+            }
+
+        }
     }
 }

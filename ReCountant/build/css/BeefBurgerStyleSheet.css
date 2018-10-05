@@ -1,0 +1,304 @@
+﻿.quick-nav {
+    position: fixed;
+    z-index: 10103;
+    top: 50%;
+    right: 10px;
+    margin-top: -230px;
+    pointer-events: none;
+}
+
+    .quick-nav-trigger, .quick-nav.nav-is-visible {
+        pointer-events: auto
+    }
+
+    .quick-nav .quick-nav-bg {
+        position: absolute;
+        z-index: 10102;
+        top: 0;
+        right: 0;
+        width: 60px;
+        height: 60px;
+        border-radius: 30px !important;
+        background: #36C6D3;
+        box-shadow: 0 1px 4px rgba(0,0,0,.2);
+        webkit-transition: height .2s,box-shadow .2s;
+        -moz-transition: height .2s,box-shadow .2s;
+        -ms-transition: height .2s,box-shadow .2s;
+        -o-transition: height .2s,box-shadow .2s;
+        transition: height .2s,box-shadow .2s
+    }
+
+    .quick-nav.nav-is-visible .quick-nav-bg {
+        height: 100%;
+        box-shadow: 0 6px 30px rgba(0,0,0,.2)
+    }
+
+.quick-nav-trigger {
+    position: absolute;
+    z-index: 10103;
+    top: 0;
+    right: 0;
+    height: 60px;
+    width: 60px;
+    border-radius: 50% !important;
+    overflow: hidden;
+    white-space: nowrap;
+    color: transparent
+}
+
+    .quick-nav-trigger span, .quick-nav-trigger span::after, .quick-nav-trigger span::before {
+        position: absolute;
+        width: 16px;
+        height: 2px;
+        background-color: #fff
+    }
+
+    .quick-nav-trigger span {
+        webkit-transition: background-color .2s;
+        -moz-transition: background-color .2s;
+        -ms-transition: background-color .2s;
+        -o-transition: background-color .2s;
+        transition: background-color .2s;
+        left: 50%;
+        top: 50%;
+        bottom: auto;
+        right: auto;
+        webkit-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%)
+    }
+
+        .quick-nav-trigger span::after, .quick-nav-trigger span::before {
+            content: '';
+            top: 0;
+            left: 0;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            backface-visibility: hidden;
+            webkit-transition: transform .2s;
+            -moz-transition: transform .2s;
+            -ms-transition: transform .2s;
+            -o-transition: transform .2s;
+            transition: transform .2s
+        }
+
+        .quick-nav-trigger span::before {
+            webkit-transform: translateY(-6px);
+            -moz-transform: translateY(-6px);
+            -ms-transform: translateY(-6px);
+            -o-transform: translateY(-6px);
+            transform: translateY(-6px)
+        }
+
+        .quick-nav-trigger span::after {
+            webkit-transform: translateY(6px);
+            -moz-transform: translateY(6px);
+            -ms-transform: translateY(6px);
+            -o-transform: translateY(6px);
+            transform: translateY(6px)
+        }
+
+.no-touch .quick-nav-trigger:hover ~ .quick-nav-bg {
+    box-shadow: 0 6px 30px rgba(0,0,0,.2)
+}
+
+.nav-is-visible .quick-nav-trigger span {
+    background-color: transparent
+}
+
+    .nav-is-visible .quick-nav-trigger span::before {
+        webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg)
+    }
+
+    .nav-is-visible .quick-nav-trigger span::after {
+        webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg)
+    }
+
+.quick-nav ul {
+    position: relative;
+    z-index: 10103;
+    padding: 60px 0 0;
+    visibility: hidden;
+    webkit-transition: visibility .3s;
+    -moz-transition: visibility .3s;
+    -ms-transition: visibility .3s;
+    -o-transition: visibility .3s;
+    transition: visibility .3s;
+    list-style: none
+}
+
+    .quick-nav ul > li a {
+        position: relative;
+        display: block;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 calc(1em + 60px) 0 1em;
+        font-size: 1.4rem;
+        webkit-transition: color .2s;
+        -moz-transition: color .2s;
+        -ms-transition: color .2s;
+        -o-transition: color .2s;
+        transition: color .2s
+    }
+
+        .quick-nav ul > li a::before, .quick-nav ul > li a > i {
+            content: '';
+            position: absolute;
+            height: 16px
+        }
+
+        .quick-nav ul > li a:hover, .quick-nav ul > li a:hover > span {
+            text-decoration: none
+        }
+
+        .quick-nav ul > li a > i {
+            width: 16px;
+            font-size: 18px;
+            right: 24px;
+            top: 16px;
+            color: #ebebeb
+        }
+
+        .quick-nav ul > li a::before {
+            width: 3px;
+            top: 50%;
+            right: 60px;
+            webkit-transform: translateX(3px) translateY(-50%) scaleY(0);
+            -moz-transform: translateX(3px) translateY(-50%) scaleY(0);
+            -ms-transform: translateX(3px) translateY(-50%) scaleY(0);
+            -o-transform: translateX(3px) translateY(-50%) scaleY(0);
+            transform: translateX(3px) translateY(-50%) scaleY(0);
+            background-color: #FF3F3F
+        }
+
+    .quick-nav ul > li span {
+        color: #ebebeb;
+        font-weight: 400;
+        display: block;
+        opacity: 0;
+        webkit-transform: translateX(-25px);
+        -moz-transform: translateX(-25px);
+        -ms-transform: translateX(-25px);
+        -o-transform: translateX(-25px);
+        transform: translateX(-25px)
+    }
+
+.no-touch .quick-nav.nav-is-visible ul a:hover::after, .quick-nav.nav-is-visible ul a:hover::after {
+    opacity: 1
+}
+
+.quick-nav ul > li:last-child {
+    padding-bottom: 10px
+}
+
+.quick-nav.nav-is-visible ul {
+    visibility: visible
+}
+
+    .quick-nav.nav-is-visible ul a::after {
+        webkit-transform: translateY(-50%) scale(1);
+        -moz-transform: translateY(-50%) scale(1);
+        -ms-transform: translateY(-50%) scale(1);
+        -o-transform: translateY(-50%) scale(1);
+        transform: translateY(-50%) scale(1);
+        -webkit-animation: scaleIn .15s backwards;
+        -o-animation: scaleIn .15s backwards;
+        animation: scaleIn .15s backwards;
+        webkit-transition: opacity .2s;
+        -moz-transition: opacity .2s;
+        -ms-transition: opacity .2s;
+        -o-transition: opacity .2s;
+        transition: opacity .2s
+    }
+
+    .quick-nav.nav-is-visible ul a:hover::before {
+        webkit-transform: translateX(3px) translateY(-50%) scaleY(2);
+        -moz-transform: translateX(3px) translateY(-50%) scaleY(2);
+        -ms-transform: translateX(3px) translateY(-50%) scaleY(2);
+        -o-transform: translateX(3px) translateY(-50%) scaleY(2);
+        transform: translateX(3px) translateY(-50%) scaleY(2);
+        webkit-transition: transform .15s .3s;
+        -moz-transition: transform .15s .3s;
+        -ms-transition: transform .15s .3s;
+        -o-transition: transform .15s .3s;
+        transition: transform .15s .3s
+    }
+
+    .quick-nav.nav-is-visible ul a:hover > span {
+        color: #fff
+    }
+
+    .quick-nav.nav-is-visible ul a:hover > i {
+        color: #fafafa
+    }
+
+    .quick-nav.nav-is-visible ul span {
+        opacity: 1;
+        webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+        transform: translateX(0);
+        -webkit-animation: slideIn .15s backwards;
+        -o-animation: slideIn .15s backwards;
+        animation: slideIn .15s backwards;
+        webkit-transition: transform .2s;
+        -moz-transition: transform .2s;
+        -ms-transition: transform .2s;
+        -o-transition: transform .2s;
+        transition: transform .2s
+    }
+
+.no-touch .quick-nav.nav-is-visible ul a:hover span {
+    webkit-transform: translateX(-5px);
+    -moz-transform: translateX(-5px);
+    -ms-transform: translateX(-5px);
+    -o-transform: translateX(-5px);
+    transform: translateX(-5px)
+}
+
+.quick-nav-overlay {
+    display: none;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position: fixed;
+    z-index: 10101;
+    background: 0 0
+}
+
+.quick-nav.nav-is-visible + .quick-nav-overlay {
+    background: rgba(0,0,0,.8);
+    display: block;
+    -webkit-transition: background .7s ease-out;
+    -moz-transition: background .7s ease-out;
+    -o-transition: background .7s ease-out;
+    transition: background .7s ease-out
+}
+
+@media (max-width:991px) {
+    .quick-nav {
+        top: 120px;
+        margin-top: 0
+    }
+}
+
+.page-on-load {
+    background: #fefefe
+}
+
+    .page-on-load .page-container, .page-on-load .page-footer, .page-on-load .page-header, .page-on-load > .clearfix {
+        display: none;
+        transition: all 2s
+    }

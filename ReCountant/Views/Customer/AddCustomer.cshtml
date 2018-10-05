@@ -1,0 +1,235 @@
+﻿
+<div>
+    <div class="row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title1">
+                    <h2 class="Slide-Grid-Heading"> Create Customer</h2>
+                    <ul class="nav navbar-right ">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content" style="display:none">
+                    <form id="AddCustomerForm"  method="post">
+
+                        <div id="">
+                            <div class="row">
+                                @*<div class="fa-hover col-md-10 col-sm-10 col-xs-12">
+                                        <a href="javascript:void" class="rm-transaction" data-rowindex="1"><i class="fa fa-minus-square"></i></a>
+                                    </div>*@
+                                <div class="">
+                                    <button class="grid-down-buttons button-3-for-golden searchinv " data-searchrow="1" data-toggle="modal" data-target=".bs-example-modal-lg" type="button">Search</button>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <input type="hidden" id="voucher_num" />
+
+                                <div class='col-sm-3'>
+                                    <label>Name<span class="required">*</span></label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input id="Name" class="form-control col-md-7 col-xs-12" name="Name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>CNIC <span class="required">*</span></label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input id="CNIC" class="form-control col-md-7 col-xs-12" name="CNIC" placeholder="CNIC" required="required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>
+                                        Address <span class="required">*</span>
+                                    </label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input id="Address" class="form-control col-md-7 col-xs-12" name="Address" placeholder="Address" required="required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>Phone Number <span class="required">*</span></label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type="text" id="number" name="Phone Number" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>
+                                        Gender <span class="required">*</span>
+                                    </label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+
+                                            <select id="Gender" class="form-control col-md-7 col-xs-12" required="required" name="Gender">
+                                                <option value="">Select Gender --</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>
+                                        NTN <span class="required">*</span>
+                                    </label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input id="NTN" class="form-control col-md-7 col-xs-12" name="NTN" placeholder="NTN Number" required="required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>
+                                        STRN <span class="required">*</span>
+                                    </label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input id="STRN" class="form-control col-md-7 col-xs-12" name="STRN" placeholder="STRN Number" required="required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>
+                                        Residentail Status <span class="required">*</span>
+                                    </label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+
+                                            <select id="Residentail-status" class="form-control col-md-7 col-xs-12" required="required" name="Residentail-status">
+                                                <option value="">Please select --</option>
+                                                <option value="Residentail-status yes">Yes</option>
+                                                <option value="Residentail-status no">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>
+                                        Industry <span class="required">*</span>
+                                    </label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input id="Industry" class="form-control col-md-7 col-xs-12" name="Industry" placeholder="Industry" required="required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class='col-sm-3'>
+                                    <label>
+                                        Filer  <span class="required">*</span>
+                                    </label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+
+                                            <select id="Filer" class="form-control col-md-7 col-xs-12" required="required" name="Filer">
+                                                <option value="">Please select</option>
+                                                <option value="Filer yes">Yes</option>
+                                                <option value="Filer no">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class='col-sm-3'>
+                                    <label>
+                                        Business <span class="required">*</span>
+                                    </label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input id="Business" class="form-control col-md-7 col-xs-12" name="Business" placeholder="Business" required="required" type="text">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                        @*<div class="row">
+                                <div class="fa-hover col-md-3 col-sm-4 col-xs-12">
+                                    <a href="javascript:void" class="add-transaction"><i class="fa fa-plus-square"></i>  Add new user role</a>
+                                </div>
+                            </div>*@
+                       
+                                <button type="submit" class="button-grid-blue">Post</button>
+                               
+
+                           
+                        @*<div id="loder" class="loadingdiv" style="display:none">
+                                <table style="height:100%; margin:auto">
+                                    <tr>
+                                        <td style="vertical-align:middle; width:89px;height:90px">
+                                            <center>
+
+                                                <img src="~/build/images/loading.gif" alt="Loding.." />
+                                            </center>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>*@
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+                    $(document).ready(function () {
+                        $('#AddCustomerForm').submit(function (e) {
+                            e.preventDefault(); // <------------------ stop default behaviour of button
+
+                            debugger;
+                            var CustomerDetails = {
+                                Name: $("#Name").val(),
+                                CNIC: $("#CNIC").val(),
+                                Address: $("#Address").val(),
+                                Gender: $("#Gender").val(),
+                                NTN: $("#NTN").val(),
+                                STRN: $("#STRN").val(),
+                                Residentail: $("#Residentail-status").val(),
+                                Filer: $("#Filer").val(),
+
+                                Business: $("#Business").val(),
+
+                                number: $("#number").val()
+                            };
+                            $.ajax({
+                                url: "/Customer/AddCustomer",
+                                type: "POST",
+                                data: CustomerDetails,
+
+
+                                success: succ,
+                                error: err
+
+                            });
+                            function succ() {
+
+                                alert("Done");
+
+
+                            }
+                            function err() {
+                                alert("An error has occured!!!");
+                            }
+                        });
+                    })
+
+    </script>
+
+</div>

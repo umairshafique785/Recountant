@@ -23,9 +23,9 @@ namespace ReCountant.Models
         public string Transaction_Document_Number { get; set; }
         public Nullable<int> Account_Id { get; set; }
         public Nullable<long> Supplier_Id { get; set; }
-        public Nullable<long> Customer_Id { get; set; }
-        public Nullable<long> Employee_Id { get; set; }
-        public Nullable<long> Owner_Id { get; set; }
+        public Nullable<int> Customer_Id { get; set; }
+        public Nullable<int> Employee_Id { get; set; }
+        public Nullable<int> Owner_Id { get; set; }
         public Nullable<int> Company_Id { get; set; }
         public Nullable<long> Transaction_Party { get; set; }
         public Nullable<int> Plot { get; set; }
@@ -54,5 +54,18 @@ namespace ReCountant.Models
         public string Recording_Index { get; set; }
         public Nullable<double> Rate { get; set; }
         public string Uom { get; set; }
+        public string COA { get; set; }
+        public string Status { get; set; }
+    
+        public virtual D_Company D_Company { get; set; }
+        public virtual D_Customer D_Customer { get; set; }
+        public virtual D_Employee D_Employee { get; set; }
+        public virtual D_Owner D_Owner { get; set; }
+        public virtual D_Projects D_Projects { get; set; }
+        public virtual D_ResponsibilityCenter D_ResponsibilityCenter { get; set; }
+        public virtual D_SpaceType D_SpaceType { get; set; }
+        public virtual RealEstate_Activity RealEstate_Activity { get; set; }
+        public virtual REP REP1 { get; set; }
+        public virtual D_Supplier D_Supplier { get; set; }
     }
 }

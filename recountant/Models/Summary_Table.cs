@@ -22,7 +22,8 @@ namespace ReCountant.Models
         public string Voucher_Number { get; set; }
         public Nullable<int> ResponsibilityCenter_Id { get; set; }
         public string Voucher_Type { get; set; }
-        public Nullable<System.DateTimeOffset> Document_Date { get; set; }
+        public Nullable<System.DateTime> Document_Date { get; set; }
         public Nullable<int> Company_Id { get; set; }
+        public string Status { get; set; }
     }
 }

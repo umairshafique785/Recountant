@@ -77,14 +77,6 @@
           <Property Name="Block" Type="nvarchar(max)" />
           <Property Name="Block_Code" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6005: The data type 'hierarchyid' is currently not supported for the target Entity Framework version; the column 'OrgNode' in the table 'ReCountant.dbo.D_ChartOfAccount' was excluded.
-warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAccount' was excluded, and is a key column.  The table/view has been excluded.  Please fix the entity in the schema file, and uncomment.
-        <EntityType Name="D_ChartOfAccount">
-          <Property Name="OrgLevel" Type="smallint" StoreGeneratedPattern="Computed" />
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Account_Head" Type="nvarchar" MaxLength="100" />
-        </EntityType>-->
         <EntityType Name="D_Company">
           <Key>
             <PropertyRef Name="Id" />
@@ -229,10 +221,23 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Userid" Type="bigint" Nullable="false" />
           <Property Name="Supplier_Info" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="CNIC_Number" Type="nvarchar(max)" />
+          <Property Name="Industry" Type="nvarchar(max)" />
+          <Property Name="Supply_Chain_Role" Type="nvarchar(max)" />
+          <Property Name="Business" Type="nvarchar(max)" />
+          <Property Name="Billing_Address" Type="nvarchar(max)" />
+          <Property Name="Shipping_Address" Type="nvarchar(max)" />
+          <Property Name="Billing_Contact_Number" Type="nvarchar(max)" />
+          <Property Name="Shipping_Contact_Number" Type="nvarchar(max)" />
+          <Property Name="Billing_Email_Id" Type="nvarchar(max)" />
+          <Property Name="Shipping_Email_Id" Type="nvarchar(max)" />
+          <Property Name="Product_Type" Type="nvarchar(max)" />
+          <Property Name="Supplier_Code" Type="nvarchar(max)" />
+          <Property Name="Payment_Method" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="D_VoucherType">
           <Key>
@@ -250,13 +255,13 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Voucher_Number" Type="nvarchar(max)" />
           <Property Name="DateTime_Of_Entry" Type="datetime" />
           <Property Name="Voucher_Type" Type="nvarchar(max)" />
-          <Property Name="Reference_Number" Type="nvarchar(max)" />
+          <Property Name="Reference_Number" Type="nvarchar" MaxLength="50" />
           <Property Name="Transaction_Document_Number" Type="nvarchar(max)" />
           <Property Name="Account_Id" Type="int" />
           <Property Name="Supplier_Id" Type="bigint" />
-          <Property Name="Customer_Id" Type="bigint" />
-          <Property Name="Employee_Id" Type="bigint" />
-          <Property Name="Owner_Id" Type="bigint" />
+          <Property Name="Customer_Id" Type="int" />
+          <Property Name="Employee_Id" Type="int" />
+          <Property Name="Owner_Id" Type="int" />
           <Property Name="Company_Id" Type="int" />
           <Property Name="Transaction_Party" Type="bigint" />
           <Property Name="Plot" Type="int" />
@@ -285,6 +290,8 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Recording_Index" Type="nvarchar(max)" />
           <Property Name="Rate" Type="float" />
           <Property Name="Uom" Type="nvarchar(max)" />
+          <Property Name="COA" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="F_Land_Purchase_RealEstate">
           <Key>
@@ -481,8 +488,9 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Voucher_Number" Type="nvarchar(max)" />
           <Property Name="ResponsibilityCenter_Id" Type="int" />
           <Property Name="Voucher_Type" Type="nvarchar(max)" />
-          <Property Name="Document_Date" Type="datetimeoffset" Precision="7" />
+          <Property Name="Document_Date" Type="datetime" />
           <Property Name="Company_Id" Type="int" />
+          <Property Name="Status" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Transaction_Rules">
           <Key>
@@ -539,17 +547,41 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Business" Type="nvarchar(max)" />
           <Property Name="EPZ" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
-          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="bit" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
           <Property Name="PhoneNumber" Type="nvarchar(max)" />
-          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" />
+          <Property Name="TwoFactorEnabled" Type="bit" />
           <Property Name="LockoutEndDateUtc" Type="datetime" />
-          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LockoutEnabled" Type="bit" />
+          <Property Name="AccessFailedCount" Type="int" />
+          <Property Name="UserName" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_Balance_TransactionParty_D_Company">
+          <End Role="D_Company" Type="Self.D_Company" Multiplicity="0..1" />
+          <End Role="Balance_TransactionParty" Type="Self.Balance_TransactionParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Balance_TransactionParty">
+              <PropertyRef Name="Company_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Balance_TransactionParty_D_Supplier">
+          <End Role="D_Supplier" Type="Self.D_Supplier" Multiplicity="0..1" />
+          <End Role="Balance_TransactionParty" Type="Self.Balance_TransactionParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Balance_TransactionParty">
+              <PropertyRef Name="Transaction_Party" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_UserClaims_dbo_Users_UserId">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -606,6 +638,126 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Company">
+          <End Role="D_Company" Type="Self.D_Company" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Company_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Customer">
+          <End Role="D_Customer" Type="Self.D_Customer" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Employee">
+          <End Role="D_Employee" Type="Self.D_Employee" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Owner">
+          <End Role="D_Owner" Type="Self.D_Owner" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Owner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Owner_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Projects">
+          <End Role="D_Projects" Type="Self.D_Projects" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Project" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_ResponsibilityCenter">
+          <End Role="D_ResponsibilityCenter" Type="Self.D_ResponsibilityCenter" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_ResponsibilityCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="ResponsibilityCenter_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_SpaceType">
+          <End Role="D_SpaceType" Type="Self.D_SpaceType" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_SpaceType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Space_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Supplier">
+          <End Role="D_Supplier" Type="Self.D_Supplier" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Supplier_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_RealEstate_Activity">
+          <End Role="RealEstate_Activity" Type="Self.RealEstate_Activity" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstate_Activity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="REA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_REP">
+          <End Role="REP" Type="Self.REP" Multiplicity="0..1" />
+          <End Role="F_Financial_Transactions" Type="Self.F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REP">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="REP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="SP_Add_AccountHead" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Parent_Id" Type="int" Mode="In" />
           <Parameter Name="AccountName" Type="varchar" Mode="In" />
@@ -658,6 +810,14 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <EntitySet Name="UserLogins" EntityType="Self.UserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Balance_TransactionParty_D_Company" Association="Self.FK_Balance_TransactionParty_D_Company">
+            <End Role="D_Company" EntitySet="D_Company" />
+            <End Role="Balance_TransactionParty" EntitySet="Balance_TransactionParty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Balance_TransactionParty_D_Supplier" Association="Self.FK_Balance_TransactionParty_D_Supplier">
+            <End Role="D_Supplier" EntitySet="D_Supplier" />
+            <End Role="Balance_TransactionParty" EntitySet="Balance_TransactionParty" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_UserClaims_dbo_Users_UserId" Association="Self.FK_dbo_UserClaims_dbo_Users_UserId">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserClaims" EntitySet="UserClaims" />
@@ -674,6 +834,46 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRoles" EntitySet="UserRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Company" Association="Self.FK_F_Financial_Transactions_D_Company">
+            <End Role="D_Company" EntitySet="D_Company" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Customer" Association="Self.FK_F_Financial_Transactions_D_Customer">
+            <End Role="D_Customer" EntitySet="D_Customer" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Employee" Association="Self.FK_F_Financial_Transactions_D_Employee">
+            <End Role="D_Employee" EntitySet="D_Employee" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Owner" Association="Self.FK_F_Financial_Transactions_D_Owner">
+            <End Role="D_Owner" EntitySet="D_Owner" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Projects" Association="Self.FK_F_Financial_Transactions_D_Projects">
+            <End Role="D_Projects" EntitySet="D_Projects" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_ResponsibilityCenter" Association="Self.FK_F_Financial_Transactions_D_ResponsibilityCenter">
+            <End Role="D_ResponsibilityCenter" EntitySet="D_ResponsibilityCenter" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_SpaceType" Association="Self.FK_F_Financial_Transactions_D_SpaceType">
+            <End Role="D_SpaceType" EntitySet="D_SpaceType" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Supplier" Association="Self.FK_F_Financial_Transactions_D_Supplier">
+            <End Role="D_Supplier" EntitySet="D_Supplier" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_RealEstate_Activity" Association="Self.FK_F_Financial_Transactions_RealEstate_Activity">
+            <End Role="RealEstate_Activity" EntitySet="RealEstate_Activity" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_REP" Association="Self.FK_F_Financial_Transactions_REP">
+            <End Role="REP" EntitySet="REP" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -688,13 +888,8 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <EntitySet Name="C__MigrationHistory" EntityType="ReCountantModel.C__MigrationHistory" />
           <EntitySet Name="Balance_COA" EntityType="ReCountantModel.Balance_COA" />
           <EntitySet Name="Balance_Installments" EntityType="ReCountantModel.Balance_Installments" />
-          <EntitySet Name="Balance_TransactionParty" EntityType="ReCountantModel.Balance_TransactionParty" />
           <EntitySet Name="D_Block" EntityType="ReCountantModel.D_Block" />
-          <EntitySet Name="D_Company" EntityType="ReCountantModel.D_Company" />
-          <EntitySet Name="D_Customer" EntityType="ReCountantModel.D_Customer" />
-          <EntitySet Name="D_Employee" EntityType="ReCountantModel.D_Employee" />
           <EntitySet Name="D_Land_RealEstate" EntityType="ReCountantModel.D_Land_RealEstate" />
-          <EntitySet Name="D_Owner" EntityType="ReCountantModel.D_Owner" />
           <EntitySet Name="D_Phase" EntityType="ReCountantModel.D_Phase" />
           <EntitySet Name="D_Plot" EntityType="ReCountantModel.D_Plot" />
           <EntitySet Name="D_Plot_Booking" EntityType="ReCountantModel.D_Plot_Booking" />
@@ -702,8 +897,6 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <EntitySet Name="D_Project_Specs" EntityType="ReCountantModel.D_Project_Specs" />
           <EntitySet Name="D_Projects" EntityType="ReCountantModel.D_Projects" />
           <EntitySet Name="D_ReportingFunction" EntityType="ReCountantModel.D_ReportingFunction" />
-          <EntitySet Name="D_SpaceType" EntityType="ReCountantModel.D_SpaceType" />
-          <EntitySet Name="D_Supplier" EntityType="ReCountantModel.D_Supplier" />
           <EntitySet Name="D_VoucherType" EntityType="ReCountantModel.D_VoucherType" />
           <EntitySet Name="F_Land_Purchase_RealEstate" EntityType="ReCountantModel.F_Land_Purchase_RealEstate" />
           <EntitySet Name="Installment_Plan" EntityType="ReCountantModel.Installment_Plan" />
@@ -717,11 +910,13 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <EntitySet Name="Mapping_Employee_ResponsibilityCenter" EntityType="ReCountantModel.Mapping_Employee_ResponsibilityCenter" />
           <EntitySet Name="Mapping_Installment_Planned_Recevied" EntityType="ReCountantModel.Mapping_Installment_Planned_Recevied" />
           <EntitySet Name="Mapping_Land_Plot" EntityType="ReCountantModel.Mapping_Land_Plot" />
-          <EntitySet Name="RealEstate_Activity" EntityType="ReCountantModel.RealEstate_Activity" />
-          <EntitySet Name="REPs" EntityType="ReCountantModel.REP" />
           <EntitySet Name="Roles" EntityType="ReCountantModel.Role" />
           <EntitySet Name="UserClaims" EntityType="ReCountantModel.UserClaim" />
           <EntitySet Name="UserLogins" EntityType="ReCountantModel.UserLogin" />
+          <FunctionImport Name="SP_GET_AccountHeadId" ReturnType="Collection(Int32)">
+          <Parameter Name="AccountName" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Transaction_Rules" EntityType="ReCountantModel.Transaction_Rules" />
           <EntitySet Name="Users" EntityType="ReCountantModel.User" />
           <AssociationSet Name="FK_dbo_UserClaims_dbo_Users_UserId" Association="ReCountantModel.FK_dbo_UserClaims_dbo_Users_UserId">
             <End Role="User" EntitySet="Users" />
@@ -735,14 +930,67 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <FunctionImport Name="SP_GET_AccountHeadId" ReturnType="Collection(Int32)">
-          <Parameter Name="AccountName" Mode="In" Type="String" />
-          </FunctionImport>
-          <EntitySet Name="Summary_Table" EntityType="ReCountantModel.Summary_Table" />
-          <EntitySet Name="F_Financial_Transactions" EntityType="ReCountantModel.F_Financial_Transactions" />
-          <EntitySet Name="Transaction_Rules" EntityType="ReCountantModel.Transaction_Rules" />
+          <EntitySet Name="D_Company" EntityType="ReCountantModel.D_Company" />
           <EntitySet Name="D_ResponsibilityCenter" EntityType="ReCountantModel.D_ResponsibilityCenter" />
-        </EntityContainer>
+          <EntitySet Name="RealEstate_Activity" EntityType="ReCountantModel.RealEstate_Activity" />
+          <EntitySet Name="REPs" EntityType="ReCountantModel.REP" />
+          <EntitySet Name="D_Customer" EntityType="ReCountantModel.D_Customer" />
+          <EntitySet Name="D_SpaceType" EntityType="ReCountantModel.D_SpaceType" />
+          <EntitySet Name="D_Employee" EntityType="ReCountantModel.D_Employee" />
+          <EntitySet Name="D_Owner" EntityType="ReCountantModel.D_Owner" />
+          <EntitySet Name="F_Financial_Transactions" EntityType="ReCountantModel.F_Financial_Transactions" />
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Company" Association="ReCountantModel.FK_F_Financial_Transactions_D_Company">
+            <End Role="D_Company" EntitySet="D_Company" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Customer" Association="ReCountantModel.FK_F_Financial_Transactions_D_Customer">
+            <End Role="D_Customer" EntitySet="D_Customer" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Employee" Association="ReCountantModel.FK_F_Financial_Transactions_D_Employee">
+            <End Role="D_Employee" EntitySet="D_Employee" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Owner" Association="ReCountantModel.FK_F_Financial_Transactions_D_Owner">
+            <End Role="D_Owner" EntitySet="D_Owner" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Projects" Association="ReCountantModel.FK_F_Financial_Transactions_D_Projects">
+            <End Role="D_Projects" EntitySet="D_Projects" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_ResponsibilityCenter" Association="ReCountantModel.FK_F_Financial_Transactions_D_ResponsibilityCenter">
+            <End Role="D_ResponsibilityCenter" EntitySet="D_ResponsibilityCenter" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_D_SpaceType" Association="ReCountantModel.FK_F_Financial_Transactions_D_SpaceType">
+            <End Role="D_SpaceType" EntitySet="D_SpaceType" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_RealEstate_Activity" Association="ReCountantModel.FK_F_Financial_Transactions_RealEstate_Activity">
+            <End Role="RealEstate_Activity" EntitySet="RealEstate_Activity" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F_Financial_Transactions_REP" Association="ReCountantModel.FK_F_Financial_Transactions_REP">
+            <End Role="REP" EntitySet="REPs" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <EntitySet Name="Summary_Table" EntityType="ReCountantModel.Summary_Table" />
+          <EntitySet Name="D_Supplier" EntityType="ReCountantModel.D_Supplier" />
+          <AssociationSet Name="FK_F_Financial_Transactions_D_Supplier" Association="ReCountantModel.FK_F_Financial_Transactions_D_Supplier">
+            <End Role="D_Supplier" EntitySet="D_Supplier" />
+            <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+          </AssociationSet>
+          <EntitySet Name="Balance_TransactionParty" EntityType="ReCountantModel.Balance_TransactionParty" />
+          <AssociationSet Name="FK_Balance_TransactionParty_D_Company" Association="ReCountantModel.FK_Balance_TransactionParty_D_Company">
+            <End Role="D_Company" EntitySet="D_Company" />
+            <End Role="Balance_TransactionParty" EntitySet="Balance_TransactionParty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Balance_TransactionParty_D_Supplier" Association="ReCountantModel.FK_Balance_TransactionParty_D_Supplier">
+            <End Role="D_Supplier" EntitySet="D_Supplier" />
+            <End Role="Balance_TransactionParty" EntitySet="Balance_TransactionParty" />
+          </AssociationSet>
+          </EntityContainer>
         <ComplexType Name="SP_Get_AccountHead_Result">
           <Property Type="Int16" Name="OrgLevel" Nullable="true" />
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -790,27 +1038,6 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Plot_id" Type="Int32" />
           <Property Name="InstRece_Id" Type="Int32" />
         </EntityType>
-        <EntityType Name="Balance_TransactionParty">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="Time_Of_Entry" Type="DateTime" Precision="3" />
-          <Property Name="Invoice_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Account_Id" Type="Int32" />
-          <Property Name="Transaction_Party" Type="Int64" />
-          <Property Name="Company_Id" Type="Int32" />
-          <Property Name="Currency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Amount_TC" Type="Double" />
-          <Property Name="Exchange_Rate" Type="Double" />
-          <Property Name="Amount_LC" Type="Double" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Debit" Type="Double" />
-          <Property Name="Credit" Type="Double" />
-          <Property Name="Net" Type="Double" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Userid" Type="Int64" />
-        </EntityType>
         <EntityType Name="D_Block">
           <Key>
             <PropertyRef Name="Id" />
@@ -820,42 +1047,6 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Block" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Block_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="D_Company">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Contact_Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="STRN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Residential_Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Filer_NonFiler" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Individual_AOP_Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Supply_Chain_Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Business" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="REP" Type="Int32" />
-        </EntityType>
-        <EntityType Name="D_Customer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Userid" Type="Int64" Nullable="false" />
-          <Property Name="Customer_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="D_Employee">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Userid" Type="Int64" Nullable="false" />
-          <Property Name="Employee_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="D_Land_RealEstate">
           <Key>
             <PropertyRef Name="Id" />
@@ -864,15 +1055,6 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Land_Id" Type="Int32" />
           <Property Name="Company_Id" Type="Int32" />
           <Property Name="Userid" Type="Int64" />
-        </EntityType>
-        <EntityType Name="D_Owner">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Userid" Type="Int64" Nullable="false" />
-          <Property Name="Owner_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="D_Phase">
           <Key>
@@ -936,6 +1118,7 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Projects" FromRole="D_Projects" ToRole="F_Financial_Transactions" />
         </EntityType>
         <EntityType Name="D_ReportingFunction">
           <Key>
@@ -943,22 +1126,6 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Function" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="D_SpaceType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Space_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="D_Supplier">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Userid" Type="Int64" Nullable="false" />
-          <Property Name="Supplier_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="D_VoucherType">
           <Key>
@@ -1112,37 +1279,6 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Land_Id" Type="Int32" />
           <Property Name="Plot_Id" Type="Int32" />
         </EntityType>
-        <EntityType Name="RealEstate_Activity">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RealEstate_Activites" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="RealEstate_Activites_L2" Type="Int32" />
-        </EntityType>
-        <EntityType Name="REP">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CNIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="STRN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Residential_Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Industry" Type="Int32" />
-          <Property Name="Supply_Chain_Role" Type="Int32" />
-          <Property Name="Filer_NonFiler" Type="Boolean" />
-          <Property Name="Individual_AOP_Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Bank_Account" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Bussiness" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Userid" Type="Int64" />
-        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
@@ -1172,6 +1308,15 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="User" Relationship="ReCountantModel.FK_dbo_UserLogins_dbo_Users_UserId" FromRole="UserLogin" ToRole="User" />
         </EntityType>
+        <EntityType Name="Transaction_Rules">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COA" Type="Int32" Nullable="false" />
+          <Property Name="Credit_Debit" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Transaction_Type_Id" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -1191,16 +1336,16 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Business" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" />
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LockoutEnabled" Type="Boolean" />
+          <Property Name="AccessFailedCount" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserClaims" Relationship="ReCountantModel.FK_dbo_UserClaims_dbo_Users_UserId" FromRole="User" ToRole="UserClaim" />
           <NavigationProperty Name="UserLogins" Relationship="ReCountantModel.FK_dbo_UserLogins_dbo_Users_UserId" FromRole="User" ToRole="UserLogin" />
           <NavigationProperty Name="Roles" Relationship="ReCountantModel.UserRoles" FromRole="User" ToRole="Role" />
@@ -1237,20 +1382,106 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <End Type="ReCountantModel.Role" Role="Role" Multiplicity="*" />
           <End Type="ReCountantModel.User" Role="User" Multiplicity="*" />
         </Association>
-        <EntityType Name="Summary_Table">
+        <EntityType Name="D_Company">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COA" Type="Int32" />
-          <Property Name="Debit" Type="Double" />
-          <Property Name="Credit" Type="Double" />
-          <Property Name="Supplier_Id" Type="Int64" />
-          <Property Name="Voucher_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ResponsibilityCenter_Id" Type="Int32" />
-          <Property Name="Voucher_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Document_Date" Type="DateTimeOffset" Precision="7" />
-          <Property Name="Company_Id" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="STRN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Residential_Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Filer_NonFiler" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Individual_AOP_Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Supply_Chain_Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Business" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="REP" Type="Int32" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Company" FromRole="D_Company" ToRole="F_Financial_Transactions" />
+          <NavigationProperty Name="Balance_TransactionParty" Relationship="ReCountantModel.FK_Balance_TransactionParty_D_Company" FromRole="D_Company" ToRole="Balance_TransactionParty" />
+        </EntityType>
+        <EntityType Name="D_ResponsibilityCenter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Responsibilty_Center" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Department_Head" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Approving_Authority" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_ResponsibilityCenter" FromRole="D_ResponsibilityCenter" ToRole="F_Financial_Transactions" />
+        </EntityType>
+        <EntityType Name="RealEstate_Activity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RealEstate_Activites" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RealEstate_Activites_L2" Type="Int32" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_RealEstate_Activity" FromRole="RealEstate_Activity" ToRole="F_Financial_Transactions" />
+        </EntityType>
+        <EntityType Name="REP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CNIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="STRN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Residential_Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Industry" Type="Int32" />
+          <Property Name="Supply_Chain_Role" Type="Int32" />
+          <Property Name="Filer_NonFiler" Type="Boolean" />
+          <Property Name="Individual_AOP_Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Bank_Account" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Bussiness" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Userid" Type="Int64" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_REP" FromRole="REP" ToRole="F_Financial_Transactions" />
+        </EntityType>
+        <EntityType Name="D_Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Userid" Type="Int64" Nullable="false" />
+          <Property Name="Customer_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Customer" FromRole="D_Customer" ToRole="F_Financial_Transactions" />
+        </EntityType>
+        <EntityType Name="D_SpaceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Space_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_SpaceType" FromRole="D_SpaceType" ToRole="F_Financial_Transactions" />
+        </EntityType>
+        <EntityType Name="D_Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Userid" Type="Int64" Nullable="false" />
+          <Property Name="Employee_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Employee" FromRole="D_Employee" ToRole="F_Financial_Transactions" />
+        </EntityType>
+        <EntityType Name="D_Owner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Userid" Type="Int64" Nullable="false" />
+          <Property Name="Owner_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Owner" FromRole="D_Owner" ToRole="F_Financial_Transactions" />
         </EntityType>
         <EntityType Name="F_Financial_Transactions">
           <Key>
@@ -1261,13 +1492,13 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Voucher_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DateTime_Of_Entry" Type="DateTime" Precision="3" />
           <Property Name="Voucher_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Reference_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Reference_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Transaction_Document_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Account_Id" Type="Int32" />
           <Property Name="Supplier_Id" Type="Int64" />
-          <Property Name="Customer_Id" Type="Int64" />
-          <Property Name="Employee_Id" Type="Int64" />
-          <Property Name="Owner_Id" Type="Int64" />
+          <Property Name="Customer_Id" Type="Int32" />
+          <Property Name="Employee_Id" Type="Int32" />
+          <Property Name="Owner_Id" Type="Int32" />
           <Property Name="Company_Id" Type="Int32" />
           <Property Name="Transaction_Party" Type="Int64" />
           <Property Name="Plot" Type="Int32" />
@@ -1296,26 +1527,227 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <Property Name="Recording_Index" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Rate" Type="Double" />
           <Property Name="Uom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="COA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="D_Company" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Company" FromRole="F_Financial_Transactions" ToRole="D_Company" />
+          <NavigationProperty Name="D_Customer" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Customer" FromRole="F_Financial_Transactions" ToRole="D_Customer" />
+          <NavigationProperty Name="D_Employee" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Employee" FromRole="F_Financial_Transactions" ToRole="D_Employee" />
+          <NavigationProperty Name="D_Owner" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Owner" FromRole="F_Financial_Transactions" ToRole="D_Owner" />
+          <NavigationProperty Name="D_Projects" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Projects" FromRole="F_Financial_Transactions" ToRole="D_Projects" />
+          <NavigationProperty Name="D_ResponsibilityCenter" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_ResponsibilityCenter" FromRole="F_Financial_Transactions" ToRole="D_ResponsibilityCenter" />
+          <NavigationProperty Name="D_SpaceType" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_SpaceType" FromRole="F_Financial_Transactions" ToRole="D_SpaceType" />
+          <NavigationProperty Name="RealEstate_Activity" Relationship="ReCountantModel.FK_F_Financial_Transactions_RealEstate_Activity" FromRole="F_Financial_Transactions" ToRole="RealEstate_Activity" />
+          <NavigationProperty Name="REP1" Relationship="ReCountantModel.FK_F_Financial_Transactions_REP" FromRole="F_Financial_Transactions" ToRole="REP" />
+          <NavigationProperty Name="D_Supplier" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Supplier" FromRole="F_Financial_Transactions" ToRole="D_Supplier" />
         </EntityType>
-        <EntityType Name="Transaction_Rules">
+        <Association Name="FK_F_Financial_Transactions_D_Company">
+          <End Type="ReCountantModel.D_Company" Role="D_Company" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Company_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Customer">
+          <End Type="ReCountantModel.D_Customer" Role="D_Customer" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Employee">
+          <End Type="ReCountantModel.D_Employee" Role="D_Employee" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Owner">
+          <End Type="ReCountantModel.D_Owner" Role="D_Owner" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Owner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Owner_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_Projects">
+          <End Type="ReCountantModel.D_Projects" Role="D_Projects" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Project" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_ResponsibilityCenter">
+          <End Type="ReCountantModel.D_ResponsibilityCenter" Role="D_ResponsibilityCenter" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_ResponsibilityCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="ResponsibilityCenter_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_D_SpaceType">
+          <End Type="ReCountantModel.D_SpaceType" Role="D_SpaceType" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_SpaceType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Space_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_RealEstate_Activity">
+          <End Type="ReCountantModel.RealEstate_Activity" Role="RealEstate_Activity" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstate_Activity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="REA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F_Financial_Transactions_REP">
+          <End Type="ReCountantModel.REP" Role="REP" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REP">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="REP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Summary_Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COA" Type="Int32" />
+          <Property Name="Debit" Type="Double" />
+          <Property Name="Credit" Type="Double" />
+          <Property Name="Supplier_Id" Type="Int64" />
+          <Property Name="Voucher_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponsibilityCenter_Id" Type="Int32" />
+          <Property Name="Voucher_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Document_Date" Type="DateTime" Precision="3" />
+          <Property Name="Company_Id" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="D_Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Userid" Type="Int64" Nullable="false" />
+          <Property Name="Supplier_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CNIC_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Industry" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Supply_Chain_Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Business" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Billing_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shipping_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Billing_Contact_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shipping_Contact_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Billing_Email_Id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shipping_Email_Id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Supplier_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Method" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Supplier" FromRole="D_Supplier" ToRole="F_Financial_Transactions" />
+          <NavigationProperty Name="Balance_TransactionParty" Relationship="ReCountantModel.FK_Balance_TransactionParty_D_Supplier" FromRole="D_Supplier" ToRole="Balance_TransactionParty" />
+        </EntityType>
+        <Association Name="FK_F_Financial_Transactions_D_Supplier">
+          <End Type="ReCountantModel.D_Supplier" Role="D_Supplier" Multiplicity="0..1" />
+          <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="F_Financial_Transactions">
+              <PropertyRef Name="Supplier_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Balance_TransactionParty">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COA" Type="Int32" Nullable="false" />
-          <Property Name="Credit_Debit" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Transaction_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Time_Of_Entry" Type="DateTime" Precision="3" />
+          <Property Name="Invoice_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Account_Id" Type="Int32" />
+          <Property Name="Transaction_Party" Type="Int64" />
+          <Property Name="Company_Id" Type="Int32" />
+          <Property Name="Currency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount_TC" Type="Double" />
+          <Property Name="Exchange_Rate" Type="Double" />
+          <Property Name="Amount_LC" Type="Double" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Debit" Type="Double" />
+          <Property Name="Credit" Type="Double" />
+          <Property Name="Net" Type="Double" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Userid" Type="Int64" />
+          <NavigationProperty Name="D_Company" Relationship="ReCountantModel.FK_Balance_TransactionParty_D_Company" FromRole="Balance_TransactionParty" ToRole="D_Company" />
+          <NavigationProperty Name="D_Supplier" Relationship="ReCountantModel.FK_Balance_TransactionParty_D_Supplier" FromRole="Balance_TransactionParty" ToRole="D_Supplier" />
         </EntityType>
-        <EntityType Name="D_ResponsibilityCenter">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Responsibilty_Center" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Department_Head" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Approving_Authority" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-      </Schema>
+        <Association Name="FK_Balance_TransactionParty_D_Company">
+          <End Type="ReCountantModel.D_Company" Role="D_Company" Multiplicity="0..1" />
+          <End Type="ReCountantModel.Balance_TransactionParty" Role="Balance_TransactionParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Balance_TransactionParty">
+              <PropertyRef Name="Company_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Balance_TransactionParty_D_Supplier">
+          <End Type="ReCountantModel.D_Supplier" Role="D_Supplier" Multiplicity="0..1" />
+          <End Type="ReCountantModel.Balance_TransactionParty" Role="Balance_TransactionParty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="D_Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Balance_TransactionParty">
+              <PropertyRef Name="Transaction_Party" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1375,28 +1807,6 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Balance_TransactionParty">
-            <EntityTypeMapping TypeName="ReCountantModel.Balance_TransactionParty">
-              <MappingFragment StoreEntitySet="Balance_TransactionParty">
-                <ScalarProperty Name="Userid" ColumnName="Userid" />
-                <ScalarProperty Name="Net" ColumnName="Net" />
-                <ScalarProperty Name="Credit" ColumnName="Credit" />
-                <ScalarProperty Name="Debit" ColumnName="Debit" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Amount_LC" ColumnName="Amount_LC" />
-                <ScalarProperty Name="Exchange_Rate" ColumnName="Exchange_Rate" />
-                <ScalarProperty Name="Amount_TC" ColumnName="Amount_TC" />
-                <ScalarProperty Name="Currency" ColumnName="Currency" />
-                <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
-                <ScalarProperty Name="Transaction_Party" ColumnName="Transaction_Party" />
-                <ScalarProperty Name="Account_Id" ColumnName="Account_Id" />
-                <ScalarProperty Name="Invoice_No" ColumnName="Invoice_No" />
-                <ScalarProperty Name="Time_Of_Entry" ColumnName="Time_Of_Entry" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="D_Block">
             <EntityTypeMapping TypeName="ReCountantModel.D_Block">
               <MappingFragment StoreEntitySet="D_Block">
@@ -1407,61 +1817,12 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="D_Company">
-            <EntityTypeMapping TypeName="ReCountantModel.D_Company">
-              <MappingFragment StoreEntitySet="D_Company">
-                <ScalarProperty Name="REP" ColumnName="REP" />
-                <ScalarProperty Name="EPZ" ColumnName="EPZ" />
-                <ScalarProperty Name="Business" ColumnName="Business" />
-                <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
-                <ScalarProperty Name="Individual_AOP_Company" ColumnName="Individual_AOP_Company" />
-                <ScalarProperty Name="Filer_NonFiler" ColumnName="Filer_NonFiler" />
-                <ScalarProperty Name="Residential_Status" ColumnName="Residential_Status" />
-                <ScalarProperty Name="STRN" ColumnName="STRN" />
-                <ScalarProperty Name="NTN" ColumnName="NTN" />
-                <ScalarProperty Name="Contact_Information" ColumnName="Contact_Information" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="D_Customer">
-            <EntityTypeMapping TypeName="ReCountantModel.D_Customer">
-              <MappingFragment StoreEntitySet="D_Customer">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Customer_Info" ColumnName="Customer_Info" />
-                <ScalarProperty Name="Userid" ColumnName="Userid" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="D_Employee">
-            <EntityTypeMapping TypeName="ReCountantModel.D_Employee">
-              <MappingFragment StoreEntitySet="D_Employee">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Employee_Info" ColumnName="Employee_Info" />
-                <ScalarProperty Name="Userid" ColumnName="Userid" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="D_Land_RealEstate">
             <EntityTypeMapping TypeName="ReCountantModel.D_Land_RealEstate">
               <MappingFragment StoreEntitySet="D_Land_RealEstate">
                 <ScalarProperty Name="Userid" ColumnName="Userid" />
                 <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
                 <ScalarProperty Name="Land_Id" ColumnName="Land_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="D_Owner">
-            <EntityTypeMapping TypeName="ReCountantModel.D_Owner">
-              <MappingFragment StoreEntitySet="D_Owner">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Owner_Info" ColumnName="Owner_Info" />
-                <ScalarProperty Name="Userid" ColumnName="Userid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1539,24 +1900,6 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
             <EntityTypeMapping TypeName="ReCountantModel.D_ReportingFunction">
               <MappingFragment StoreEntitySet="D_ReportingFunction">
                 <ScalarProperty Name="Function" ColumnName="Function" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="D_SpaceType">
-            <EntityTypeMapping TypeName="ReCountantModel.D_SpaceType">
-              <MappingFragment StoreEntitySet="D_SpaceType">
-                <ScalarProperty Name="Space_Type" ColumnName="Space_Type" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="D_Supplier">
-            <EntityTypeMapping TypeName="ReCountantModel.D_Supplier">
-              <MappingFragment StoreEntitySet="D_Supplier">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Supplier_Info" ColumnName="Supplier_Info" />
-                <ScalarProperty Name="Userid" ColumnName="Userid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1726,39 +2069,6 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RealEstate_Activity">
-            <EntityTypeMapping TypeName="ReCountantModel.RealEstate_Activity">
-              <MappingFragment StoreEntitySet="RealEstate_Activity">
-                <ScalarProperty Name="RealEstate_Activites_L2" ColumnName="RealEstate_Activites_L2" />
-                <ScalarProperty Name="RealEstate_Activites" ColumnName="RealEstate_Activites" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="REPs">
-            <EntityTypeMapping TypeName="ReCountantModel.REP">
-              <MappingFragment StoreEntitySet="REP">
-                <ScalarProperty Name="Userid" ColumnName="Userid" />
-                <ScalarProperty Name="EPZ" ColumnName="EPZ" />
-                <ScalarProperty Name="Bussiness" ColumnName="Bussiness" />
-                <ScalarProperty Name="Bank_Account" ColumnName="Bank_Account" />
-                <ScalarProperty Name="Individual_AOP_Company" ColumnName="Individual_AOP_Company" />
-                <ScalarProperty Name="Filer_NonFiler" ColumnName="Filer_NonFiler" />
-                <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
-                <ScalarProperty Name="Industry" ColumnName="Industry" />
-                <ScalarProperty Name="Residential_Status" ColumnName="Residential_Status" />
-                <ScalarProperty Name="STRN" ColumnName="STRN" />
-                <ScalarProperty Name="NTN" ColumnName="NTN" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="ReCountantModel.Role">
               <MappingFragment StoreEntitySet="Roles">
@@ -1783,6 +2093,17 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_GET_AccountHeadId" FunctionName="ReCountantModel.Store.SP_GET_AccountHeadId" />
+          <EntitySetMapping Name="Transaction_Rules">
+            <EntityTypeMapping TypeName="ReCountantModel.Transaction_Rules">
+              <MappingFragment StoreEntitySet="Transaction_Rules">
+                <ScalarProperty Name="Transaction_Type_Id" ColumnName="Transaction_Type_Id" />
+                <ScalarProperty Name="Credit_Debit" ColumnName="Credit_Debit" />
+                <ScalarProperty Name="COA" ColumnName="COA" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1825,19 +2146,102 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="SP_GET_AccountHeadId" FunctionName="ReCountantModel.Store.SP_GET_AccountHeadId" />
-          <EntitySetMapping Name="Summary_Table">
-            <EntityTypeMapping TypeName="ReCountantModel.Summary_Table">
-              <MappingFragment StoreEntitySet="Summary_Table">
-                <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
-                <ScalarProperty Name="Document_Date" ColumnName="Document_Date" />
-                <ScalarProperty Name="Voucher_Type" ColumnName="Voucher_Type" />
-                <ScalarProperty Name="ResponsibilityCenter_Id" ColumnName="ResponsibilityCenter_Id" />
-                <ScalarProperty Name="Voucher_Number" ColumnName="Voucher_Number" />
-                <ScalarProperty Name="Supplier_Id" ColumnName="Supplier_Id" />
-                <ScalarProperty Name="Credit" ColumnName="Credit" />
-                <ScalarProperty Name="Debit" ColumnName="Debit" />
-                <ScalarProperty Name="COA" ColumnName="COA" />
+          <EntitySetMapping Name="D_Company">
+            <EntityTypeMapping TypeName="ReCountantModel.D_Company">
+              <MappingFragment StoreEntitySet="D_Company">
+                <ScalarProperty Name="REP" ColumnName="REP" />
+                <ScalarProperty Name="EPZ" ColumnName="EPZ" />
+                <ScalarProperty Name="Business" ColumnName="Business" />
+                <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
+                <ScalarProperty Name="Individual_AOP_Company" ColumnName="Individual_AOP_Company" />
+                <ScalarProperty Name="Filer_NonFiler" ColumnName="Filer_NonFiler" />
+                <ScalarProperty Name="Residential_Status" ColumnName="Residential_Status" />
+                <ScalarProperty Name="STRN" ColumnName="STRN" />
+                <ScalarProperty Name="NTN" ColumnName="NTN" />
+                <ScalarProperty Name="Contact_Information" ColumnName="Contact_Information" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D_ResponsibilityCenter">
+            <EntityTypeMapping TypeName="ReCountantModel.D_ResponsibilityCenter">
+              <MappingFragment StoreEntitySet="D_ResponsibilityCenter">
+                <ScalarProperty Name="Approving_Authority" ColumnName="Approving_Authority" />
+                <ScalarProperty Name="Department_Head" ColumnName="Department_Head" />
+                <ScalarProperty Name="Responsibilty_Center" ColumnName="Responsibilty_Center" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RealEstate_Activity">
+            <EntityTypeMapping TypeName="ReCountantModel.RealEstate_Activity">
+              <MappingFragment StoreEntitySet="RealEstate_Activity">
+                <ScalarProperty Name="RealEstate_Activites_L2" ColumnName="RealEstate_Activites_L2" />
+                <ScalarProperty Name="RealEstate_Activites" ColumnName="RealEstate_Activites" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REPs">
+            <EntityTypeMapping TypeName="ReCountantModel.REP">
+              <MappingFragment StoreEntitySet="REP">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="EPZ" ColumnName="EPZ" />
+                <ScalarProperty Name="Bussiness" ColumnName="Bussiness" />
+                <ScalarProperty Name="Bank_Account" ColumnName="Bank_Account" />
+                <ScalarProperty Name="Individual_AOP_Company" ColumnName="Individual_AOP_Company" />
+                <ScalarProperty Name="Filer_NonFiler" ColumnName="Filer_NonFiler" />
+                <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="Residential_Status" ColumnName="Residential_Status" />
+                <ScalarProperty Name="STRN" ColumnName="STRN" />
+                <ScalarProperty Name="NTN" ColumnName="NTN" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D_Customer">
+            <EntityTypeMapping TypeName="ReCountantModel.D_Customer">
+              <MappingFragment StoreEntitySet="D_Customer">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Customer_Info" ColumnName="Customer_Info" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D_SpaceType">
+            <EntityTypeMapping TypeName="ReCountantModel.D_SpaceType">
+              <MappingFragment StoreEntitySet="D_SpaceType">
+                <ScalarProperty Name="Space_Type" ColumnName="Space_Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D_Employee">
+            <EntityTypeMapping TypeName="ReCountantModel.D_Employee">
+              <MappingFragment StoreEntitySet="D_Employee">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Employee_Info" ColumnName="Employee_Info" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D_Owner">
+            <EntityTypeMapping TypeName="ReCountantModel.D_Owner">
+              <MappingFragment StoreEntitySet="D_Owner">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Owner_Info" ColumnName="Owner_Info" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1845,6 +2249,8 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
           <EntitySetMapping Name="F_Financial_Transactions">
             <EntityTypeMapping TypeName="ReCountantModel.F_Financial_Transactions">
               <MappingFragment StoreEntitySet="F_Financial_Transactions">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="COA" ColumnName="COA" />
                 <ScalarProperty Name="Uom" ColumnName="Uom" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Recording_Index" ColumnName="Recording_Index" />
@@ -1888,22 +2294,64 @@ warning 6031: The column 'OrgNode' on the table/view 'ReCountant.dbo.D_ChartOfAc
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Transaction_Rules">
-            <EntityTypeMapping TypeName="ReCountantModel.Transaction_Rules">
-              <MappingFragment StoreEntitySet="Transaction_Rules">
-                <ScalarProperty Name="Transaction_Type_Id" ColumnName="Transaction_Type_Id" />
-                <ScalarProperty Name="Credit_Debit" ColumnName="Credit_Debit" />
+          <EntitySetMapping Name="Summary_Table">
+            <EntityTypeMapping TypeName="ReCountantModel.Summary_Table">
+              <MappingFragment StoreEntitySet="Summary_Table">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
+                <ScalarProperty Name="Document_Date" ColumnName="Document_Date" />
+                <ScalarProperty Name="Voucher_Type" ColumnName="Voucher_Type" />
+                <ScalarProperty Name="ResponsibilityCenter_Id" ColumnName="ResponsibilityCenter_Id" />
+                <ScalarProperty Name="Voucher_Number" ColumnName="Voucher_Number" />
+                <ScalarProperty Name="Supplier_Id" ColumnName="Supplier_Id" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
                 <ScalarProperty Name="COA" ColumnName="COA" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="D_ResponsibilityCenter">
-            <EntityTypeMapping TypeName="ReCountantModel.D_ResponsibilityCenter">
-              <MappingFragment StoreEntitySet="D_ResponsibilityCenter">
-                <ScalarProperty Name="Approving_Authority" ColumnName="Approving_Authority" />
-                <ScalarProperty Name="Department_Head" ColumnName="Department_Head" />
-                <ScalarProperty Name="Responsibilty_Center" ColumnName="Responsibilty_Center" />
+          <EntitySetMapping Name="D_Supplier">
+            <EntityTypeMapping TypeName="ReCountantModel.D_Supplier">
+              <MappingFragment StoreEntitySet="D_Supplier">
+                <ScalarProperty Name="Payment_Method" ColumnName="Payment_Method" />
+                <ScalarProperty Name="Supplier_Code" ColumnName="Supplier_Code" />
+                <ScalarProperty Name="Product_Type" ColumnName="Product_Type" />
+                <ScalarProperty Name="Shipping_Email_Id" ColumnName="Shipping_Email_Id" />
+                <ScalarProperty Name="Billing_Email_Id" ColumnName="Billing_Email_Id" />
+                <ScalarProperty Name="Shipping_Contact_Number" ColumnName="Shipping_Contact_Number" />
+                <ScalarProperty Name="Billing_Contact_Number" ColumnName="Billing_Contact_Number" />
+                <ScalarProperty Name="Shipping_Address" ColumnName="Shipping_Address" />
+                <ScalarProperty Name="Billing_Address" ColumnName="Billing_Address" />
+                <ScalarProperty Name="Business" ColumnName="Business" />
+                <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="CNIC_Number" ColumnName="CNIC_Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Supplier_Info" ColumnName="Supplier_Info" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Balance_TransactionParty">
+            <EntityTypeMapping TypeName="ReCountantModel.Balance_TransactionParty">
+              <MappingFragment StoreEntitySet="Balance_TransactionParty">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="Net" ColumnName="Net" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Amount_LC" ColumnName="Amount_LC" />
+                <ScalarProperty Name="Exchange_Rate" ColumnName="Exchange_Rate" />
+                <ScalarProperty Name="Amount_TC" ColumnName="Amount_TC" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
+                <ScalarProperty Name="Transaction_Party" ColumnName="Transaction_Party" />
+                <ScalarProperty Name="Account_Id" ColumnName="Account_Id" />
+                <ScalarProperty Name="Invoice_No" ColumnName="Invoice_No" />
+                <ScalarProperty Name="Time_Of_Entry" ColumnName="Time_Of_Entry" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -30,5 +30,8 @@ namespace ReCountant.Models
         public Nullable<double> Credit { get; set; }
         public Nullable<double> Net { get; set; }
         public Nullable<long> Userid { get; set; }
+    
+        public virtual D_Company D_Company { get; set; }
+        public virtual D_Supplier D_Supplier { get; set; }
     }
 }

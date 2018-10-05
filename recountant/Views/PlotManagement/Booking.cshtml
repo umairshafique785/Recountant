@@ -1,4 +1,9 @@
-﻿<script>
+﻿
+
+
+
+
+<script>
     function Getblocks(e) {
         $.ajax({
             traditional: true,
@@ -97,7 +102,7 @@
             data: { data: js },
             url: "/PlotManagement/BookPlot/",
             success: function (data) {
-                alert("Plot is Booked");
+                alert("Plot is Successfully Booked");
             },
             error: function () {
 
@@ -131,7 +136,8 @@
     function Showbookingopts() {
         $('#bookopts').show();
     }
-    function searchcust() {
+      function searchcust()
+      {
         var cnic = $('#custcnic').val();
         $.ajax({
             type: "POST",
@@ -160,269 +166,376 @@
 
             }
         })
-    }
+      }
 </script>
 
-<div class="row">
-    <div class="col-lg-4">
-        <label class="control-label col-md-4">Phase</label>
-        <div class="col-md-8">
-            @Html.DropDownList("Phase", null, "Select Phase", new { onchange = "Getblocks(this.value)", id = "phase" })
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <label class="control-label col-md-4">Block</label>
-        <div class="col-md-8">
-            <select id="block" onchange="Getplot(this.value)">
-                <option>Select Block</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <label class="control-label col-md-4">Plot</label>
-        <div class="col-md-8">
-            <select id="plot" onchange="Getplotdetails(this.value)">
-                <option>Select Plot</option>
-            </select>
-        </div>
-    </div>
-</div>
-<div id="plotalldetails" style="display:none">
-    <div class="row">
-        <table class="table table-bordered" style="width:100%;">
-            <thead>
-                <tr>
-                    <th>Phase</th>
-                    <th>Block</th>
-                    <th>Plot No</th>
-                    <th>Price</th>
-                    <th>Area</th>
-                    <th>Length</th>
-                    <th>Width</th>
-                    <th>Front</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id="t_phase"></td>
-                    <td id="t_block"></td>
-                    <td id="t_plot"></td>
-                    <td id="t_price"></td>
-                    <td id="t_area"></td>
-                    <td id="t_length"></td>
-                    <td id="t_width"></td>
-                    <td id="t_front"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <button onclick="Showbookingopts()">Book This Plot</button>
-        </div>
-    </div>
-</div>
-<div class="row" id="bookopts" style="display:none">
-    <div class="col-12 row">
-        <input type="hidden" id="c_Id" />
-        <div class="col-lg-4">
-            <label class="control-label col-md-4">Customer Information</label>
-        </div>
-        <div class="col-lg-4">
-            <input type="text" id="custcnic" />
-        </div>
-        <div class="col-lg-4">
-            <button onclick="searchcust()">Search</button>
-        </div>
-        <hr />
-        <div class="col-4">
-            <div class="col-4">Name</div>
-            <div class="col-8"><input type="text" id="c_name" /></div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">CNIC</div>
-            <div class="col-8"><input type="text" id="c_cnic" /></div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">Address</div>
-            <div class="col-8"><input type="text" id="c_address" /></div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">Phone</div>
-            <div class="col-8"><input type="text" id="c_num" /></div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">Gender</div>
-            <div class="col-8">
-                <select id="c_gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">NTN</div>
-            <div class="col-8"><input type="text" id="c_ntn" /></div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">STRN</div>
-            <div class="col-8"><input type="text" id="c_strn" /></div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">Filer</div>
-            <div class="col-8">
-                <select id="c_filer">
-                    <option value="filer">Filer</option>
-                    <option value="nonfiler">Non Filer</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">Industry</div>
-            <div class="col-8"><input type="text" id="c_ind" /></div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">Resident</div>
-            <div class="col-8">
-                <select id="c_res">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="col-4">Business</div>
-            <div class="col-8"><input type="text" id="c_buss" /></div>
-        </div>
 
-    </div>
-    <div class="col-lg-12 row">
-        <div class="col-lg-3">
-            Total Number <input type="radio" name="instaltype" id="number" value="1" />
-            <input type="text" id="totnum" style="display:none" />
-        </div>
-        <div class="col-lg-3">
-            By Year <input type="radio" id="year" name="instaltype" value="2" />
-            <input type="text" id="byyear" style="display:none" />
-        </div>
-        <div class="col-lg-3">
-            Development Charges <select>
-                <option value="1">With Installments</option>
-                <option value="2">Seperate</option>
-            </select>
-        </div>
-        <div class="col-lg-3">
-            Currency<select id="curency" onchange="checkcur(this.value)">
-                <option value="PKR">PKR</option>
-                <option value="USD">USD</option>
-            </select>
-        </div>
-        <div class="col-4" id="exch" style="display:none">
-            <div class="col-4">Exchange Rate</div>
-            <div class="col-8"><input type="text" value="1" id="conversion" /></div>
-        </div>
-        <div class="col-lg-4">
-            <button class="creatinst">Generate Installments</button>
-        </div>
-    </div>
-</div>
-<div id="allinst" style="display:none">
-    <h4>Installments</h4>
-    <div class="row">
-        <table class="table table-bordered" style="width:100%;">
-            <thead>
-                <tr>
-                    <th>Installment No.</th>
-                    <th>Currency</th>
-                    <th>Amount</th>
-                    <th>Due Date</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-    <div class="row">
-        <button class="bookit">Book This Plot</button>
-    </div>
-</div>
-<script>
-    function checkcur(e) {
-        if (e == "USD") {
-            $("#exch").show();
-        }
-    }
-    $(document).on('click', '.creatinst', function () {
-        $('#allinst').show();
-        $('#allinst tbody').empty();
-        var currency = $('#curency').val();
-        var exchangerate = $("#conversion").val();
-        var val = $('input[name=instaltype]:checked').val();
-        if (val == 1) {
-            var totnum = $('#totnum').val();
-            var price = parseFloat($('#t_price').text());
-            var eachinst = parseFloat((price / totnum) / exchangerate).toFixed(1);
-            var date = new Date();
-            date.setDate(1);
-            var i = 1;
-            for (i; i <= totnum; i++) {
-                date.setMonth(date.getMonth() + 1);
-                var curr_date = date.getDate();
-                var curr_month = date.getMonth() + 1; //Months are zero based
-                var curr_year = date.getFullYear();
-                var html = '<tr>' +
-                    '<td>' + i + '</td>' +
-                    '<td>' + currency + '</td>' +
-                    '<td class="instamt">' + eachinst + ' </td > ' +
-                    '<td>' + curr_date + '-' + curr_month + '-' + curr_year + '</td > ' +
-                    '</tr>';
-                $('#allinst tbody').append(html);
-            }
-        }
-        else {
-            var totyear = $('#byyear').val();
-            var totnum = totyear * 12;
-            var price = parseFloat($('#t_price').text());
-            var eachinst = parseFloat((price / totnum) / exchangerate).toFixed(1);
-            var date = new Date();
-            date.setDate(1);
-            var i = 1;
-            for (i; i <= totnum; i++) {
-                date.setMonth(date.getMonth() + 1);
-                var curr_date = date.getDate();
-                var curr_month = date.getMonth() + 1; //Months are zero based
-                var curr_year = date.getFullYear();
-                var html = '<tr>' +
-                    '<td>' + i + '</td>' +
-                    '<td>' + currency + '</td>' +
-                    '<td class="instamt">' + eachinst + ' </td > ' +
-                    '<td>' + curr_date + '-' + curr_month + '-' + curr_year + '</td > ' +
-                    '</tr>';
-                $('#allinst tbody').append(html);
-            }
-        }
-    });
-    $(document).on('click', '.instamt', function () {
-        var amt = $(this).text();
-        $(this).removeClass('instamt');
-        var html = '<input id="newisnt" type="text" value="' + amt + '" />'
-        $(this).html(html);
-        $('#newisnt').focus();
-    });
-    $(document).on('blur', '#newisnt', function () {
-        var amt = $(this).val();
-        $(this).parent().text(amt);
-        $(this).parent().addClass('instamt');
+       
 
-    });
-    $('input[name="instaltype"]').click(function () {
-        if ($(this).val() == 1) {
-            $('#byyear').hide();
-            $('#totnum').show();
-        }
+            <div class="row" id="">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title1">
 
-        else if ($(this).val() == 2) {
-            $('#totnum').hide();
-            $('#byyear').show();
-        }
-    });
-</script>
+                            <h2 class="Slide-Grid-Heading">Search  Plot  </h2>
+                            <ul class="nav navbar-right ">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" style="display:none">
+                            <br />
+
+                            <div class='col-sm-3'>
+                                <label class="control-label">Phase</label>
+                                <div class="form-group">
+                                    <div class='input-group'>
+                                        <div class='input-group'>
+                                            @Html.DropDownList("Phase",null, "Select Phase", new { onchange = "Getblocks(this.value)", id = "phase" } )
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='col-sm-3'>
+                                <label class="">Block</label>
+                                <div class="form-group">
+                                    <div class='input-group'>
+                                        <select id="block" onchange="Getplot(this.value)" class="form-control">
+                                            <option>Select Block</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='col-sm-3'>
+                                <label class="">Plot</label>
+                                <div class="form-group">
+                                    <div class='input-group'>
+                                        <select id="plot" onchange="Getplotdetails(this.value)" class="form-control">
+                                            <option>Select Plot</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="plotalldetails" style="display:none">
+                                <div class="row">
+                                    <table class="table table-bordered" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Phase</th>
+                                                <th>Block</th>
+                                                <th>Plot No</th>
+                                                <th>Price</th>
+                                                <th>Area</th>
+                                                <th>Length</th>
+                                                <th>Width</th>
+                                                <th>Front</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td id="t_phase"></td>
+                                                <td id="t_block"></td>
+                                                <td id="t_plot"></td>
+                                                <td id="t_price"></td>
+                                                <td id="t_area"></td>
+                                                <td id="t_length"></td>
+                                                <td id="t_width"></td>
+                                                <td id="t_front"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                    
+                                       
+                                    
+                                <button onclick="Showbookingopts()" class="button-grid-blue">Book This Plot</button>
+                            </div>
+                            
+                            
+                            <hr/>
+                            <div class="" id="bookopts" style="display:none">
+                                <div class="">
+                                    <button onclick="searchcust()" class="button-3-for-golden">Search</button>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <input type="hidden" id="c_Id" />
+                                   
+                                        <h2>Customer Information</h2>
+                                    
+                                    <div class='col-sm-3'>
+                                        <label>CINC <span class="text-danger">*</span></label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input type="text" id="custcnic" class="form-control" placeholder="Enter CNIC"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                            
+                                            
+                                    <div class='col-sm-3'>
+                                        <label>Name</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input type="text" id="c_name" class="form-control" readonly />
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>CNIC</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input type="text" id="c_cnic" class="form-control" readonly/>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>Address</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input type="text" id="c_address"  class="form-control" readonly/>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>Phone</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input type="text" id="c_num" class="form-control" readonly />
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>Gender</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <select id="c_gender" class="form-control" >
+                                                    <option  value="male">Male</option>
+                                                    <option  value="female">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>NTN</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input type="text" id="c_ntn" class="form-control"readonly />
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>STRN</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input type="text" id="c_strn" class="form-control" readonly/>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>Filer</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <select id="c_filer" class="form-control">
+                                                    <option value="filer">Filer</option>
+                                                    <option value="nonfiler">Non Filer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>Industry</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input type="text" id="c_ind" class="form-control" readonly/>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>Resident</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <select id="c_res" class="form-control">
+                                                    <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class='col-sm-3'>
+                                        <label>Business</label>
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input type="text" id="c_buss" class="form-control" readonly/>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <hr/>
+                                    <hr />
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <label>Total Number</label>
+                                                <input type="radio" name="instaltype" id="number" value="1" />
+                                                <div class="form-group">
+                                                    <div class='input-group'>
+                                                        <input type="text" id="totnum" style="display:none" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                    <div class="col-lg-3">
+                                                        <label>By Year</label>
+                                                        <input type="radio" id="year" name="instaltype" value="2" />
+                                                        <div class="form-group">
+                                                            <div class='input-group'>
+                                                                <input type="text" id="byyear" style="display:none" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 ">
+                                                        <label>Development Charges</label>
+                                                        <div class="form-group">
+                                                            <div class='input-group'>
+                                                                <select class="form-control">
+                                                                    <option value="1">With Installments</option>
+                                                                    <option value="2">Seperate</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 ">
+                                                        <label>Currency</label>
+                                                        <div class="form-group">
+                                                            <div class='input-group'>
+                                                                <select id="curency" onchange="checkcur(this.value)" class="form-control">
+                                                                    <option value="PKR">PKR</option>
+                                                                    <option value="USD">USD</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class='col-lg-3' id="exch" style="display:none">
+                                                        <div class="col-4">Exchange Rate</div>
+                                                        <div class="col-8">
+                                                            <input type="text" value="1" id="conversion" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                <div>
+                                    <button class="creatinst button-grid-blue">Generate Installments</button>
+                                </div>
+                                <hr />
+                            <div id="allinst" style="display:none">
+                                <h4>Installments</h4>
+                                <div class="row">
+                                    <table class="table table-bordered" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Installment No.</th>
+                                                <th>Currency</th>
+                                                <th>Amount</th>
+                                                <th>Due Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="">
+                                    <button class="bookit button-grid-blue">Book This Plot</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    
+            <script>
+                function checkcur(e) {
+                    if (e == "USD") {
+                        $("#exch").show();
+                    }
+                }
+                $(document).on('click', '.creatinst', function () {
+                    $('#allinst').show();
+                    $('#allinst tbody').empty();
+                    var currency = $('#curency').val();
+                    var exchangerate = $("#conversion").val();
+                    var val = $('input[name=instaltype]:checked').val();
+                    if (val == 1) {
+                        var totnum = $('#totnum').val();
+                        var price = parseFloat($('#t_price').text());
+                        var eachinst = parseFloat((price / totnum) / exchangerate).toFixed(1);
+                        var date = new Date();
+                        date.setDate(1);
+                        var i = 1;
+                        for (i; i <= totnum; i++) {
+                            date.setMonth(date.getMonth() + 1);
+                            var curr_date = date.getDate();
+                            var curr_month = date.getMonth() + 1; //Months are zero based
+                            var curr_year = date.getFullYear();
+                            var html = '<tr>' +
+                                '<td>' + i + '</td>' +
+                                '<td>' + currency + '</td>' +
+                                '<td class="instamt">' + eachinst + ' </td > ' +
+                                '<td>' + curr_date + '-' + curr_month + '-' + curr_year + '</td > ' +
+                                '</tr>';
+                            $('#allinst tbody').append(html);
+                        }
+                    }
+                    else {
+                        var totyear = $('#byyear').val();
+                        var totnum = totyear * 12;
+                        var price = parseFloat($('#t_price').text());
+                        var eachinst = parseFloat((price / totnum) / exchangerate).toFixed(1);
+                        var date = new Date();
+                        date.setDate(1);
+                        var i = 1;
+                        for (i; i <= totnum; i++) {
+                            date.setMonth(date.getMonth() + 1);
+                            var curr_date = date.getDate();
+                            var curr_month = date.getMonth() + 1; //Months are zero based
+                            var curr_year = date.getFullYear();
+                            var html = '<tr>' +
+                                '<td>' + i + '</td>' +
+                                '<td>' + currency + '</td>' +
+                                '<td class="instamt">' + eachinst + ' </td > ' +
+                                '<td>' + curr_date + '-' + curr_month + '-' + curr_year + '</td > ' +
+                                '</tr>';
+                            $('#allinst tbody').append(html);
+                        }
+                    }
+                });
+                $(document).on('click', '.instamt', function () {
+                    var amt = $(this).text();
+                    $(this).removeClass('instamt');
+                    var html = '<input id="newisnt" type="text" value="' + amt + '" />'
+                    $(this).html(html);
+                    $('#newisnt').focus();
+                });
+                $(document).on('blur', '#newisnt', function () {
+                    var amt = $(this).val();
+                    $(this).parent().text(amt);
+                    $(this).parent().addClass('instamt');
+
+                });
+                $('input[name="instaltype"]').click(function () {
+                    if ($(this).val() == 1) {
+                        $('#byyear').hide();
+                        $('#totnum').show();
+                    }
+
+                    else if ($(this).val() == 2) {
+                        $('#totnum').hide();
+                        $('#byyear').show();
+                    }
+                });
+            </script>

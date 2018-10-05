@@ -14,7 +14,16 @@ namespace ReCountant.Models
     
     public partial class D_SpaceType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public D_SpaceType()
+        {
+            this.F_Financial_Transactions = new HashSet<F_Financial_Transactions>();
+        }
+    
         public int Id { get; set; }
         public string Space_Type { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<F_Financial_Transactions> F_Financial_Transactions { get; set; }
     }
 }

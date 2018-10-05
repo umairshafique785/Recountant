@@ -1,51 +1,1124 @@
-﻿@{Html.RenderAction("LeftSidePanel", "SideWidget");}
-<div id="right-panel" class="right-panel">
-    <!-- Header-->
+﻿
+    @{Html.RenderAction("LeftSidePanel", "SideWidget");}
     @{Html.RenderAction("HeaderInfo", "Home");}
-    <!-- Header-->
-    <div class="content mt-3 main-content">
-        <h4>Revenues & Receiveables</h4>
-        <hr />
-        <div class="card">
-            <div class="card-header"></div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="cc-exp" class="control-label mb-1">Date</label>
-                            <input type="text" id="Date" name="Date" readonly class="datepicker form-control cc-exp" data-val-required="Please enter date" data-val-cc-exp="Please enter a valid Date" placeholder="DD / MM / YY">
-                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="cc-exp" class="control-label mb-1">PO Number</label>
-                            <input type="text" id="PO_Number" name="PO_Number" class="form-control cc-exp" data-val-required="Please enter Vocuher No." placeholder="PO Number">
-                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="cc-exp" class="control-label mb-1">Total Amount</label>
-                            <input type="text" id="Total_Amount" name="Total_Amount" class="form-control cc-exp" data-val-required="" placeholder="Total Amount">
-                            <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="cc-exp" class="control-label mb-1">Supplier</label>
-                            <select id="supplier" class="form-control"></select>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="cc-exp" class="control-label mb-1">Responsibility Center</label>
-                            <select id="Responsibiltycenter" class="form-control"></select>
+
+
+    @*<script>
+    var companies = @Html.Raw(Json.Encode(ViewBag.companies));
+    </script>*@
+
+
+
+<script>
+
+    window.onload = function () {
+        startTab();
+    };
+
+    function startTab() {
+        document.getElementById("defaultOpen").click();
+
+    }
+
+    function openProcess(evt, processName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(processName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+              
+                @*<div id="div2">
+                    <ul class="w3-bar">
+                        <li>
+                            <a href="javascript:void(0)" class="tablinks w3-bar-item w3-button w3-black" onclick="openProcess(event, 'Process1')" id="defaultOpen" style="width:33.3%">Transaction Processing</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="tablinks w3-bar-item w3-button w3-teal" onclick="openProcess(event, 'Process2')" style="width:33.3%">Report</a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0)" class="tablinks w3-bar-item w3-button w3-red" onclick="openProcess(event, 'Process3')" style="width:33.3%">Setup</a>
+                        </li>
+                    </ul>   
+                </div>*@
+               
+                <div id="div2">
+                    <ul class="col-md-12 col-md-12 col-md-12">
+                        <li >
+                            <a href="javascript:void(0)" class=" w3-bar-item w3-button w3-black" onclick="openProcess(event, 'Process1')" id="defaultOpen" style="width:33.3%">Transaction Processing</a>
+                        </li>
+                        <li >
+                            <a href="javascript:void(0)" class=" w3-bar-item w3-button w3-teal" onclick="openProcess(event, 'Process2')" style="width:33.3%">Report</a>
+                        </li>
+                        <li >
+                            <a href="javascript:void(0)" class=" w3-bar-item w3-button w3-red" onclick="openProcess(event, 'Process3')" style="width:33.3%">Setup</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="title_left">
+                    <h2>Revenue And Receivable</h2>
+                </div>
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="clearfix"></div>
+            <div id="Process1" class="tabcontent">
+
+                @*here start customer create*@
+                <div>
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title1">
+                                    <h2 class="Slide-Grid-Heading"> Create Customer</h2>
+                                    <ul class="nav navbar-right ">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content" style="display:none">
+                                    <form id="AddCustomerForm" method="post">
+
+                                        
+                                            
+                                                @*<div class="fa-hover col-md-10 col-sm-10 col-xs-12">
+                                            <a href="javascript:void" class="rm-transaction" data-rowindex="1"><i class="fa fa-minus-square"></i></a>
+                                        </div>*@
+                                               
+
+                                            
+                                            <div class="row">
+                                                <input type="hidden" id="voucher_num" />
+
+                                                <div class='col-sm-3'>
+                                                    <label>Name <span class="text-danger">*</span></label>
+                                                    <div class="form-group">
+                                                        
+                                                            <input id="Name" class="form-control " name="Name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>CNIC <span class="text-danger">*</span></label>
+                                                    <div class="form-group">
+                                                        
+                                                            <input id="CNIC_Number" class="form-control " name="CNIC_Number" placeholder="CNIC" required="required" type="text">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Address <span class="text-danger">*</span></label>
+                                                    <div class="form-group">
+                                                        
+                                                            <input id="Address" class="form-control" name="Address" placeholder="Address" required="required" type="text">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>Phone Number <span class="text-danger">*</span></label>
+                                                    <div class="form-group">
+                                                        
+                                                            <input type="text" id="PhoneNumber" name="PhoneNumber" required="required" class="form-control ">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>
+                                                        Gender <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="form-group">
+                                                       
+
+                                                            <select id="Gender" class="form-control" required="required" name="Gender">
+                                                                <option value="">Select Gender</option>
+                                                                <option value="male">Male</option>
+                                                                <option value="female">Female</option>
+                                                            </select>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>
+                                                        NTN <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="form-group">
+                                                        
+                                                            <input id="NTN" class="form-control" name="NTN" placeholder="NTN Number" required="required" type="text">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>
+                                                        STRN <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="form-group">
+                                                        
+                                                            <input id="STRN" class="form-control " name="STRN" placeholder="STRN Number" required="required" type="text">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>
+                                                        Residentail Status <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="form-group">
+                                                       
+
+                                                            <select id="Residential_Status" class="form-control " required="required" name="Residential_Status">
+                                                                <option value="">Please select</option>
+                                                                <option value="yes">Yes</option>
+                                                                <option value="no">No</option>
+                                                            </select>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class='col-sm-3'>
+                                                    <label>
+                                                        Industry <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="form-group">
+                                                        
+                                                            <input id="Industry" class="form-control" name="Industry" placeholder="Industry" required="required" type="text">
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class='col-sm-3'>
+                                                    <label>
+                                                        Filer  <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="form-group">
+                                                        
+
+                                                            <select id="Filer_NonFiler" class="form-control" required="required" name="Filer_NonFiler">
+                                                                <option value="">Please select</option>
+                                                                <option value="filer">Yes</option>
+                                                                <option value="nonfiler">No</option>
+                                                            </select>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class='col-sm-3'>
+                                                    <label>
+                                                        Business <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="form-group">
+                                                        
+                                                            <input id="Business" class="form-control " name="Business" placeholder="Business" required="required" type="text">
+                                                        
+                                                    </div>
+
+
+                                                </div>
+
+
+
+
     
+                                            </div>
+                                        
+                                        @*<div class="row">
+                                    <div class="fa-hover col-md-3 col-sm-4 col-xs-12">
+                                        <a href="javascript:void" class="add-transaction"><i class="fa fa-plus-square"></i>  Add new user role</a>
+                                    </div>
+                                </div>*@
+                                        
+                                                <button type="submit" class="button-grid-blue">Post</button>
+                                                <button type="submit" class="button">Cancel</button>
+
+                                            
+                                        @*<div id="loder" class="loadingdiv" style="display:none">
+                                    <table style="height:100%; margin:auto">
+                                        <tr>
+                                            <td style="vertical-align:middle; width:89px;height:90px">
+                                                <center>
+
+                                                    <img src="~/build/images/loading.gif" alt="Loding.." />
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>*@
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('#AddCustomerForm').submit(function (e) {
+                                e.preventDefault(); // <------------------ stop default behaviour of button
+
+                                debugger;
+                                var CustomerDetails = {
+                                    Name: $("#Name").val(),
+                                    CNIC_Number: $("#CNIC_Number").val(),
+                                    Address: $("#Address").val(),
+                                    Gender: $("#Gender").val(),
+                                    NTN: $("#NTN").val(),
+                                    STRN: $("#STRN").val(),
+                                    Residential_Status: $("#Residential_Status").val(),
+                                    Filer_NonFiler: $("#Filer_NonFiler").val(),
+                                    Industry: $("#Industry").val(),
+
+                                    Business: $("#Business").val(),
+
+                                    PhoneNumber: $("#PhoneNumber").val()
+                                };
+                                $.ajax({
+                                    url: "/Customer/AddCustomer",
+                                    type: "POST",
+                                    data: CustomerDetails,
+                                    success: succ,
+                                    error: err
+
+                                });
+                                function succ() {
+
+                                    success();
+                                    ClearCustomerTextboxes();
+
+                                }
+                                function err() {
+                                    alert("An error has occured while creating the customer");
+                                }
+
+                                function ClearCustomerTextboxes()
+                                {
+                                            $("#Name").val(""),   
+                                            $("#CNIC_Number").val(""),
+                                            $("#Address").val(""),
+                                            $("#Gender").val(""),
+                                            $("#NTN").val(""),
+                                            $("#STRN").val(""),
+                                            $("#Residential_Status").val(""),
+                                            $("#Filer_NonFiler").val(""),
+                                            $("#Business").val(""),
+                                            $("#PhoneNumber").val(""),
+                                            $("#Industry").val("")
+
+                                }
+                            });
+                        })
+
+                    </script>
+
+                </div>
+                @*End*@
+               
+              
+                @*Plot Booking start Page name as installment plan*@
+           
+                @*@{Html.RenderAction("Booking", "PlotManagement");}*@
+                
+            
+
+                @*End plot Booking name as installment plan*@
+                
+               
+
+                @*// here is receive installment of p;lot management ppage with script*@
+
+                @*//**************************start page************@
+
+                <div class="row" id="">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title2">
+
+                                <h2 class="Slide-Grid-Heading"> Receipt</h2>
+                                <ul class="nav navbar-right ">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content" style="display:none">
+                                <div class='col-sm-3'>
+                                    <label>Enter Plot Number</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input id="plot" type="text" class="form-control" />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <button class="searchplot btn btn-success">Search</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <hr />
+
+                                <div class="" id="plotalldetails" style="display:none">
+                                    @* Hidden Info *@
+                                    <input type="hidden" id="plotid" />
+                                    <input type="hidden" id="plotcode" />
+                                    <input type="hidden" id="block" />
+                                    <input type="hidden" id="phaserec" />
+                                    <input type="hidden" id="instid" />
+                                    <input type="hidden" id="custid" />
+                                    <input type="hidden" id="custname" />
+                                    @* End Hidden Info *@
+                                    <br/>
+                                    
+                                    <br /><br /><br />
+                                    <div>
+                                        <h1 class="">Customer Information</h1>
+
+                                    </div>
+                                    <div class='row'>
+                                        <input type="hidden" id="c_Id" />
+                                        
+                                                
+                                                                                    
+                                        <hr />
+                                        <div class='col-sm-3'>
+                                            <label>Name</label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <input type="text" id="c_name" class="form-control" />
+                                                </div>
+                                            </div>
+                                            </div>
+                                        <div class='col-sm-3'>
+                                            <label>CNIC</label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <div class="col-8">
+                                                        <input type="text" id="c_cnic" class="form-control"/>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        <div class='col-sm-3'>
+                                            <label>Address</label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <input type="text" id="c_address" class="form-control"/>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        <div class='col-sm-3'>
+                                            <label>Phone</label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <input type="text" id="c_num" class="form-control" />
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class='col-sm-3'>
+                                                <label>Gender</label>
+                                                <div class="form-group">
+                                                    <div class='input-group'>
+                                                        <input type="text" id="c_gender" class="form-control" />
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-3'>
+                                                <label class="">NTN</label>
+                                                <div class="form-group">
+                                                    <div class='input-group'>
+                                                        <input type="text" id="c_ntn" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-3'>
+                                                <label class="">STRN</label>
+                                                <div class="form-group">
+                                                    <div class='input-group'>
+                                                        <input type="text" id="c_strn" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class='col-sm-3'>
+                                                <label>Filer</label>
+                                                <div class="form-group">
+                                                    <div class='input-group'>
+                                                        <input type="text" id="c_filer" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-3'>
+                                                <label>Industry</label>
+                                                <div class="form-group">
+                                                    <div class='input-group'>
+                                                        <input type="text" id="c_ind" class="form-control"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class='col-sm-3'>
+                                                <label>Resident</label>
+                                                <div class="form-group">
+                                                    <div class='input-group'>
+                                                        <input type="text" id="c_res" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class='col-sm-3'>
+                                                <label>Business</label>
+                                                <div class="form-group">
+                                                    <div class='input-group'>
+                                                        <input type="text" id="c_buss" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div class="x_panel">
+                                                <div class="x_content table-responsive">
+
+                                                    <input type="hidden" id="t_plotid" />
+                                                    <table class="table table-striped table-bordered transtable" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Phase</th>
+                                                                <th>Block</th>
+                                                                <th>Plot No</th>
+                                                                <th>Price</th>
+                                                                <th>Area</th>
+                                                                <th>Length</th>
+                                                                <th>Width</th>
+                                                                <th>Front</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td id="t_phase"></td>
+                                                                <td id="t_block"></td>
+                                                                <td id="t_plot"></td>
+                                                                <td id="t_price"></td>
+                                                                <td id="t_area"></td>
+                                                                <td id="t_length"></td>
+                                                                <td id="t_width"></td>
+                                                                <td id="t_front"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+
+                                                <hr />
+                                                <div class="" id="instdetails">
+                                                    <div class="">
+                                                        <div class="">
+                                                            <h1>Installments</h1>
+                                                        </div>
+                                                        <div class="">
+                                                            <div class="">Balance</div>
+                                                            <div class=""><h4 id="balamt"></h4></div>
+                                                        </div>
+                                                        <div class="">
+                                                            <div class=""></div>
+                                                            <div class=""><button data-toggle="modal" data-target="#myModal" class="recotheramt">Receive Amount</button></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                        <table class="table table-bordered " style="width:100%;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Installment No.</th>
+                                                                    <th>Currency</th>
+                                                                    <th>Amount TC</th>
+                                                                    <th>Exchange Rate</th>
+                                                                    <th>Amount LC</th>
+                                                                    <th>Due Date</th>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).on('click', '.searchplot', function () {
+                        var e = $('#plot').val();
+                        $.ajax({
+                            type: "POST",
+                            data: { id: e },
+                            url: "/PlotManagement/PlotDetails/",
+                            success: function (data) {
+                                $("#plotid").val(data.Plot.Id);
+                                $("#plotcode").val(data.Plot.Plot_No);
+                                $("#block").val(data.Plot.Block_Code);
+                                $("#phaserec").val(data.Plot.Phase_Code);
+                                $("#custid").val(data.Customer.Id);
+                                $('#custname').val(data.Customer.Name);
+
+
+                                $('#balamt').text(data.Balance);
+                                $('#plotalldetails').show();
+                                $('#t_plotid').val(data.Plot.Id);
+                                $('#t_phase').text(data.Plot.Phase_Code);
+                                $('#t_block').text(data.Plot.Block_Code);
+                                $('#t_plot').text(data.Plot.Plot_No);
+                                $('#t_price').text(data.Plot.Plot_Value);
+                                $('#t_area').text(data.Plot.Area);
+                                $('#t_length').text(data.Plot.Length);
+                                $('#t_width').text(data.Plot.Width);
+                                $('#t_front').text(data.Plot.Front);
+
+                                // customer info
+                                $('#c_Id').val(data.Customer.Id);
+                                $('#c_name').val(data.Customer.Name);
+                                $('#c_cnic').val(data.Customer.CNIC_Number);
+                                $('#c_address').val(data.Customer.Address);
+                                $('#c_num').val(data.Customer.Contact_Number);
+                                $('#c_gender').val(data.Customer.Gender);
+                                $('#c_ntn').val(data.Customer.NTN);
+                                $('#c_strn').val(data.Customer.STRN);
+                                $('#c_filer').val(data.Customer.Filer_NonFiler);
+                                $('#c_ind').val(data.Customer.Industry);
+                                $('#c_res').val(data.Customer.Residential_Status);
+                                $('#c_buss').val(data.Customer.Business);
+
+                                $.each(data.Installments, function (key, value) {
+                                    var inst, transrec;
+                                    if (value.Status == 2) {
+                                        inst = '<td><button data-toggle="modal" data-target="#myModal" class="payins">Receive</button></td>';
+                                    }
+                                    else {
+                                        inst = '<td></td>';
+                                    }
+                                    if (value.Rec_Revenue_Status == false) {
+                                        transrec = '<td><button onclick="RecordTrans(' + data.Plot.Id + ',' + data.Customer.Id + ',\'' + value.Currency + '\',' + value.Amount_TC + ',' + value.Amount_LC + ',' + value.Exchange_Rate + ',' + value.Id + ' )" class"rectran">Record Reveue</button></td>';
+                                    }
+                                    else {
+                                        transrec = '<td></td>';
+                                    }
+                                    var html = '<tr id="' + value.Id + '" data-instid="' + value.Id + '">' +
+                                        '<td>' + value.Nth_Installment + '</td>' +
+                                        '<td class="curr">' + value.Currency + '</td>' +
+                                        '<td class="amttc">' + value.Amount_TC + '</td>' +
+                                        '<td class="exrate">' + value.Exchange_Rate + '</td>' +
+                                        '<td class="amtlc">' + value.Amount_LC + '</td>' +
+                                        '<td>' + moment(value.Due_Date).format("DD-MM-YYYY") + '</td>' +
+                                        inst +
+                                        transrec +
+                                        '</tr>';
+                                    $("#instdetails tbody").append(html);
+                                });
+
+
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    });
+
+                    $(document).on('click', '.recotheramt', function () {
+                        debugger;
+                        var plotid = $("#plotid").val();
+                        var plotCode = $("#plotcode").val();
+                        var block = $("#block").val();
+                        var phase = $("#phaserec").val();
+                        var custid = $("#custid").val();
+                        var bal = parseFloat($('#balamt').text()).toFixed(2);
+
+                        $('.modal-body').load('/PlotManagement/ReceiveOtherInst/', {
+                            Plotid: plotid,
+                            Plot_Code: plotCode,
+                            Block: block,
+                            Phase_Code: phase,
+                            Custid: custid,
+                            Balance: bal
+                        });
+                    });
+
+
+                    // installments
+                    $(document).on('click', '.payins', function () {
+                        var instid = $(this).closest('tr').attr('data-instid')
+                        var plotid = $("#plotid").val();
+                        var plotCode = $("#plotcode").val();
+                        var block = $("#block").val();
+                        var phase = $("#phaserec").val();
+                        var amounttc = $("#" + instid + " .amttc").text();
+                        var currency = $("#" + instid + " .curr").text();
+                        var amountlc = $("#" + instid + " .amtlc").text();
+                        var exchange_rate = $("#" + instid + " .exrate").text();
+                        var instalid = instid;
+                        var custid = $("#custid").val();
+                        var bal = parseFloat($('#balamt').text()).toFixed(2);
+
+                        $('.modal-body').load('/PlotManagement/ReceiveInst/', { Plotid: plotid, Plot_Code: plotCode, Block: block, Phase_Code: phase, Amount_TC: amounttc, Currency: currency, Amount_LC: amountlc, Exchange_rate: exchange_rate, InstId: instid, Custid: custid, Balance: bal });
+                    });
+                    function RecordTrans(plotid, customerid, currency, amounttc, amountlc, exchrate, InstId) {
+                        window.location.href = '/FinancialTransactions/CreateFinancialTrans?Plotid=' + plotid + '&CustomerId=' + customerid + '&Currency=' + currency + '&AmountTC=' + amounttc + '&AmountLC=' + amountlc + '&ExchangeRate=' + exchrate + '&InstId=' + InstId;
+                    }
+
+
+                </script>
+
+
+                @*// end*@
+
+            </div>
+          
+               
+                
+            </div> @*process id 1 end*@
+            
+            @*process id 2 start*@
+            <div id="Process2" class="tabcontent">
+
+                <h3 style="color:blue">this is Report section</h3>
+
+
+
+            </div>
+          
+            @*this is process id 3 strat*@
+            <div id="Process3" class="tabcontent">
+                
+
+                @*start projet and block page*@
+
+                <div>
+                    <div class="row" id="">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title2">
+                                    <h2 class="Slide-Grid-Heading"> Create Project And Phase</h2>
+                                    <ul class="nav navbar-right ">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                        </li>
+
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content" style="display:none">
+                                    <br />
+                                    <div class="form-horizontal form-label-left">
+                                        <div class="project-form">
+                                            <div id="project-1">
+                                                <div class="row">
+
+
+                                                    <div class='col-sm-3'>
+                                                        <label>Project Name <span class="text-danger">*</span></label>
+                                                        <div class="form-group">
+
+                                                            <input class="form-control" id="ProjectName" type="text" placeholder="Project Name"  />
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                </div>
+
+                                                @*<button type="submit" class="button-grid-blue" id="btn-save"> <span>Post </span></button>*@
+
+                                                
+                                            <div class="form-group">
+                                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 grid-down-buttons">
+                                                    <button class="button-grid-blue " id="btnSaveproject">Post</button>
+                                                    <button type="reset" class="button">Cancel</button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                      
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+                @*End projet and block page*@
+
+
+                @*Plot Booking page start from here*@
+                
+                <div>
+                    <div class="row" id="">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title2">
+                                    <h2 class="Slide-Grid-Heading"> Create Project</h2>
+                                    <ul class="nav navbar-right ">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                        </li>
+
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content" style="display:none">
+                                    <br />
+                                    <form action="" class="PhaseForm" method="post" >
+                                        <div class='col-sm-3'>
+                                            <div class="form-group">
+                                                <div class=''>
+                                                    <label>Project <span class="text-danger">*</span></label>
+                                                    <select class="form-control ProjectDDL" id="Project" name="Project"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-3'>
+                                            <div class="form-group">
+                                                <div class=''>
+                                                    <label>Phase <span class="text-danger">*</span></label>
+                                                    <select class="form-control PhaseDDL" id="Phase" name="Phase"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-3'>
+                                            <div class="form-group">
+                                                <div class=''>
+                                                    <label>Block <span class="text-danger">*</span></label>
+                                                    <select class="form-control BlockDDL" id="Block_Id" name="Block_Id"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-3'>
+                                            <label>UOM <span class="text-danger">*</span></label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <input class="form-control " id="UOM" name="UOM" type="text" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-3'>
+                                            <label>AREA <span class="text-danger">*</span></label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <input class="form-control " id="Area" name="Area" type="text" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-3'>
+
+                                            <label>LENGTH <span class="text-danger">*</span></label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <input class="form-control " id="Length" name="Length" type="text" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-3'>
+                                            <label>WIDTH <span class="text-danger">*</span></label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <input class="form-control " id="Width" name="Width" type="text" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-3'>
+                                            <label>FRONT <span class="text-danger">*</span></label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <input class="form-control " id="Front" name="Front" type="text" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-3'>
+                                            <label>PLOT N0 <span class="text-danger">*</span></label>
+                                            <div class="form-group">
+                                                <div class='input-group'>
+                                                    <input class="form-control" id="Plot_No" name="Plot_No" type="text" value="" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        @*<button type="submit" class="button-grid-blue" id="btn-save"> <span>Post </span></button>*@
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <button type="submit" class="button-grid-blue " id="btn-save"><i class="fa fa-save"></i> <span>Post </span></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+                @*end Plot booking page*@
+
+
+
+
+            </div> 
+            </div>
     </div>
-</div>
+    
+<script>
+                        
+
+
+                        var LoadProjectDDL = function () {
+
+                            $.ajax({
+                                type: "POST",
+                                cache: false,
+                                url: "/Plot/LoadProjectDDL",
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+
+                                    var sch = JSON.parse(data);
+
+                                    var $el = $(".ProjectDDL");
+                                    $el.empty();
+                                    if (sch.length > 0) {
+                                        $el.append($("<option></option>")
+                                            .attr("value", 0).text('Select Project'));
+                                        for (i = 0; i < sch.length; i++) {
+                                            $el.append($("<option></option>")
+                                                .attr("value", sch[i].Id).text(sch[i].Name));
+                                        }
+                                    }
+                                    else {
+                                        $el.append($("<option></option>")
+                                            .attr("value", '').text('Select'));
+                                    }
+                                }
+                            });
+                        }
+
+                        var handlevalidation = function () {
+                            $('.PhaseForm').validate({
+                                errorElement: 'span', //default input error message container
+                                errorClass: 'help-block', // default input error message class
+                                focusInvalid: false, // do not focus the last invalid input
+                                ignore: "",
+                                rules: {
+
+                                    UOM: {
+                                        required: true
+
+                                    },
+                                    Area: {
+                                        required: true
+
+                                    },
+
+                                    Length: {
+                                        required: true
+                                    },
+                                    Width: {
+                                        required: true
+                                    },
+
+                                    Front: {
+                                        required: true
+
+                                    },
+
+                                    Plot_No: {
+                                        required: true
+
+                                    },
+
+                                },
+
+                                invalidHandler: function (event, validator) { //display error alert on form submit
+
+                                },
+
+                                highlight: function (element) { // hightlight error inputs
+                                    $(element)
+                                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                                },
+
+                                success: function (label) {
+                                    label.closest('.form-group').removeClass('has-error');
+                                    label.remove();
+                                },
+
+
+
+                                submitHandler: function (form) {
+                                    debugger;
+                                    var BlockDDL = $('#Block_Id').val();
+
+                                    if (BlockDDL == null || BlockDDL == '' || BlockDDL == 0) {
+
+                                        return false;
+                                    }
+
+                                    $.post(
+                                        "/Plot/Create",
+                                        $(".PhaseForm").serialize(),
+                                        function (value) {
+                                            if (value != "error") {
+
+                                                window.location = '/Plot/Index';
+                                            }
+                                        }
+                                    );
+
+                                    return false;
+                                }
+                            });
+
+                            $('.PhaseForm').keypress(function (e) {
+                                if (e.which == 13) {
+                                    if ($('.PhaseForm').validate().form()) {
+                                        $('.PhaseForm').submit();
+                                    }
+                                    return false;
+                                }
+                            });
+                            jQuery('#btn-save').click(function () {
+                                if ($('.PhaseForm').validate().form()) {
+
+                                    $('.PhaseForm').submit();
+                                }
+                            });
+                        }
+
+
+                        //$(document).on('click', '#btn-save', function () {
+                        //	debugger;
+                        //	var data = $(".PhaseForm").serialize();
+                        //	$.post(
+                        //		"/Plot/Create",
+                        //		$(".PhaseForm").serialize(),
+                        //		function (value) {
+                        //			if (value != "error") {
+
+                        //				window.location = '/Plot/Index';
+                        //			}
+                        //		}
+                        //	);
+                        //});
+
+
+                        $(document).ready(function () {
+                            //handlevalidation();
+                            LoadProjectDDL();
+
+
+
+                            $("#Project").change(function () {
+
+                                var Phase = $(this).val();
+
+                                $.ajax({
+                                    type: "POST",
+                                    cache: false,
+                                    url: "/Plot/LoadPhaseDDL?id=" + Phase,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function (data) {
+                                        var sch = JSON.parse(data);
+
+                                        var $el = $(".PhaseDDL");
+                                        $el.empty();
+                                        if (sch.length > 0) {
+                                            $el.append($("<option></option>")
+                                                .attr("value", 0).text('Select Phase'));
+                                            for (i = 0; i < sch.length; i++) {
+                                                $el.append($("<option></option>")
+                                                    .attr("value", sch[i].Id).text(sch[i].Phase_Code));
+                                            }
+                                        }
+                                        else {
+                                            $el.append($("<option></option>")
+                                                .attr("value", '').text('Select'));
+                                        }
+                                    }
+                                });
+
+                            });
+
+                            $("#Phase").change(function () {
+
+                                var Id = $(this).val();
+
+                                $.ajax({
+                                    type: "POST",
+                                    cache: false,
+                                    url: "/Plot/LoadBlockDDL?id=" + Id,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function (data) {
+                                        var sch = JSON.parse(data);
+
+                                        var $el = $(".BlockDDL");
+                                        $el.empty();
+                                        if (sch.length > 0) {
+                                            $el.append($("<option></option>")
+                                                .attr("value", 0).text('Select Block'));
+                                            for (i = 0; i < sch.length; i++) {
+                                                $el.append($("<option></option>")
+                                                    .attr("value", sch[i].Id).text(sch[i].Block_Code));
+                                            }
+                                        }
+                                        else {
+                                            $el.append($("<option></option>")
+                                                .attr("value", '').text('Select'));
+                                        }
+                                    }
+                                });
+
+                            });
+
+
+
+                        });
+
+</script>
+
+
+
+
+
+
+
+
+
+   

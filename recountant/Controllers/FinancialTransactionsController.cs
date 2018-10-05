@@ -156,5 +156,97 @@ namespace ReCountant.Controllers
             return Json(true);
         }
 
+
+        [HttpPost]
+        public JsonResult GetInvoices(int id)
+        {
+            var res = db.F_Financial_Transactions.Where(x => x.Supplier_Id == id /*&& x.Credit!=0*/).Select(x => new
+            {/* Id = x.Id,*/ Reference_Number = x.Reference_Number }).Distinct().ToList();
+            return Json(res);
+        }
+
+        public JsonResult GetInvoicesDetails(string invo, int sup)
+        {
+          
+            
+            var parstatus = db.F_Financial_Transactions.Where(x =>x.Reference_Number==invo && x.Supplier_Id==sup  && x.Status.Contains("Parked")).Select(x=>x.Status).FirstOrDefault();
+
+            if (parstatus == "Parked")
+            {
+                return Json(false);
+            }
+            if (invo == "Running_Balance")
+            {
+
+            }
+            //if (invo == "Running_Balance")
+            //{
+                
+            //}
+            var sum = db.F_Financial_Transactions.Where(x => x.Reference_Number == invo && x.Supplier_Id == sup && x.Status == "pending").Sum(foo => foo.Net);
+            //var stauts_of_accounts = db.F_Financial_Transactions
+            //    .Where(x => x.Reference_Number == invo && x.Supplier_Id == sup && x.Net < 0).Select(x => x.Status);
+            var Conversion_Of_Sum_Into_Positive_Integer = ((-1) * (sum));
+
+
+
+
+            //var cust = db.F_Financial_Transactions.Where(x => x.Reference_Number== invo && x.Supplier_Id== sup).ToList();
+
+
+            //var sumcheck = db.F_Financial_Transactions.Where(x => x.Reference_Number == invo && x.Supplier_Id == sup && x.Status == "pending" && x.Status=="Parked").Sum(foo => foo.Net);
+
+            //var sumx = (from x in db.F_Financial_Transactions
+            //            where x.Reference_Number == invo && x.Supplier_Id == sup && x.Status == "pending" 
+            //            select x.Net).Sum();
+            //var sumx2 = (from x in db.F_Financial_Transactions
+            //            where x.Reference_Number == invo && x.Supplier_Id == sup && x.Status == "pendind"
+            //            select x.Net).Sum();
+            //if (sum != null)
+            //{
+            //    return new JsonResult { Data = sum };
+            //}
+            //else
+            //{
+            //    return Json(false);
+            //}
+            //var invoicesinformation = db.Summary_Table.Where(x => x.Voucher_Number == invo && x.Supplier_Id == sup && x.Credit > 0).Select(x => new
+            //{
+
+            //    //Id = x.Id,
+            //    //Reference_Number = x.Reference_Number,
+            //    //Transaction_Document_Number = x.Transaction_Document_Number,
+            //    //Purchase_Order = x.Purchase_Order,
+            //    //Product = x.Product,
+            //    //Description = x.Description,
+            //    //Space_Type = x.Space_Type,
+            //    //Quantity = x.Quantity,
+            //    //Uom = x.Uom,
+            //    //Rate = x.Rate,
+            //    //Amount_TC = x.Amount_TC,
+            //    //Exchange_Rate = x.Exchange_Rate,
+            //    //Currency = x.Currency,
+            //    //Amount_LC = x.Amount_LC,
+            //    //Customer_Id = x.Customer_Id,
+            //    //Employee_Id = x.Employee_Id,
+            //    //Owner_Id = x.Owner_Id,
+            //    //REP = x.REP,
+            //    //REA = x.REA,
+            //    //Project = x.Project,
+            //    //ResponsibilityCenter_Id = x.ResponsibilityCenter_Id,
+            //    //Company_Id = x.Company_Id,
+            //    Credit = sum,
+            //    Voucher_Number = x.Voucher_Number
+
+
+            //}).ToList();
+
+
+
+           return new JsonResult { Data = Conversion_Of_Sum_Into_Positive_Integer };
+
+        }
+
+
     }
 }

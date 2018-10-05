@@ -14,6 +14,12 @@ namespace ReCountant.Models
     
     public partial class REP
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public REP()
+        {
+            this.F_Financial_Transactions = new HashSet<F_Financial_Transactions>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string CNIC { get; set; }
@@ -32,5 +38,8 @@ namespace ReCountant.Models
         public string Bussiness { get; set; }
         public string EPZ { get; set; }
         public Nullable<long> Userid { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<F_Financial_Transactions> F_Financial_Transactions { get; set; }
     }
 }

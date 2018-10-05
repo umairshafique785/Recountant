@@ -176,5 +176,16 @@ namespace ReCountant.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpPost]
+        public JsonResult PostProject(D_Projects project)
+        {
+            if (ModelState.IsValid)
+            {
+                db.D_Projects.Add(project);
+                db.SaveChanges();
+            }
+            return Json(true);
+        }
     }
 }

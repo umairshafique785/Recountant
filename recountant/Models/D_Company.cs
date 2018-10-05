@@ -14,6 +14,13 @@ namespace ReCountant.Models
     
     public partial class D_Company
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public D_Company()
+        {
+            this.F_Financial_Transactions = new HashSet<F_Financial_Transactions>();
+            this.Balance_TransactionParty = new HashSet<Balance_TransactionParty>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
@@ -27,5 +34,10 @@ namespace ReCountant.Models
         public string Business { get; set; }
         public string EPZ { get; set; }
         public Nullable<int> REP { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<F_Financial_Transactions> F_Financial_Transactions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Balance_TransactionParty> Balance_TransactionParty { get; set; }
     }
 }

@@ -9,13 +9,8 @@
     <EntitySet Name="C__MigrationHistory" EntityType="ReCountantModel.C__MigrationHistory" />
     <EntitySet Name="Balance_COA" EntityType="ReCountantModel.Balance_COA" />
     <EntitySet Name="Balance_Installments" EntityType="ReCountantModel.Balance_Installments" />
-    <EntitySet Name="Balance_TransactionParty" EntityType="ReCountantModel.Balance_TransactionParty" />
     <EntitySet Name="D_Block" EntityType="ReCountantModel.D_Block" />
-    <EntitySet Name="D_Company" EntityType="ReCountantModel.D_Company" />
-    <EntitySet Name="D_Customer" EntityType="ReCountantModel.D_Customer" />
-    <EntitySet Name="D_Employee" EntityType="ReCountantModel.D_Employee" />
     <EntitySet Name="D_Land_RealEstate" EntityType="ReCountantModel.D_Land_RealEstate" />
-    <EntitySet Name="D_Owner" EntityType="ReCountantModel.D_Owner" />
     <EntitySet Name="D_Phase" EntityType="ReCountantModel.D_Phase" />
     <EntitySet Name="D_Plot" EntityType="ReCountantModel.D_Plot" />
     <EntitySet Name="D_Plot_Booking" EntityType="ReCountantModel.D_Plot_Booking" />
@@ -23,8 +18,6 @@
     <EntitySet Name="D_Project_Specs" EntityType="ReCountantModel.D_Project_Specs" />
     <EntitySet Name="D_Projects" EntityType="ReCountantModel.D_Projects" />
     <EntitySet Name="D_ReportingFunction" EntityType="ReCountantModel.D_ReportingFunction" />
-    <EntitySet Name="D_SpaceType" EntityType="ReCountantModel.D_SpaceType" />
-    <EntitySet Name="D_Supplier" EntityType="ReCountantModel.D_Supplier" />
     <EntitySet Name="D_VoucherType" EntityType="ReCountantModel.D_VoucherType" />
     <EntitySet Name="F_Land_Purchase_RealEstate" EntityType="ReCountantModel.F_Land_Purchase_RealEstate" />
     <EntitySet Name="Installment_Plan" EntityType="ReCountantModel.Installment_Plan" />
@@ -38,11 +31,13 @@
     <EntitySet Name="Mapping_Employee_ResponsibilityCenter" EntityType="ReCountantModel.Mapping_Employee_ResponsibilityCenter" />
     <EntitySet Name="Mapping_Installment_Planned_Recevied" EntityType="ReCountantModel.Mapping_Installment_Planned_Recevied" />
     <EntitySet Name="Mapping_Land_Plot" EntityType="ReCountantModel.Mapping_Land_Plot" />
-    <EntitySet Name="RealEstate_Activity" EntityType="ReCountantModel.RealEstate_Activity" />
-    <EntitySet Name="REPs" EntityType="ReCountantModel.REP" />
     <EntitySet Name="Roles" EntityType="ReCountantModel.Role" />
     <EntitySet Name="UserClaims" EntityType="ReCountantModel.UserClaim" />
     <EntitySet Name="UserLogins" EntityType="ReCountantModel.UserLogin" />
+    <FunctionImport Name="SP_GET_AccountHeadId" ReturnType="Collection(Int32)">
+      <Parameter Name="AccountName" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Transaction_Rules" EntityType="ReCountantModel.Transaction_Rules" />
     <EntitySet Name="Users" EntityType="ReCountantModel.User" />
     <AssociationSet Name="FK_dbo_UserClaims_dbo_Users_UserId" Association="ReCountantModel.FK_dbo_UserClaims_dbo_Users_UserId">
       <End Role="User" EntitySet="Users" />
@@ -56,13 +51,66 @@
       <End Role="Role" EntitySet="Roles" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
-    <FunctionImport Name="SP_GET_AccountHeadId" ReturnType="Collection(Int32)">
-      <Parameter Name="AccountName" Mode="In" Type="String" />
-    </FunctionImport>
-    <EntitySet Name="Summary_Table" EntityType="ReCountantModel.Summary_Table" />
-    <EntitySet Name="F_Financial_Transactions" EntityType="ReCountantModel.F_Financial_Transactions" />
-    <EntitySet Name="Transaction_Rules" EntityType="ReCountantModel.Transaction_Rules" />
+    <EntitySet Name="D_Company" EntityType="ReCountantModel.D_Company" />
     <EntitySet Name="D_ResponsibilityCenter" EntityType="ReCountantModel.D_ResponsibilityCenter" />
+    <EntitySet Name="RealEstate_Activity" EntityType="ReCountantModel.RealEstate_Activity" />
+    <EntitySet Name="REPs" EntityType="ReCountantModel.REP" />
+    <EntitySet Name="D_Customer" EntityType="ReCountantModel.D_Customer" />
+    <EntitySet Name="D_SpaceType" EntityType="ReCountantModel.D_SpaceType" />
+    <EntitySet Name="D_Employee" EntityType="ReCountantModel.D_Employee" />
+    <EntitySet Name="D_Owner" EntityType="ReCountantModel.D_Owner" />
+    <EntitySet Name="F_Financial_Transactions" EntityType="ReCountantModel.F_Financial_Transactions" />
+    <AssociationSet Name="FK_F_Financial_Transactions_D_Company" Association="ReCountantModel.FK_F_Financial_Transactions_D_Company">
+      <End Role="D_Company" EntitySet="D_Company" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_F_Financial_Transactions_D_Customer" Association="ReCountantModel.FK_F_Financial_Transactions_D_Customer">
+      <End Role="D_Customer" EntitySet="D_Customer" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_F_Financial_Transactions_D_Employee" Association="ReCountantModel.FK_F_Financial_Transactions_D_Employee">
+      <End Role="D_Employee" EntitySet="D_Employee" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_F_Financial_Transactions_D_Owner" Association="ReCountantModel.FK_F_Financial_Transactions_D_Owner">
+      <End Role="D_Owner" EntitySet="D_Owner" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_F_Financial_Transactions_D_Projects" Association="ReCountantModel.FK_F_Financial_Transactions_D_Projects">
+      <End Role="D_Projects" EntitySet="D_Projects" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_F_Financial_Transactions_D_ResponsibilityCenter" Association="ReCountantModel.FK_F_Financial_Transactions_D_ResponsibilityCenter">
+      <End Role="D_ResponsibilityCenter" EntitySet="D_ResponsibilityCenter" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_F_Financial_Transactions_D_SpaceType" Association="ReCountantModel.FK_F_Financial_Transactions_D_SpaceType">
+      <End Role="D_SpaceType" EntitySet="D_SpaceType" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_F_Financial_Transactions_RealEstate_Activity" Association="ReCountantModel.FK_F_Financial_Transactions_RealEstate_Activity">
+      <End Role="RealEstate_Activity" EntitySet="RealEstate_Activity" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_F_Financial_Transactions_REP" Association="ReCountantModel.FK_F_Financial_Transactions_REP">
+      <End Role="REP" EntitySet="REPs" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <EntitySet Name="Summary_Table" EntityType="ReCountantModel.Summary_Table" />
+    <EntitySet Name="D_Supplier" EntityType="ReCountantModel.D_Supplier" />
+    <AssociationSet Name="FK_F_Financial_Transactions_D_Supplier" Association="ReCountantModel.FK_F_Financial_Transactions_D_Supplier">
+      <End Role="D_Supplier" EntitySet="D_Supplier" />
+      <End Role="F_Financial_Transactions" EntitySet="F_Financial_Transactions" />
+    </AssociationSet>
+    <EntitySet Name="Balance_TransactionParty" EntityType="ReCountantModel.Balance_TransactionParty" />
+    <AssociationSet Name="FK_Balance_TransactionParty_D_Company" Association="ReCountantModel.FK_Balance_TransactionParty_D_Company">
+      <End Role="D_Company" EntitySet="D_Company" />
+      <End Role="Balance_TransactionParty" EntitySet="Balance_TransactionParty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Balance_TransactionParty_D_Supplier" Association="ReCountantModel.FK_Balance_TransactionParty_D_Supplier">
+      <End Role="D_Supplier" EntitySet="D_Supplier" />
+      <End Role="Balance_TransactionParty" EntitySet="Balance_TransactionParty" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="SP_Get_AccountHead_Result">
     <Property Type="Int16" Name="OrgLevel" Nullable="true" />
@@ -111,27 +159,6 @@
     <Property Name="Plot_id" Type="Int32" />
     <Property Name="InstRece_Id" Type="Int32" />
   </EntityType>
-  <EntityType Name="Balance_TransactionParty">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Date" Type="DateTime" Precision="3" />
-    <Property Name="Time_Of_Entry" Type="DateTime" Precision="3" />
-    <Property Name="Invoice_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Account_Id" Type="Int32" />
-    <Property Name="Transaction_Party" Type="Int64" />
-    <Property Name="Company_Id" Type="Int32" />
-    <Property Name="Currency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Amount_TC" Type="Double" />
-    <Property Name="Exchange_Rate" Type="Double" />
-    <Property Name="Amount_LC" Type="Double" />
-    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Debit" Type="Double" />
-    <Property Name="Credit" Type="Double" />
-    <Property Name="Net" Type="Double" annotation:StoreGeneratedPattern="Computed" />
-    <Property Name="Userid" Type="Int64" />
-  </EntityType>
   <EntityType Name="D_Block">
     <Key>
       <PropertyRef Name="Id" />
@@ -141,42 +168,6 @@
     <Property Name="Block" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Block_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="D_Company">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Contact_Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="NTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="STRN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Residential_Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Filer_NonFiler" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Individual_AOP_Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Supply_Chain_Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Business" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="REP" Type="Int32" />
-  </EntityType>
-  <EntityType Name="D_Customer">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Userid" Type="Int64" Nullable="false" />
-    <Property Name="Customer_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="D_Employee">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Userid" Type="Int64" Nullable="false" />
-    <Property Name="Employee_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-  </EntityType>
   <EntityType Name="D_Land_RealEstate">
     <Key>
       <PropertyRef Name="Id" />
@@ -185,15 +176,6 @@
     <Property Name="Land_Id" Type="Int32" />
     <Property Name="Company_Id" Type="Int32" />
     <Property Name="Userid" Type="Int64" />
-  </EntityType>
-  <EntityType Name="D_Owner">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Userid" Type="Int64" Nullable="false" />
-    <Property Name="Owner_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="D_Phase">
     <Key>
@@ -257,6 +239,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Projects" FromRole="D_Projects" ToRole="F_Financial_Transactions" />
   </EntityType>
   <EntityType Name="D_ReportingFunction">
     <Key>
@@ -264,22 +247,6 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Function" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="D_SpaceType">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Space_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="D_Supplier">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Userid" Type="Int64" Nullable="false" />
-    <Property Name="Supplier_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="D_VoucherType">
     <Key>
@@ -433,37 +400,6 @@
     <Property Name="Land_Id" Type="Int32" />
     <Property Name="Plot_Id" Type="Int32" />
   </EntityType>
-  <EntityType Name="RealEstate_Activity">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RealEstate_Activites" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="RealEstate_Activites_L2" Type="Int32" />
-  </EntityType>
-  <EntityType Name="REP">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="CNIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="NTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="STRN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Residential_Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Industry" Type="Int32" />
-    <Property Name="Supply_Chain_Role" Type="Int32" />
-    <Property Name="Filer_NonFiler" Type="Boolean" />
-    <Property Name="Individual_AOP_Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Bank_Account" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Bussiness" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Userid" Type="Int64" />
-  </EntityType>
   <EntityType Name="Role">
     <Key>
       <PropertyRef Name="Id" />
@@ -493,6 +429,15 @@
     <Property Name="UserId" Type="Int64" Nullable="false" />
     <NavigationProperty Name="User" Relationship="ReCountantModel.FK_dbo_UserLogins_dbo_Users_UserId" FromRole="UserLogin" ToRole="User" />
   </EntityType>
+  <EntityType Name="Transaction_Rules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COA" Type="Int32" Nullable="false" />
+    <Property Name="Credit_Debit" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Transaction_Type_Id" Type="Int32" Nullable="false" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="Id" />
@@ -512,16 +457,16 @@
     <Property Name="Business" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="EmailConfirmed" Type="Boolean" />
     <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" />
     <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="LockoutEnabled" Type="Boolean" />
+    <Property Name="AccessFailedCount" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="UserClaims" Relationship="ReCountantModel.FK_dbo_UserClaims_dbo_Users_UserId" FromRole="User" ToRole="UserClaim" />
     <NavigationProperty Name="UserLogins" Relationship="ReCountantModel.FK_dbo_UserLogins_dbo_Users_UserId" FromRole="User" ToRole="UserLogin" />
     <NavigationProperty Name="Roles" Relationship="ReCountantModel.UserRoles" FromRole="User" ToRole="Role" />
@@ -558,20 +503,106 @@
     <End Type="ReCountantModel.Role" Role="Role" Multiplicity="*" />
     <End Type="ReCountantModel.User" Role="User" Multiplicity="*" />
   </Association>
-  <EntityType Name="Summary_Table">
+  <EntityType Name="D_Company">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="COA" Type="Int32" />
-    <Property Name="Debit" Type="Double" />
-    <Property Name="Credit" Type="Double" />
-    <Property Name="Supplier_Id" Type="Int64" />
-    <Property Name="Voucher_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ResponsibilityCenter_Id" Type="Int32" />
-    <Property Name="Voucher_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Document_Date" Type="DateTimeOffset" Precision="7" />
-    <Property Name="Company_Id" Type="Int32" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Contact_Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="STRN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Residential_Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Filer_NonFiler" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Individual_AOP_Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Supply_Chain_Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Business" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="REP" Type="Int32" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Company" FromRole="D_Company" ToRole="F_Financial_Transactions" />
+    <NavigationProperty Name="Balance_TransactionParty" Relationship="ReCountantModel.FK_Balance_TransactionParty_D_Company" FromRole="D_Company" ToRole="Balance_TransactionParty" />
+  </EntityType>
+  <EntityType Name="D_ResponsibilityCenter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Responsibilty_Center" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Department_Head" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Approving_Authority" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_ResponsibilityCenter" FromRole="D_ResponsibilityCenter" ToRole="F_Financial_Transactions" />
+  </EntityType>
+  <EntityType Name="RealEstate_Activity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RealEstate_Activites" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="RealEstate_Activites_L2" Type="Int32" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_RealEstate_Activity" FromRole="RealEstate_Activity" ToRole="F_Financial_Transactions" />
+  </EntityType>
+  <EntityType Name="REP">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CNIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="STRN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Residential_Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Industry" Type="Int32" />
+    <Property Name="Supply_Chain_Role" Type="Int32" />
+    <Property Name="Filer_NonFiler" Type="Boolean" />
+    <Property Name="Individual_AOP_Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Bank_Account" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Bussiness" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EPZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Userid" Type="Int64" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_REP" FromRole="REP" ToRole="F_Financial_Transactions" />
+  </EntityType>
+  <EntityType Name="D_Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Userid" Type="Int64" Nullable="false" />
+    <Property Name="Customer_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Customer" FromRole="D_Customer" ToRole="F_Financial_Transactions" />
+  </EntityType>
+  <EntityType Name="D_SpaceType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Space_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_SpaceType" FromRole="D_SpaceType" ToRole="F_Financial_Transactions" />
+  </EntityType>
+  <EntityType Name="D_Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Userid" Type="Int64" Nullable="false" />
+    <Property Name="Employee_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Employee" FromRole="D_Employee" ToRole="F_Financial_Transactions" />
+  </EntityType>
+  <EntityType Name="D_Owner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Userid" Type="Int64" Nullable="false" />
+    <Property Name="Owner_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Owner" FromRole="D_Owner" ToRole="F_Financial_Transactions" />
   </EntityType>
   <EntityType Name="F_Financial_Transactions">
     <Key>
@@ -582,13 +613,13 @@
     <Property Name="Voucher_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="DateTime_Of_Entry" Type="DateTime" Precision="3" />
     <Property Name="Voucher_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Reference_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Reference_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Transaction_Document_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Account_Id" Type="Int32" />
     <Property Name="Supplier_Id" Type="Int64" />
-    <Property Name="Customer_Id" Type="Int64" />
-    <Property Name="Employee_Id" Type="Int64" />
-    <Property Name="Owner_Id" Type="Int64" />
+    <Property Name="Customer_Id" Type="Int32" />
+    <Property Name="Employee_Id" Type="Int32" />
+    <Property Name="Owner_Id" Type="Int32" />
     <Property Name="Company_Id" Type="Int32" />
     <Property Name="Transaction_Party" Type="Int64" />
     <Property Name="Plot" Type="Int32" />
@@ -617,23 +648,224 @@
     <Property Name="Recording_Index" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Rate" Type="Double" />
     <Property Name="Uom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="COA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="D_Company" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Company" FromRole="F_Financial_Transactions" ToRole="D_Company" />
+    <NavigationProperty Name="D_Customer" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Customer" FromRole="F_Financial_Transactions" ToRole="D_Customer" />
+    <NavigationProperty Name="D_Employee" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Employee" FromRole="F_Financial_Transactions" ToRole="D_Employee" />
+    <NavigationProperty Name="D_Owner" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Owner" FromRole="F_Financial_Transactions" ToRole="D_Owner" />
+    <NavigationProperty Name="D_Projects" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Projects" FromRole="F_Financial_Transactions" ToRole="D_Projects" />
+    <NavigationProperty Name="D_ResponsibilityCenter" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_ResponsibilityCenter" FromRole="F_Financial_Transactions" ToRole="D_ResponsibilityCenter" />
+    <NavigationProperty Name="D_SpaceType" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_SpaceType" FromRole="F_Financial_Transactions" ToRole="D_SpaceType" />
+    <NavigationProperty Name="RealEstate_Activity" Relationship="ReCountantModel.FK_F_Financial_Transactions_RealEstate_Activity" FromRole="F_Financial_Transactions" ToRole="RealEstate_Activity" />
+    <NavigationProperty Name="REP1" Relationship="ReCountantModel.FK_F_Financial_Transactions_REP" FromRole="F_Financial_Transactions" ToRole="REP" />
+    <NavigationProperty Name="D_Supplier" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Supplier" FromRole="F_Financial_Transactions" ToRole="D_Supplier" />
   </EntityType>
-  <EntityType Name="Transaction_Rules">
+  <Association Name="FK_F_Financial_Transactions_D_Company">
+    <End Type="ReCountantModel.D_Company" Role="D_Company" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_Company">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="Company_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_F_Financial_Transactions_D_Customer">
+    <End Type="ReCountantModel.D_Customer" Role="D_Customer" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="Customer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_F_Financial_Transactions_D_Employee">
+    <End Type="ReCountantModel.D_Employee" Role="D_Employee" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="Employee_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_F_Financial_Transactions_D_Owner">
+    <End Type="ReCountantModel.D_Owner" Role="D_Owner" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_Owner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="Owner_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_F_Financial_Transactions_D_Projects">
+    <End Type="ReCountantModel.D_Projects" Role="D_Projects" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_Projects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="Project" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_F_Financial_Transactions_D_ResponsibilityCenter">
+    <End Type="ReCountantModel.D_ResponsibilityCenter" Role="D_ResponsibilityCenter" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_ResponsibilityCenter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="ResponsibilityCenter_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_F_Financial_Transactions_D_SpaceType">
+    <End Type="ReCountantModel.D_SpaceType" Role="D_SpaceType" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_SpaceType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="Space_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_F_Financial_Transactions_RealEstate_Activity">
+    <End Type="ReCountantModel.RealEstate_Activity" Role="RealEstate_Activity" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RealEstate_Activity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="REA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_F_Financial_Transactions_REP">
+    <End Type="ReCountantModel.REP" Role="REP" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="REP">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="REP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Summary_Table">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COA" Type="Int32" />
+    <Property Name="Debit" Type="Double" />
+    <Property Name="Credit" Type="Double" />
+    <Property Name="Supplier_Id" Type="Int64" />
+    <Property Name="Voucher_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ResponsibilityCenter_Id" Type="Int32" />
+    <Property Name="Voucher_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Document_Date" Type="DateTime" Precision="3" />
+    <Property Name="Company_Id" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="D_Supplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Userid" Type="Int64" Nullable="false" />
+    <Property Name="Supplier_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CNIC_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Industry" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Supply_Chain_Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Business" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Billing_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Shipping_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Billing_Contact_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Shipping_Contact_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Billing_Email_Id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Shipping_Email_Id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Product_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Supplier_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Payment_Method" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="F_Financial_Transactions" Relationship="ReCountantModel.FK_F_Financial_Transactions_D_Supplier" FromRole="D_Supplier" ToRole="F_Financial_Transactions" />
+    <NavigationProperty Name="Balance_TransactionParty" Relationship="ReCountantModel.FK_Balance_TransactionParty_D_Supplier" FromRole="D_Supplier" ToRole="Balance_TransactionParty" />
+  </EntityType>
+  <Association Name="FK_F_Financial_Transactions_D_Supplier">
+    <End Type="ReCountantModel.D_Supplier" Role="D_Supplier" Multiplicity="0..1" />
+    <End Type="ReCountantModel.F_Financial_Transactions" Role="F_Financial_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="F_Financial_Transactions">
+        <PropertyRef Name="Supplier_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Balance_TransactionParty">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="COA" Type="Int32" Nullable="false" />
-    <Property Name="Credit_Debit" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Transaction_Type_Id" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Time_Of_Entry" Type="DateTime" Precision="3" />
+    <Property Name="Invoice_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Account_Id" Type="Int32" />
+    <Property Name="Transaction_Party" Type="Int64" />
+    <Property Name="Company_Id" Type="Int32" />
+    <Property Name="Currency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Amount_TC" Type="Double" />
+    <Property Name="Exchange_Rate" Type="Double" />
+    <Property Name="Amount_LC" Type="Double" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Debit" Type="Double" />
+    <Property Name="Credit" Type="Double" />
+    <Property Name="Net" Type="Double" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="Userid" Type="Int64" />
+    <NavigationProperty Name="D_Company" Relationship="ReCountantModel.FK_Balance_TransactionParty_D_Company" FromRole="Balance_TransactionParty" ToRole="D_Company" />
+    <NavigationProperty Name="D_Supplier" Relationship="ReCountantModel.FK_Balance_TransactionParty_D_Supplier" FromRole="Balance_TransactionParty" ToRole="D_Supplier" />
   </EntityType>
-  <EntityType Name="D_ResponsibilityCenter">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Responsibilty_Center" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Department_Head" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Approving_Authority" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-  </EntityType>
+  <Association Name="FK_Balance_TransactionParty_D_Company">
+    <End Type="ReCountantModel.D_Company" Role="D_Company" Multiplicity="0..1" />
+    <End Type="ReCountantModel.Balance_TransactionParty" Role="Balance_TransactionParty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_Company">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Balance_TransactionParty">
+        <PropertyRef Name="Company_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Balance_TransactionParty_D_Supplier">
+    <End Type="ReCountantModel.D_Supplier" Role="D_Supplier" Multiplicity="0..1" />
+    <End Type="ReCountantModel.Balance_TransactionParty" Role="Balance_TransactionParty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="D_Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Balance_TransactionParty">
+        <PropertyRef Name="Transaction_Party" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

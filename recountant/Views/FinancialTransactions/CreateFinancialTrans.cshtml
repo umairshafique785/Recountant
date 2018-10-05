@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Create";
 }
+@{Html.RenderAction("LeftSidePanel", "SideWidget");}
+@{Html.RenderAction("HeaderInfo", "Home");}
 <script>
     var counter = 1;
     var voucher = @Html.Raw(Json.Encode(ViewBag.Voucher_Type))
@@ -31,176 +33,216 @@
 </script>
 @using (Html.BeginForm("", "", FormMethod.Post, new { id = "jvform" }))
 {
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <h4>Financial Transactions</h4>
-        <hr />
-        <div class="row">
-            <div class="col-lg-4">
-                <label class="control-label col-md-6">Document Date</label>
-                <div class="col-md-6">
-                    <input type="text" id="Document_Date" name="Document_Date" data-provide="datepicker" class=" datepicker" />
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <label class="control-label col-md-6">Voucher Number</label>
-                <div class="col-md-6">
-                    <input type="text" id="Voucher_Number" name="Voucher_Number" />
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <label class="control-label col-md-6">Reference Number</label>
-                <div class="col-md-6">
-                    <input type="text" id="Reference_Number" name="Reference_Number" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <label class="control-label col-md-6">Total Debit</label>
-                <div class="col-md-6">
-                    <input type="text" id="totaldebit" />
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <label class="control-label col-md-6">Total Credit</label>
-                <div class="col-md-6">
-                    <input type="text" id="totalcredit" />
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="right_col" role="main" id="">
+        <div class="">
+            <div class="page-title">
 
-    <table class="table table-bordered transtable" style="width:100%">
-        <thead>
-            <tr>
-                <th>Chart Of Account</th>
-                <th>Supplier</th>
-                <th>Customer</th>
-                <th>Employee</th>
-                <th>Owner</th>
-                <th>Company</th>
-                <th>Transaction Party</th>
-                <th>Quantity</th>
-                <th>Amount TC</th>
-                <th>Exchange Rate</th>
-                <th>Amount LC</th>
-                <th>Description</th>
-                <th>Debit</th>
-                <th>Credit</th>
-                <th>Knocking Off</th>
-                <th class="plot">Plot</th>
-                <th class="R_land">Land</th>
-                <th class="R_resCen">Responsibility Center</th>
-                <th class="R_func">Function</th>
-                <th class="R_prj">Project</th>
-                <th class="R_rea">REA</th>
-                <th class="R_rep">REP</th>
-                <th class="R_sp">Space Type</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Any())
-            {
-                int counter = 1;
-                foreach (var item in Model)
-                {
-                    <tr class="a_@counter">
-                        <td>
-                            <input type="hidden" value="@ViewBag.InstId" id="isntid"/>
-                            <select id="Account_Id" name="Account_Id[@counter]" readonly=""></select>
-                            <script>
+                <div class="title_left">
+                    <h3>Create Financial Transaction</h3>
+                </div>
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.AntiForgeryToken()
+            <div class="row" id="">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title1">
+
+                            <h2 class="Slide-Grid-Heading"> Financial Transactions</h2>
+                            <ul class="nav navbar-right ">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                </li>
+
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" style="display:none">
+
+                            <div data-parsley-validate class="form-horizontal form-label-left">
+                                <hr />
+
+                                <div class='col-sm-3'>
+                                    <label>Document Date</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type="text" id="Document_Date" name="Document_Date" data-provide="datepicker" class=" datepicker form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>Voucher Number</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type="text" id="Voucher_Number" name="Voucher_Number" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>Reference Number</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type="text" id="Reference_Number" name="Reference_Number" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class='col-sm-3'>
+                                    <label>Total Debit</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type="text" id="totaldebit"  class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <label>Total Credit</label>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type="text" id="totalcredit" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <table class="table table-bordered transtable" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Chart Of Account</th>
+                                            <th>Supplier</th>
+                                            <th>Customer</th>
+                                            <th>Employee</th>
+                                            <th>Owner</th>
+                                            <th>Company</th>
+                                            <th>Transaction Party</th>
+                                            <th>Quantity</th>
+                                            <th>Amount TC</th>
+                                            <th>Exchange Rate</th>
+                                            <th>Amount LC</th>
+                                            <th>Description</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
+                                            <th>Knocking Off</th>
+                                            <th class="plot">Plot</th>
+                                            <th class="R_land">Land</th>
+                                            <th class="R_resCen">Responsibility Center</th>
+                                            <th class="R_func">Function</th>
+                                            <th class="R_prj">Project</th>
+                                            <th class="R_rea">REA</th>
+                                            <th class="R_rep">REP</th>
+                                            <th class="R_sp">Space Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Any())
+                                    {
+                                        int counter = 1;
+                                        foreach (var item in Model)
+                                        {
+                                    <tr class="a_@counter">
+                                        <td>
+                                            <input type="hidden" value="@ViewBag.InstId" id="isntid" />
+                                            <select id="Account_Id" name="Account_Id[@counter]" readonly=""></select>
+                                            <script>
                                 $('.a_' + counter + ' #Account_Id').append('<option value="">Select Account Head</option>');
                                 $.each(acc, function (key, value) {
                                     $('.a_' + counter + ' #Account_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
                                 });
                                 var val = @item.Account_Id;
                                 $('.a_@counter #Account_Id').val(val);
-                            </script>
-                        </td>
-                        <td>
-                            <select id="Supplier_Id" name="Supplier_Id[@counter]" class="transparty"></select>
-                            <script>
-                                $('.a_' + counter + ' #Supplier_Id').append('<option value="">Select Supplier</option>');
-                                $.each(sup, function (key, value) {
-                                    $('.a_' + counter + ' #Supplier_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
-                        </td>
-                        <td>
-                            <select id="Customer_Id" name="Customer_Id[@counter]" class="transparty"></select>
-                            <script>
+                                            </script>
+                                        </td>
+                                        <td>
+                                            <select id="Supplier_Id" name="Supplier_Id[@counter]" class="transparty"></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #Supplier_Id').append('<option value="">Select Supplier</option>');
+                                                        $.each(sup, function (key, value) {
+                                                            $('.a_' + counter + ' #Supplier_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
+                                        </td>
+                                        <td>
+                                            <select id="Customer_Id" name="Customer_Id[@counter]" class="transparty"></select>
+                                            <script>
                                 $('.a_' + counter + ' #Customer_Id').append('<option value="">Select Customer</option>');
                                 $.each(cust, function (key, value) {
                                     $('.a_' + counter + ' #Customer_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
                                 });
                                 var custs = @item.Customer_Id;
                                 $('.a_@counter #Customer_Id').val(custs);
-                            </script>
-                        </td>
-                        <td>
-                            <select id="Employee_Id" name="Employee_Id[@counter]" class="transparty"></select>
-                            <script>
-                                $('.a_' + counter + ' #Employee_Id').append('<option value="">Select Employee</option>');
-                                $.each(emp, function (key, value) {
-                                    $('.a_' + counter + ' #Employee_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
+                                            </script>
+                                        </td>
+                                        <td>
+                                            <select id="Employee_Id" name="Employee_Id[@counter]" class="transparty"></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #Employee_Id').append('<option value="">Select Employee</option>');
+                                                        $.each(emp, function (key, value) {
+                                                            $('.a_' + counter + ' #Employee_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
 
-                        </td>
-                        <td>
-                            <select id="Owner_Id" name="Owner_Id[@counter]" class="transparty"></select>
-                            <script>
-                                $('.a_' + counter + ' #Owner_Id').append('<option value="">Select Owner</option>');
-                                $.each(owner, function (key, value) {
-                                    $('.a_' + counter + ' #Owner_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
+                                        </td>
+                                        <td>
+                                            <select id="Owner_Id" name="Owner_Id[@counter]" class="transparty"></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #Owner_Id').append('<option value="">Select Owner</option>');
+                                                        $.each(owner, function (key, value) {
+                                                            $('.a_' + counter + ' #Owner_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
 
-                        </td>
-                        <td>
-                            <select id="Company_Id" name="Company_Id[@counter]" class=""></select>
-                            <script>
-                                $('.a_' + counter + ' #Company_Id').append('<option value="">Select Company</option>');
-                                $.each(comp, function (key, value) {
-                                    $('.a_' + counter + ' #Company_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
+                                        </td>
+                                        <td>
+                                            <select id="Company_Id" name="Company_Id[@counter]" class=""></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #Company_Id').append('<option value="">Select Company</option>');
+                                                        $.each(comp, function (key, value) {
+                                                            $('.a_' + counter + ' #Company_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
 
-                        </td>
-                        <td>
-                            <select id="transparty" name="transparty[@counter]"></select>
-                            <script>
-                                $('.a_' + counter + ' #transparty').append('<option value="">Select Transaction Party</option>');
-                            </script>
-                        </td>
-                        <td>
-                            <input type="text" name="Quantity[@counter]" value="@item.Quantity" id="Quantity" class="" />
-                        </td>
-                        <td>
-                            <input type="text" name="Amount_TC[@counter]" value="@item.Amount_TC" id="Amount_TC" class="" />
-                        </td>
-                        <td>
-                            <input type="text" name="Exchange_Rate[@counter]" id="Exchange_Rate" value="@item.Exchange_Rate" class="" />
-                        </td>
-                        <td>
-                            <input type="text" name="Amount_LC[@counter]" id="Amount_LC" value="@item.Amount_LC" class="" />
-                        </td>
-                        <td>
-                            <input type="text" name="Description[@counter]" value="@item.Description" id="Description" class="" />
-                        </td>
-                        <td>
-                            <input type="text" name="Debit[@counter]" id="Debit" value="@item.Debit" class="debit" />
-                        </td>
-                        <td>
-                            <input type="text" name="Credit[@counter]" id="Credit" class="credit" value="@item.Credit" />
-                        </td>
-                        <td>
-                            <input type="text" name="Knocking_Off[@counter]" id="Knocking_Off" class="" />
-                        </td>
-                        <td>
-                            <select id="Plot" name="Plot[@counter]" class=""></select>
-                            <script>
+                                        </td>
+                                        <td>
+                                            <select id="transparty" name="transparty[@counter]"></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #transparty').append('<option value="">Select Transaction Party</option>');
+                                            </script>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="Quantity[@counter]" value="@item.Quantity" id="Quantity" class="" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="Amount_TC[@counter]" value="@item.Amount_TC" id="Amount_TC" class="" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="Exchange_Rate[@counter]" id="Exchange_Rate" value="@item.Exchange_Rate" class="" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="Amount_LC[@counter]" id="Amount_LC" value="@item.Amount_LC" class="" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="Description[@counter]" value="@item.Description" id="Description" class="" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="Debit[@counter]" id="Debit" value="@item.Debit" class="debit" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="Credit[@counter]" id="Credit" class="credit" value="@item.Credit" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="Knocking_Off[@counter]" id="Knocking_Off" class="" />
+                                        </td>
+                                        <td>
+                                            <select id="Plot" name="Plot[@counter]" class=""></select>
+                                            <script>
                                 $('.a_' + counter + ' #Plot').append('<option value="">Select Plot</option>');
 
                                 $.each(plot, function (key, value) {
@@ -209,180 +251,187 @@
                                 var plots = @item.Plot;
                                 $('.a_@counter #Plot').val(plots);
 
-                            </script>
+                                            </script>
 
-                        </td>
-                        <td>
-                            <select id="Land" name="Land[@counter]" class=""></select>
-                            <script>
-                                $('.a_' + counter + ' #land').append('<option value="">Select Land</option>');
+                                        </td>
+                                        <td>
+                                            <select id="Land" name="Land[@counter]" class=""></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #land').append('<option value="">Select Land</option>');
 
-                                $.each(land, function (key, value) {
-                                    $('.a_' + counter + ' #land').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
+                                                        $.each(land, function (key, value) {
+                                                            $('.a_' + counter + ' #land').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
 
-                        </td>
-                        <td>
-                            <select id="ResponsibilityCenter_Id" name="ResponsibilityCenter_Id[@counter]" class=""></select>
-                            <script>
-                                $('.a_' + counter + ' #ResponsibilityCenter_Id').append('<option value="">Select Responsibility Center</option>');
+                                        </td>
+                                        <td>
+                                            <select id="ResponsibilityCenter_Id" name="ResponsibilityCenter_Id[@counter]" class=""></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #ResponsibilityCenter_Id').append('<option value="">Select Responsibility Center</option>');
 
-                                $.each(respo, function (key, value) {
-                                    $('.a_' + counter + ' #ResponsibilityCenter_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
+                                                        $.each(respo, function (key, value) {
+                                                            $('.a_' + counter + ' #ResponsibilityCenter_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
 
-                        </td>
-                        <td>
-                            <select id="Function_Id" name="Function_Id[@counter]" class=""></select>
-                            <script>
-                                $('.a_' + counter + ' #Function_Id').append('<option value="">Select Function</option>');
+                                        </td>
+                                        <td>
+                                            <select id="Function_Id" name="Function_Id[@counter]" class=""></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #Function_Id').append('<option value="">Select Function</option>');
 
-                                $.each(func, function (key, value) {
-                                    $('.a_' + counter + ' #Function_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
+                                                        $.each(func, function (key, value) {
+                                                            $('.a_' + counter + ' #Function_Id').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
 
-                        </td>
-                        <td>
-                            <select id="Project" name="Project[@counter]" class=""></select>
-                            <script>
-                                $('.a_' + counter + ' #Project').append('<option value="">Select Project</option>');
+                                        </td>
+                                        <td>
+                                            <select id="Project" name="Project[@counter]" class=""></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #Project').append('<option value="">Select Project</option>');
 
-                                $.each(proj, function (key, value) {
-                                    $('.a_' + counter + ' #Project').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
+                                                        $.each(proj, function (key, value) {
+                                                            $('.a_' + counter + ' #Project').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
 
-                        </td>
-                        <td>
-                            <select id="REA" name="REA[@counter]" class=""></select>
-                            <script>
-                                $('.a_' + counter + ' #REA').append('<option value="">Select REA</option>');
-                                $.each(rea, function (key, value) {
-                                    $('.a_' + counter + ' #REA').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
+                                        </td>
+                                        <td>
+                                            <select id="REA" name="REA[@counter]" class=""></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #REA').append('<option value="">Select REA</option>');
+                                                        $.each(rea, function (key, value) {
+                                                            $('.a_' + counter + ' #REA').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
 
-                        </td>
-                        <td>
-                            <select id="REP" name="REP[@counter]" class=""></select>
-                            <script>
-                                $('.a_' + counter + ' #REP').append('<option value="">Select REP</option>');
-                                $.each(rep, function (key, value) {
-                                    $('.a_' + counter + ' #REP').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                            </script>
-                        <td>
-                            <select id="Space_Type" name="Space_Type[@counter]" class=""></select>
-                            <script>
-                                $('.a_' + counter + ' #Space_Type').append('<option value="">Select Space Type</option>');
-                                $.each(space, function (key, value) {
-                                    $('.a_' + counter + ' #Space_Type').append('<option value=' + value.Value + '>' + value.Text + '</option>');
-                                });
-                                counter++;
-                                $('.a_' + counter + ' #Space_Type').val(5);
-                            </script>
-                        </td>
-                    </tr>
+                                        </td>
+                                        <td>
+                                            <select id="REP" name="REP[@counter]" class=""></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #REP').append('<option value="">Select REP</option>');
+                                                        $.each(rep, function (key, value) {
+                                                            $('.a_' + counter + ' #REP').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                            </script>
+                                        <td>
+                                            <select id="Space_Type" name="Space_Type[@counter]" class=""></select>
+                                            <script>
+                                                        $('.a_' + counter + ' #Space_Type').append('<option value="">Select Space Type</option>');
+                                                        $.each(space, function (key, value) {
+                                                            $('.a_' + counter + ' #Space_Type').append('<option value=' + value.Value + '>' + value.Text + '</option>');
+                                                        });
+                                                        counter++;
+                                                        $('.a_' + counter + ' #Space_Type').val(5);
+                                            </script>
+                                        </td>
+                                    </tr>
 
-                    counter = counter + 1;
-                }
-            }
+                                            counter = counter + 1;
+                                        }
+                                    }
 
-        </tbody>
-    </table>
-    <button type="submit">Submit</button>
-}
-
-<script>
-    var debit = 0;
-    var credit = 0;
-    $(document).on('change', '.debit', function () {
-        debit = debit + parseFloat($(this).val());
-        $('#totaldebit').val(debit);
-    });
-    $(document).on('change', '.credit', function () {
-        credit = credit + parseFloat($(this).val());
-        $('#totalcredit').val(credit);
-    });
-    $('#jvform').submit(function (e) {
-        e.preventDefault();
-        //var token = $('input[name="__RequestVerificationToken"]', form).val();
-        if (debit != credit) {
-            alert("Debit and Credits are not Equal")
-            return false;
-        }
-        var instid = $('#isntid').val();
-        var i = 1;
-        var data = [];
-        for (i; i < counter; i++) {
-            var dataarray = {
-                Account_Id: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "", Company_Id: "", transparty: "", Quantity: "",
-                Amount_TC: "", Exchange_Rate: "", Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "", Plot: "", Land: "", ResponsibilityCenter_Id: "",
-                Function_Id: "", Project: "", REA: "", REP: "", Space_Type: ""
-            };
-            dataarray.Account_Id = $('.a_' + i + ' #Account_Id').val();
-            dataarray.Supplier_Id = $('.a_' + i + ' #Supplier_Id').val();
-            dataarray.Customer_Id = $('.a_' + i + ' #Customer_Id').val();
-            dataarray.Employee_Id = $('.a_' + i + ' #Employee_Id').val();
-            dataarray.Owner_Id = $('.a_' + i + ' #Owner_Id').val();
-            dataarray.Company_Id = $('.a_' + i + ' #Company_Id').val();
-            dataarray.transparty = $('.a_' + i + ' #transparty').val();
-            dataarray.Quantity = $('.a_' + i + ' #Quantity').val();
-            dataarray.Amount_TC = $('.a_' + i + ' #Amount_TC').val();
-            dataarray.Exchange_Rate = $('.a_' + i + ' #Exchange_Rate').val();
-            dataarray.Amount_LC = $('.a_' + i + ' #Amount_LC').val();
-            dataarray.Description = $('.a_' + i + ' #Description').val();
-            dataarray.Debit = $('.a_' + i + ' #Debit').val();
-            dataarray.Credit = $('.a_' + i + ' #Credit').val();
-            dataarray.Knocking_Off = $('.a_' + i + ' #Knocking_Off').val();
-            dataarray.Plot = $('.a_' + i + ' #Plot').val();
-            dataarray.Land = $('.a_' + i + ' #Land').val();
-            dataarray.ResponsibilityCenter_Id = $('.a_' + i + ' #ResponsibilityCenter_Id').val();
-            dataarray.Function_Id = $('.a_' + i + ' #Function_Id').val();
-            dataarray.Project = $('.a_' + i + ' #Project').val();
-            dataarray.REA = $('.a_' + i + ' #REA').val();
-            dataarray.REP = $('.a_' + i + ' #REP').val();
-            dataarray.Space_Type = $('.a_' + i + ' #Space_Type').val();
-
-            data.push(dataarray);
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="button-grid-blue">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
         }
 
-        $.ajax({
-            traditional: true,
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(data),
-            url: "/FinancialTransactions/AddJournalVoucher/",
-            success: function () {
-                debugger;
-                $.ajax({
-                    traditional: true,
-                    type: "POST",
-                    data: { Installmentid: instid},
-                    url: "/PlotManagement/TransactionRecorded/",
-                    success: function () {
-                        alert("Transaction Recorded")
-                    },
-                    error: function () {
+        <script>
+                                                        var debit = 0;
+                                                        var credit = 0;
+                                                        $(document).on('change', '.debit', function () {
+                                                            debit = debit + parseFloat($(this).val());
+                                                            $('#totaldebit').val(debit);
+                                                        });
+                                                        $(document).on('change', '.credit', function () {
+                                                            credit = credit + parseFloat($(this).val());
+                                                            $('#totalcredit').val(credit);
+                                                        });
+                                                        $('#jvform').submit(function (e) {
+                                                            e.preventDefault();
+                                                            //var token = $('input[name="__RequestVerificationToken"]', form).val();
+                                                            if (debit != credit) {
+                                                                alert("Debit and Credits are not Equal")
+                                                                return false;
+                                                            }
+                                                            var instid = $('#isntid').val();
+                                                            var i = 1;
+                                                            var data = [];
+                                                            for (i; i < counter; i++) {
+                                                                var dataarray = {
+                                                                    Account_Id: "", Supplier_Id: "", Customer_Id: "", Employee_Id: "", Owner_Id: "", Company_Id: "", transparty: "", Quantity: "",
+                                                                    Amount_TC: "", Exchange_Rate: "", Amount_LC: "", Description: "", Debit: "", Credit: "", Knocking_Off: "", Plot: "", Land: "", ResponsibilityCenter_Id: "",
+                                                                    Function_Id: "", Project: "", REA: "", REP: "", Space_Type: ""
+                                                                };
+                                                                dataarray.Account_Id = $('.a_' + i + ' #Account_Id').val();
+                                                                dataarray.Supplier_Id = $('.a_' + i + ' #Supplier_Id').val();
+                                                                dataarray.Customer_Id = $('.a_' + i + ' #Customer_Id').val();
+                                                                dataarray.Employee_Id = $('.a_' + i + ' #Employee_Id').val();
+                                                                dataarray.Owner_Id = $('.a_' + i + ' #Owner_Id').val();
+                                                                dataarray.Company_Id = $('.a_' + i + ' #Company_Id').val();
+                                                                dataarray.transparty = $('.a_' + i + ' #transparty').val();
+                                                                dataarray.Quantity = $('.a_' + i + ' #Quantity').val();
+                                                                dataarray.Amount_TC = $('.a_' + i + ' #Amount_TC').val();
+                                                                dataarray.Exchange_Rate = $('.a_' + i + ' #Exchange_Rate').val();
+                                                                dataarray.Amount_LC = $('.a_' + i + ' #Amount_LC').val();
+                                                                dataarray.Description = $('.a_' + i + ' #Description').val();
+                                                                dataarray.Debit = $('.a_' + i + ' #Debit').val();
+                                                                dataarray.Credit = $('.a_' + i + ' #Credit').val();
+                                                                dataarray.Knocking_Off = $('.a_' + i + ' #Knocking_Off').val();
+                                                                dataarray.Plot = $('.a_' + i + ' #Plot').val();
+                                                                dataarray.Land = $('.a_' + i + ' #Land').val();
+                                                                dataarray.ResponsibilityCenter_Id = $('.a_' + i + ' #ResponsibilityCenter_Id').val();
+                                                                dataarray.Function_Id = $('.a_' + i + ' #Function_Id').val();
+                                                                dataarray.Project = $('.a_' + i + ' #Project').val();
+                                                                dataarray.REA = $('.a_' + i + ' #REA').val();
+                                                                dataarray.REP = $('.a_' + i + ' #REP').val();
+                                                                dataarray.Space_Type = $('.a_' + i + ' #Space_Type').val();
 
-                    }
-                })        
-            },
-            error: function () {
+                                                                data.push(dataarray);
+                                                            }
 
+                                                            $.ajax({
+                                                                traditional: true,
+                                                                type: "POST",
+                                                                contentType: "application/json; charset=utf-8",
+                                                                data: JSON.stringify(data),
+                                                                url: "/FinancialTransactions/AddJournalVoucher/",
+                                                                success: function () {
+                                                                    debugger;
+                                                                    $.ajax({
+                                                                        traditional: true,
+                                                                        type: "POST",
+                                                                        data: { Installmentid: instid },
+                                                                        url: "/PlotManagement/TransactionRecorded/",
+                                                                        success: function () {
+                                                                            alert("Transaction Recorded")
+                                                                        },
+                                                                        error: function () {
+
+                                                                        }
+                                                                    })
+                                                                },
+                                                                error: function () {
+
+                                                                }
+                                                            })
+                                                        });
+
+        </script>
+        <style>
+            .transtable {
+                display: block;
+                overflow-x: scroll;
+                margin-top: 10px
             }
-        })
-    });
-    
-</script>
-<style>
-    .transtable {
-        display: block;
-        overflow-x: scroll;
-        margin-top: 10px
-    }
-</style>
+        </style>
 

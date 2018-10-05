@@ -1,5 +1,3 @@
-C:\Users\BZ Team\source\repos\ReCountant\ReCountant\obj\Debug\ReCountant.csprojResolveAssemblyReference.cache
-C:\Users\BZ Team\source\repos\ReCountant\ReCountant\obj\Debug\ReCountant.csproj.CoreCompileInputs.cache
 C:\Users\BZ Team\source\repos\ReCountant\ReCountant\bin\ApplicationInsights.config
 C:\Users\BZ Team\source\repos\ReCountant\ReCountant\bin\ReCountant.dll.config
 C:\Users\BZ Team\source\repos\ReCountant\ReCountant\bin\ReCountant.dll
@@ -67,5 +65,7 @@ C:\Users\BZ Team\source\repos\ReCountant\ReCountant\bin\Microsoft.AI.DependencyC
 C:\Users\BZ Team\source\repos\ReCountant\ReCountant\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\BZ Team\source\repos\ReCountant\ReCountant\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\BZ Team\source\repos\ReCountant\ReCountant\bin\Microsoft.AI.Web.xml
+C:\Users\BZ Team\source\repos\ReCountant\ReCountant\obj\Debug\ReCountant.csprojResolveAssemblyReference.cache
+C:\Users\BZ Team\source\repos\ReCountant\ReCountant\obj\Debug\ReCountant.csproj.CoreCompileInputs.cache
 C:\Users\BZ Team\source\repos\ReCountant\ReCountant\obj\Debug\ReCountant.dll
 C:\Users\BZ Team\source\repos\ReCountant\ReCountant\obj\Debug\ReCountant.pdb

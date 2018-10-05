@@ -55,28 +55,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Balance_TransactionParty">
-      <EntityTypeMapping TypeName="ReCountantModel.Balance_TransactionParty">
-        <MappingFragment StoreEntitySet="Balance_TransactionParty">
-          <ScalarProperty Name="Userid" ColumnName="Userid" />
-          <ScalarProperty Name="Net" ColumnName="Net" />
-          <ScalarProperty Name="Credit" ColumnName="Credit" />
-          <ScalarProperty Name="Debit" ColumnName="Debit" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Amount_LC" ColumnName="Amount_LC" />
-          <ScalarProperty Name="Exchange_Rate" ColumnName="Exchange_Rate" />
-          <ScalarProperty Name="Amount_TC" ColumnName="Amount_TC" />
-          <ScalarProperty Name="Currency" ColumnName="Currency" />
-          <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
-          <ScalarProperty Name="Transaction_Party" ColumnName="Transaction_Party" />
-          <ScalarProperty Name="Account_Id" ColumnName="Account_Id" />
-          <ScalarProperty Name="Invoice_No" ColumnName="Invoice_No" />
-          <ScalarProperty Name="Time_Of_Entry" ColumnName="Time_Of_Entry" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="D_Block">
       <EntityTypeMapping TypeName="ReCountantModel.D_Block">
         <MappingFragment StoreEntitySet="D_Block">
@@ -87,61 +65,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="D_Company">
-      <EntityTypeMapping TypeName="ReCountantModel.D_Company">
-        <MappingFragment StoreEntitySet="D_Company">
-          <ScalarProperty Name="REP" ColumnName="REP" />
-          <ScalarProperty Name="EPZ" ColumnName="EPZ" />
-          <ScalarProperty Name="Business" ColumnName="Business" />
-          <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
-          <ScalarProperty Name="Individual_AOP_Company" ColumnName="Individual_AOP_Company" />
-          <ScalarProperty Name="Filer_NonFiler" ColumnName="Filer_NonFiler" />
-          <ScalarProperty Name="Residential_Status" ColumnName="Residential_Status" />
-          <ScalarProperty Name="STRN" ColumnName="STRN" />
-          <ScalarProperty Name="NTN" ColumnName="NTN" />
-          <ScalarProperty Name="Contact_Information" ColumnName="Contact_Information" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="D_Customer">
-      <EntityTypeMapping TypeName="ReCountantModel.D_Customer">
-        <MappingFragment StoreEntitySet="D_Customer">
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Customer_Info" ColumnName="Customer_Info" />
-          <ScalarProperty Name="Userid" ColumnName="Userid" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="D_Employee">
-      <EntityTypeMapping TypeName="ReCountantModel.D_Employee">
-        <MappingFragment StoreEntitySet="D_Employee">
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Employee_Info" ColumnName="Employee_Info" />
-          <ScalarProperty Name="Userid" ColumnName="Userid" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="D_Land_RealEstate">
       <EntityTypeMapping TypeName="ReCountantModel.D_Land_RealEstate">
         <MappingFragment StoreEntitySet="D_Land_RealEstate">
           <ScalarProperty Name="Userid" ColumnName="Userid" />
           <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
           <ScalarProperty Name="Land_Id" ColumnName="Land_Id" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="D_Owner">
-      <EntityTypeMapping TypeName="ReCountantModel.D_Owner">
-        <MappingFragment StoreEntitySet="D_Owner">
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Owner_Info" ColumnName="Owner_Info" />
-          <ScalarProperty Name="Userid" ColumnName="Userid" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -219,24 +148,6 @@
       <EntityTypeMapping TypeName="ReCountantModel.D_ReportingFunction">
         <MappingFragment StoreEntitySet="D_ReportingFunction">
           <ScalarProperty Name="Function" ColumnName="Function" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="D_SpaceType">
-      <EntityTypeMapping TypeName="ReCountantModel.D_SpaceType">
-        <MappingFragment StoreEntitySet="D_SpaceType">
-          <ScalarProperty Name="Space_Type" ColumnName="Space_Type" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="D_Supplier">
-      <EntityTypeMapping TypeName="ReCountantModel.D_Supplier">
-        <MappingFragment StoreEntitySet="D_Supplier">
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Supplier_Info" ColumnName="Supplier_Info" />
-          <ScalarProperty Name="Userid" ColumnName="Userid" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -406,39 +317,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="RealEstate_Activity">
-      <EntityTypeMapping TypeName="ReCountantModel.RealEstate_Activity">
-        <MappingFragment StoreEntitySet="RealEstate_Activity">
-          <ScalarProperty Name="RealEstate_Activites_L2" ColumnName="RealEstate_Activites_L2" />
-          <ScalarProperty Name="RealEstate_Activites" ColumnName="RealEstate_Activites" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="REPs">
-      <EntityTypeMapping TypeName="ReCountantModel.REP">
-        <MappingFragment StoreEntitySet="REP">
-          <ScalarProperty Name="Userid" ColumnName="Userid" />
-          <ScalarProperty Name="EPZ" ColumnName="EPZ" />
-          <ScalarProperty Name="Bussiness" ColumnName="Bussiness" />
-          <ScalarProperty Name="Bank_Account" ColumnName="Bank_Account" />
-          <ScalarProperty Name="Individual_AOP_Company" ColumnName="Individual_AOP_Company" />
-          <ScalarProperty Name="Filer_NonFiler" ColumnName="Filer_NonFiler" />
-          <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
-          <ScalarProperty Name="Industry" ColumnName="Industry" />
-          <ScalarProperty Name="Residential_Status" ColumnName="Residential_Status" />
-          <ScalarProperty Name="STRN" ColumnName="STRN" />
-          <ScalarProperty Name="NTN" ColumnName="NTN" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Contact" ColumnName="Contact" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Roles">
       <EntityTypeMapping TypeName="ReCountantModel.Role">
         <MappingFragment StoreEntitySet="Roles">
@@ -463,6 +341,17 @@
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_GET_AccountHeadId" FunctionName="ReCountantModel.Store.SP_GET_AccountHeadId" />
+    <EntitySetMapping Name="Transaction_Rules">
+      <EntityTypeMapping TypeName="ReCountantModel.Transaction_Rules">
+        <MappingFragment StoreEntitySet="Transaction_Rules">
+          <ScalarProperty Name="Transaction_Type_Id" ColumnName="Transaction_Type_Id" />
+          <ScalarProperty Name="Credit_Debit" ColumnName="Credit_Debit" />
+          <ScalarProperty Name="COA" ColumnName="COA" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -505,19 +394,102 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
-    <FunctionImportMapping FunctionImportName="SP_GET_AccountHeadId" FunctionName="ReCountantModel.Store.SP_GET_AccountHeadId" />
-    <EntitySetMapping Name="Summary_Table">
-      <EntityTypeMapping TypeName="ReCountantModel.Summary_Table">
-        <MappingFragment StoreEntitySet="Summary_Table">
-          <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
-          <ScalarProperty Name="Document_Date" ColumnName="Document_Date" />
-          <ScalarProperty Name="Voucher_Type" ColumnName="Voucher_Type" />
-          <ScalarProperty Name="ResponsibilityCenter_Id" ColumnName="ResponsibilityCenter_Id" />
-          <ScalarProperty Name="Voucher_Number" ColumnName="Voucher_Number" />
-          <ScalarProperty Name="Supplier_Id" ColumnName="Supplier_Id" />
-          <ScalarProperty Name="Credit" ColumnName="Credit" />
-          <ScalarProperty Name="Debit" ColumnName="Debit" />
-          <ScalarProperty Name="COA" ColumnName="COA" />
+    <EntitySetMapping Name="D_Company">
+      <EntityTypeMapping TypeName="ReCountantModel.D_Company">
+        <MappingFragment StoreEntitySet="D_Company">
+          <ScalarProperty Name="REP" ColumnName="REP" />
+          <ScalarProperty Name="EPZ" ColumnName="EPZ" />
+          <ScalarProperty Name="Business" ColumnName="Business" />
+          <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
+          <ScalarProperty Name="Individual_AOP_Company" ColumnName="Individual_AOP_Company" />
+          <ScalarProperty Name="Filer_NonFiler" ColumnName="Filer_NonFiler" />
+          <ScalarProperty Name="Residential_Status" ColumnName="Residential_Status" />
+          <ScalarProperty Name="STRN" ColumnName="STRN" />
+          <ScalarProperty Name="NTN" ColumnName="NTN" />
+          <ScalarProperty Name="Contact_Information" ColumnName="Contact_Information" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="D_ResponsibilityCenter">
+      <EntityTypeMapping TypeName="ReCountantModel.D_ResponsibilityCenter">
+        <MappingFragment StoreEntitySet="D_ResponsibilityCenter">
+          <ScalarProperty Name="Approving_Authority" ColumnName="Approving_Authority" />
+          <ScalarProperty Name="Department_Head" ColumnName="Department_Head" />
+          <ScalarProperty Name="Responsibilty_Center" ColumnName="Responsibilty_Center" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RealEstate_Activity">
+      <EntityTypeMapping TypeName="ReCountantModel.RealEstate_Activity">
+        <MappingFragment StoreEntitySet="RealEstate_Activity">
+          <ScalarProperty Name="RealEstate_Activites_L2" ColumnName="RealEstate_Activites_L2" />
+          <ScalarProperty Name="RealEstate_Activites" ColumnName="RealEstate_Activites" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="REPs">
+      <EntityTypeMapping TypeName="ReCountantModel.REP">
+        <MappingFragment StoreEntitySet="REP">
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="EPZ" ColumnName="EPZ" />
+          <ScalarProperty Name="Bussiness" ColumnName="Bussiness" />
+          <ScalarProperty Name="Bank_Account" ColumnName="Bank_Account" />
+          <ScalarProperty Name="Individual_AOP_Company" ColumnName="Individual_AOP_Company" />
+          <ScalarProperty Name="Filer_NonFiler" ColumnName="Filer_NonFiler" />
+          <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
+          <ScalarProperty Name="Industry" ColumnName="Industry" />
+          <ScalarProperty Name="Residential_Status" ColumnName="Residential_Status" />
+          <ScalarProperty Name="STRN" ColumnName="STRN" />
+          <ScalarProperty Name="NTN" ColumnName="NTN" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="D_Customer">
+      <EntityTypeMapping TypeName="ReCountantModel.D_Customer">
+        <MappingFragment StoreEntitySet="D_Customer">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Customer_Info" ColumnName="Customer_Info" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="D_SpaceType">
+      <EntityTypeMapping TypeName="ReCountantModel.D_SpaceType">
+        <MappingFragment StoreEntitySet="D_SpaceType">
+          <ScalarProperty Name="Space_Type" ColumnName="Space_Type" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="D_Employee">
+      <EntityTypeMapping TypeName="ReCountantModel.D_Employee">
+        <MappingFragment StoreEntitySet="D_Employee">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Employee_Info" ColumnName="Employee_Info" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="D_Owner">
+      <EntityTypeMapping TypeName="ReCountantModel.D_Owner">
+        <MappingFragment StoreEntitySet="D_Owner">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Owner_Info" ColumnName="Owner_Info" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -525,6 +497,8 @@
     <EntitySetMapping Name="F_Financial_Transactions">
       <EntityTypeMapping TypeName="ReCountantModel.F_Financial_Transactions">
         <MappingFragment StoreEntitySet="F_Financial_Transactions">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="COA" ColumnName="COA" />
           <ScalarProperty Name="Uom" ColumnName="Uom" />
           <ScalarProperty Name="Rate" ColumnName="Rate" />
           <ScalarProperty Name="Recording_Index" ColumnName="Recording_Index" />
@@ -568,22 +542,64 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Transaction_Rules">
-      <EntityTypeMapping TypeName="ReCountantModel.Transaction_Rules">
-        <MappingFragment StoreEntitySet="Transaction_Rules">
-          <ScalarProperty Name="Transaction_Type_Id" ColumnName="Transaction_Type_Id" />
-          <ScalarProperty Name="Credit_Debit" ColumnName="Credit_Debit" />
+    <EntitySetMapping Name="Summary_Table">
+      <EntityTypeMapping TypeName="ReCountantModel.Summary_Table">
+        <MappingFragment StoreEntitySet="Summary_Table">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
+          <ScalarProperty Name="Document_Date" ColumnName="Document_Date" />
+          <ScalarProperty Name="Voucher_Type" ColumnName="Voucher_Type" />
+          <ScalarProperty Name="ResponsibilityCenter_Id" ColumnName="ResponsibilityCenter_Id" />
+          <ScalarProperty Name="Voucher_Number" ColumnName="Voucher_Number" />
+          <ScalarProperty Name="Supplier_Id" ColumnName="Supplier_Id" />
+          <ScalarProperty Name="Credit" ColumnName="Credit" />
+          <ScalarProperty Name="Debit" ColumnName="Debit" />
           <ScalarProperty Name="COA" ColumnName="COA" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="D_ResponsibilityCenter">
-      <EntityTypeMapping TypeName="ReCountantModel.D_ResponsibilityCenter">
-        <MappingFragment StoreEntitySet="D_ResponsibilityCenter">
-          <ScalarProperty Name="Approving_Authority" ColumnName="Approving_Authority" />
-          <ScalarProperty Name="Department_Head" ColumnName="Department_Head" />
-          <ScalarProperty Name="Responsibilty_Center" ColumnName="Responsibilty_Center" />
+    <EntitySetMapping Name="D_Supplier">
+      <EntityTypeMapping TypeName="ReCountantModel.D_Supplier">
+        <MappingFragment StoreEntitySet="D_Supplier">
+          <ScalarProperty Name="Payment_Method" ColumnName="Payment_Method" />
+          <ScalarProperty Name="Supplier_Code" ColumnName="Supplier_Code" />
+          <ScalarProperty Name="Product_Type" ColumnName="Product_Type" />
+          <ScalarProperty Name="Shipping_Email_Id" ColumnName="Shipping_Email_Id" />
+          <ScalarProperty Name="Billing_Email_Id" ColumnName="Billing_Email_Id" />
+          <ScalarProperty Name="Shipping_Contact_Number" ColumnName="Shipping_Contact_Number" />
+          <ScalarProperty Name="Billing_Contact_Number" ColumnName="Billing_Contact_Number" />
+          <ScalarProperty Name="Shipping_Address" ColumnName="Shipping_Address" />
+          <ScalarProperty Name="Billing_Address" ColumnName="Billing_Address" />
+          <ScalarProperty Name="Business" ColumnName="Business" />
+          <ScalarProperty Name="Supply_Chain_Role" ColumnName="Supply_Chain_Role" />
+          <ScalarProperty Name="Industry" ColumnName="Industry" />
+          <ScalarProperty Name="CNIC_Number" ColumnName="CNIC_Number" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Supplier_Info" ColumnName="Supplier_Info" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Balance_TransactionParty">
+      <EntityTypeMapping TypeName="ReCountantModel.Balance_TransactionParty">
+        <MappingFragment StoreEntitySet="Balance_TransactionParty">
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="Net" ColumnName="Net" />
+          <ScalarProperty Name="Credit" ColumnName="Credit" />
+          <ScalarProperty Name="Debit" ColumnName="Debit" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Amount_LC" ColumnName="Amount_LC" />
+          <ScalarProperty Name="Exchange_Rate" ColumnName="Exchange_Rate" />
+          <ScalarProperty Name="Amount_TC" ColumnName="Amount_TC" />
+          <ScalarProperty Name="Currency" ColumnName="Currency" />
+          <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
+          <ScalarProperty Name="Transaction_Party" ColumnName="Transaction_Party" />
+          <ScalarProperty Name="Account_Id" ColumnName="Account_Id" />
+          <ScalarProperty Name="Invoice_No" ColumnName="Invoice_No" />
+          <ScalarProperty Name="Time_Of_Entry" ColumnName="Time_Of_Entry" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
